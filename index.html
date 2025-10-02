@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking Simulator - Game Memasak Profesional</title>
+    <title>Cooking Simulator - Game Memasak</title>
     <style>
         :root {
             --primary-red: #d32f2f;
@@ -26,6 +26,7 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -33,6 +34,7 @@
             color: var(--white);
             overflow: hidden;
             height: 100vh;
+            touch-action: manipulation;
         }
 
         .screen {
@@ -119,284 +121,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        /* Home Screen */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23d32f2f"/><path d="M50,50 L350,50 L350,250 L50,250 Z" fill="%23b71c1c" stroke="%23ffffff" stroke-width="3"/><circle cx="200" cy="150" r="60" fill="%23ffffff"/><path d="M120,150 L180,120 L180,180 Z" fill="%23d32f2f"/><path d="M280,150 L220,120 L220,180 Z" fill="%23d32f2f"/></svg>');
-            background-size: cover;
-            background-position: center;
-            padding: 120px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill="%23ffffff" opacity="0.1"><circle cx="20" cy="20" r="5"/><circle cx="50" cy="80" r="8"/><circle cx="80" cy="40" r="3"/><circle cx="90" cy="90" r="6"/></g></svg>');
-            animation: float 20s infinite linear;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-100px, -100px); }
-        }
-
-        .hero h2 {
-            font-size: 52px;
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
-            position: relative;
-        }
-
-        .hero p {
-            font-size: 22px;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
-            position: relative;
-        }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            color: var(--white);
-            padding: 14px 32px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
-            border: none;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .features {
-            padding: 80px 0;
-            background: var(--dark-gray);
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 38px;
-            color: var(--white);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--primary-red);
-            margin: 10px auto;
-            border-radius: 2px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--black);
-            border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary-red);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: var(--white);
-            font-size: 32px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: var(--white);
-        }
-
-        .feature-card p {
-            color: var(--light-gray);
-            line-height: 1.6;
-        }
-
-        .levels {
-            padding: 80px 0;
-            background: var(--black);
-        }
-
-        .levels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-        }
-
-        .level-card {
-            background: var(--dark-gray);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .level-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
-        }
-
-        .level-image {
-            height: 180px;
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 70px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .level-content {
-            padding: 20px;
-        }
-
-        .level-content h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: var(--white);
-        }
-
-        .level-content p {
-            color: var(--light-gray);
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .level-difficulty {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 15px;
-        }
-
-        .difficulty-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--dark-gray);
-        }
-
-        .difficulty-dot.active {
-            background-color: var(--primary-red);
-        }
-
-        footer {
-            background: var(--dark-gray);
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-link {
-            width: 44px;
-            height: 44px;
-            background: var(--primary-red);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .social-link:hover {
-            background: var(--dark-red);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            color: var(--light-gray);
-            font-size: 14px;
         }
 
         /* Game Screen */
@@ -528,11 +252,6 @@
             transition: all 0.2s;
         }
 
-        .ingredient:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
         .ingredient-img {
             width: 55px;
             height: 55px;
@@ -609,11 +328,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .tool:hover {
-            background: var(--primary-red);
-            transform: translateY(-3px);
-        }
-
         .tool.active {
             background: var(--primary-red);
             box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
@@ -665,10 +379,7 @@
             user-select: none;
             transition: transform 0.2s;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .food-to-cut:active {
-            transform: scale(0.95);
+            touch-action: none;
         }
 
         .cut-line {
@@ -733,6 +444,7 @@
             cursor: pointer;
             transition: transform 0.3s;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            touch-action: manipulation;
         }
 
         .food-in-pan {
@@ -780,11 +492,7 @@
             margin-top: 10px;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+            touch-action: manipulation;
         }
 
         .action-btn:active {
@@ -830,14 +538,6 @@
                 gap: 15px;
             }
             
-            .hero h2 {
-                font-size: 36px;
-            }
-            
-            .hero p {
-                font-size: 18px;
-            }
-            
             .game-area {
                 flex-direction: column;
             }
@@ -850,162 +550,17 @@
             .cooking-area {
                 height: 60%;
             }
-            
-            .levels-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Home Screen -->
-    <div id="home-screen" class="screen active">
-        <header>
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">🍳</div>
-                    <h1>Cooking Simulator</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
-                        <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
-                        <li><a href="#" id="play-btn">Main Sekarang</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-
-        <section class="hero">
-            <div class="container">
-                <h2>Jadilah Koki Profesional!</h2>
-                <p>Masak berbagai hidangan lezat dari seluruh dunia. Ikuti resep, kelola waktu, dan sajikan makanan sempurna untuk mendapatkan bintang tertinggi!</p>
-                <a href="#" class="btn" id="start-game">Mulai Memasak</a>
-            </div>
-        </section>
-
-        <section class="features">
-            <div class="container">
-                <h2 class="section-title">Fitur Utama</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">📋</div>
-                        <h3>100+ Resep Lengkap</h3>
-                        <p>Ikuti resep dengan bahan dan langkah-langkah yang tepat untuk menciptakan hidangan sempurna.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⏱️</div>
-                        <h3>Manajemen Waktu</h3>
-                        <p>Perhatikan waktu memasak setiap hidangan agar tidak gosong atau kurang matang.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔪</div>
-                        <h3>Teknik Memasak Realistis</h3>
-                        <p>Pelajari berbagai teknik memasak seperti memotong, menggoreng, memanggang, dan merebus.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🏆</div>
-                        <h3>100 Level Menantang</h3>
-                        <p>Hadapi 100 level dengan resep berbeda dan tingkat kesulitan yang semakin meningkat.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="levels">
-            <div class="container">
-                <h2 class="section-title">Level Permainan</h2>
-                <div class="levels-grid">
-                    <div class="level-card" data-level-range="1-20">
-                        <div class="level-image">🍞</div>
-                        <div class="level-content">
-                            <h3>Level 1-20: Pemula</h3>
-                            <p>Pelajari dasar-dasar memasak dengan resep sederhana seperti sandwich, salad, dan sup.</p>
-                            <div class="level-difficulty">
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot"></div>
-                                <div class="difficulty-dot"></div>
-                                <div class="difficulty-dot"></div>
-                                <div class="difficulty-dot"></div>
-                            </div>
-                            <a href="#" class="btn play-level-btn" style="padding: 8px 15px; font-size: 14px;">Main Level</a>
-                        </div>
-                    </div>
-                    <div class="level-card" data-level-range="21-50">
-                        <div class="level-image">🍝</div>
-                        <div class="level-content">
-                            <h3>Level 21-50: Menengah</h3>
-                            <p>Tantangan lebih sulit dengan resep kompleks seperti pasta, pizza, dan steak.</p>
-                            <div class="level-difficulty">
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot"></div>
-                                <div class="difficulty-dot"></div>
-                                <div class="difficulty-dot"></div>
-                            </div>
-                            <a href="#" class="btn play-level-btn" style="padding: 8px 15px; font-size: 14px;">Main Level</a>
-                        </div>
-                    </div>
-                    <div class="level-card" data-level-range="51-80">
-                        <div class="level-image">🍣</div>
-                        <div class="level-content">
-                            <h3>Level 51-80: Lanjutan</h3>
-                            <p>Hidangan kompleks dengan berbagai teknik memasak seperti sushi dan ramen.</p>
-                            <div class="level-difficulty">
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot"></div>
-                                <div class="difficulty-dot"></div>
-                            </div>
-                            <a href="#" class="btn play-level-btn" style="padding: 8px 15px; font-size: 14px;">Main Level</a>
-                        </div>
-                    </div>
-                    <div class="level-card" data-level-range="81-100">
-                        <div class="level-image">🎂</div>
-                        <div class="level-content">
-                            <h3>Level 81-100: Profesional</h3>
-                            <p>Level paling menantang dengan hidangan gourmet dan waktu yang sangat terbatas.</p>
-                            <div class="level-difficulty">
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                                <div class="difficulty-dot active"></div>
-                            </div>
-                            <a href="#" class="btn play-level-btn" style="padding: 8px 15px; font-size: 14px;">Main Level</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <div class="logo">
-                        <div class="logo-icon">🍳</div>
-                        <h1>Cooking Simulator</h1>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link">f</a>
-                        <a href="#" class="social-link">t</a>
-                        <a href="#" class="social-link">ig</a>
-                        <a href="#" class="social-link">yt</a>
-                    </div>
-                    <p class="copyright">© 2023 Cooking Simulator. Semua hak dilindungi.</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
     <!-- Game Screen -->
-    <div id="game-screen" class="screen">
+    <div id="game-screen" class="screen active">
         <header>
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-icon">🍳</div>
-                    <h1 id="current-level-name">Memasak</h1>
+                    <h1 id="current-level-name">Sandwich Sederhana</h1>
                 </div>
                 <nav>
                     <ul>
@@ -1020,7 +575,7 @@
             <div class="game-header">
                 <div class="game-info">
                     <div class="info-box">
-                        <i>⏱️</i> <span id="timer">05:00</span>
+                        <i>⏱️</i> <span id="timer">03:46</span>
                     </div>
                     <div class="info-box">
                         <i>⭐</i> <span id="score">0</span>
@@ -1039,22 +594,18 @@
                     <div class="kitchen-background">
                         <div class="cooking-space">
                             <!-- Interactive cooking area will be loaded here -->
-                            <div id="cooking-interaction" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                                <div style="text-align: center; color: white;">
-                                    <div style="font-size: 60px; margin-bottom: 20px;">👨‍🍳</div>
-                                    <h3>Siap Memasak!</h3>
-                                    <p>Pilih alat dan ikuti instruksi untuk mulai memasak</p>
-                                </div>
+                            <div id="cooking-interaction">
+                                <!-- Frying interaction will be loaded here -->
                             </div>
                         </div>
                     </div>
                     <div class="kitchen-counter"></div>
                     
                     <div class="step-info">
-                        <div class="step-title" id="step-title">Langkah 1: Potong Bahan</div>
-                        <div class="step-description" id="step-description">Potong bahan dengan menggeser jari/mouse di atasnya</div>
+                        <div class="step-title" id="step-title">Goreng Daging</div>
+                        <div class="step-description" id="step-description">Goreng daging hingga matang sempurna</div>
                         <div class="progress-container">
-                            <div class="progress-bar" id="step-progress"></div>
+                            <div class="progress-bar" id="step-progress" style="width: 0%"></div>
                         </div>
                         <button class="action-btn" id="next-step-btn" disabled>Langkah Selanjutnya</button>
                     </div>
@@ -1063,7 +614,26 @@
                 <div class="ingredients-panel">
                     <h3 class="panel-title">Bahan-bahan</h3>
                     <div class="ingredients-list" id="ingredients-container">
-                        <!-- Ingredients will be loaded here -->
+                        <div class="ingredient">
+                            <div class="ingredient-img">🍞</div>
+                            <div class="ingredient-name">Roti</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-img">🥬</div>
+                            <div class="ingredient-name">Selada</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-img">🍅</div>
+                            <div class="ingredient-name">Tomat</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-img">🧀</div>
+                            <div class="ingredient-name">Keju</div>
+                        </div>
+                        <div class="ingredient">
+                            <div class="ingredient-img">🥩</div>
+                            <div class="ingredient-name">Daging</div>
+                        </div>
                     </div>
 
                     <div class="cooking-tools">
@@ -1071,7 +641,7 @@
                             <div class="tool-img">🔪</div>
                             <div class="tool-name">Pisau</div>
                         </div>
-                        <div class="tool" data-tool="pan">
+                        <div class="tool active" data-tool="pan">
                             <div class="tool-img">🍳</div>
                             <div class="tool-name">Wajan</div>
                         </div>
@@ -1092,7 +662,8 @@
                     <div class="instructions">
                         <h3 class="panel-title">Langkah Memasak</h3>
                         <ol id="instructions-list">
-                            <!-- Instructions will be loaded here -->
+                            <li>Potong tomat menjadi irisan tipis</li>
+                            <li class="current">Goreng daging hingga matang</li>
                         </ol>
                     </div>
                 </div>
@@ -1101,73 +672,18 @@
     </div>
 
     <script>
-        // Game Data - 100 levels with different recipes
-        const gameData = {
-            levels: [
-                // Level 1: Beginner
-                {
-                    id: 1,
-                    name: "Sandwich Sederhana",
-                    difficulty: "beginner",
-                    time: 300, // 5 minutes in seconds
-                    ingredients: [
-                        { name: "Roti", icon: "🍞", amount: "2 lembar" },
-                        { name: "Selada", icon: "🥬", amount: "3 helai" },
-                        { name: "Tomat", icon: "🍅", amount: "4 iris" },
-                        { name: "Keju", icon: "🧀", amount: "1 lembar" },
-                        { name: "Daging", icon: "🥩", amount: "1 potong" }
-                    ],
-                    steps: [
-                        {
-                            title: "Potong Bahan",
-                            description: "Potong tomat menjadi irisan tipis",
-                            tool: "knife",
-                            instruction: "Potong tomat menjadi irisan tipis",
-                            interaction: "cutting",
-                            target: 5, // Need to make 5 cuts
-                            ingredient: "🍅"
-                        },
-                        {
-                            title: "Goreng Daging",
-                            description: "Goreng daging hingga matang sempurna",
-                            tool: "pan",
-                            instruction: "Goreng daging hingga matang sempurna",
-                            interaction: "frying",
-                            target: 10, // Need to flip 10 times
-                            ingredient: "🥩"
-                        },
-                        {
-                            title: "Susun Sandwich",
-                            description: "Susun semua bahan di antara dua lembar roti",
-                            tool: "bowl",
-                            instruction: "Susun semua bahan di antara dua lembar roti",
-                            interaction: "assembling",
-                            target: 1, // Just one assembly
-                        }
-                    ],
-                    dish: "🥪"
-                }
-                // More levels would be added here in a full implementation
-            ]
-        };
-
         // Game State
         let gameState = {
             currentLevel: 1,
-            currentStep: 0,
+            currentStep: 1, // Langkah 2: Goreng Daging
             score: 0,
-            timeLeft: 0,
+            timeLeft: 226, // 3:46 dalam detik
             timerInterval: null,
-            progress: 0
+            progress: 0,
+            flipCount: 0
         };
 
         // DOM Elements
-        const screens = document.querySelectorAll('.screen');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const startGameBtn = document.getElementById('start-game');
-        const playBtn = document.getElementById('play-btn');
-        const backHomeBtn = document.getElementById('back-home');
-        const nextStepBtn = document.getElementById('next-step-btn');
         const timerElement = document.getElementById('timer');
         const scoreElement = document.getElementById('score');
         const levelElement = document.getElementById('level');
@@ -1176,44 +692,18 @@
         const stepDescription = document.getElementById('step-description');
         const cookingInteraction = document.getElementById('cooking-interaction');
         const stepProgress = document.getElementById('step-progress');
-        const ingredientsContainer = document.getElementById('ingredients-container');
-        const instructionsList = document.getElementById('instructions-list');
+        const nextStepBtn = document.getElementById('next-step-btn');
         const tools = document.querySelectorAll('.tool');
 
         // Initialize the game
         document.addEventListener('DOMContentLoaded', function() {
             attachEventListeners();
+            startTimer();
+            loadFryingInteraction();
         });
 
         // Attach event listeners
         function attachEventListeners() {
-            // Navigation
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const screenId = this.dataset.screen;
-                    showScreen(screenId);
-                });
-            });
-            
-            // Start game buttons
-            startGameBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                startLevel(1);
-            });
-            
-            playBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                startLevel(1);
-            });
-            
-            // Back home button
-            backHomeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                stopTimer();
-                showScreen('home-screen');
-            });
-            
             // Next step button
             nextStepBtn.addEventListener('click', nextStep);
             
@@ -1226,219 +716,42 @@
             });
         }
 
-        // Show specific screen
-        function showScreen(screenId) {
-            screens.forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
-
-        // Start a level
-        function startLevel(levelId) {
-            const level = gameData.levels.find(l => l.id === levelId);
-            if (!level) return;
-            
-            gameState.currentLevel = levelId;
-            gameState.currentStep = 0;
-            gameState.score = 0;
-            gameState.timeLeft = level.time;
-            gameState.progress = 0;
-            
-            // Update UI
-            currentLevelName.textContent = level.name;
-            levelElement.textContent = `Level ${levelId}`;
-            scoreElement.textContent = gameState.score;
-            updateTimerDisplay();
-            
-            // Load level data
-            loadLevelData(level);
-            
-            // Start timer
-            startTimer();
-            
-            // Show game screen
-            showScreen('game-screen');
-        }
-
-        // Load level data into UI
-        function loadLevelData(level) {
-            // Load ingredients
-            ingredientsContainer.innerHTML = '';
-            level.ingredients.forEach(ingredient => {
-                const ingredientEl = document.createElement('div');
-                ingredientEl.className = 'ingredient';
-                ingredientEl.innerHTML = `
-                    <div class="ingredient-img">${ingredient.icon}</div>
-                    <div class="ingredient-name">${ingredient.name}</div>
-                    <div class="ingredient-amount">${ingredient.amount}</div>
-                `;
-                ingredientsContainer.appendChild(ingredientEl);
-            });
-            
-            // Load instructions
-            instructionsList.innerHTML = '';
-            level.steps.forEach((step, index) => {
-                const li = document.createElement('li');
-                li.textContent = step.instruction;
-                if (index === 0) li.classList.add('current');
-                instructionsList.appendChild(li);
-            });
-            
-            // Load first step
-            loadStep(level.steps[0]);
-        }
-
-        // Load a cooking step
-        function loadStep(step) {
-            stepTitle.textContent = step.title;
-            stepDescription.textContent = step.description;
-            nextStepBtn.disabled = true;
-            stepProgress.style.width = '0%';
-            
-            // Clear previous interaction
-            cookingInteraction.innerHTML = '';
-            
-            // Load appropriate interaction based on step type
-            switch(step.interaction) {
-                case 'cutting':
-                    loadCuttingInteraction(step);
-                    break;
-                case 'frying':
-                    loadFryingInteraction(step);
-                    break;
-                case 'assembling':
-                    loadAssemblingInteraction(step);
-                    break;
-                default:
-                    cookingInteraction.innerHTML = '<p>Interaksi tidak dikenali</p>';
-            }
-            
-            // Update instructions highlight
-            const instructionItems = instructionsList.querySelectorAll('li');
-            instructionItems.forEach((item, index) => {
-                item.classList.toggle('current', index === gameState.currentStep);
-            });
-        }
-
-        // Cutting interaction
-        function loadCuttingInteraction(step) {
-            cookingInteraction.innerHTML = `
-                <div class="cutting-board">
-                    <div class="food-to-cut" style="top: 60px; left: 110px;">${step.ingredient || '🍎'}</div>
-                </div>
-            `;
-            
-            const food = cookingInteraction.querySelector('.food-to-cut');
-            let cutCount = 0;
-            
-            food.addEventListener('touchstart', handleCutStart);
-            food.addEventListener('mousedown', handleCutStart);
-            
-            function handleCutStart(e) {
-                e.preventDefault();
-                
-                // Create cut line
-                const rect = food.getBoundingClientRect();
-                const startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-                const startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-                
-                const cutLine = document.createElement('div');
-                cutLine.className = 'cut-line';
-                cutLine.style.left = `${startX - rect.left}px`;
-                cutLine.style.top = `${startY - rect.top}px`;
-                cutLine.style.width = '0px';
-                food.appendChild(cutLine);
-                
-                function handleCutMove(e) {
-                    const currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-                    const currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-                    
-                    const dx = currentX - startX;
-                    const dy = currentY - startY;
-                    const length = Math.sqrt(dx * dx + dy * dy);
-                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                    
-                    cutLine.style.width = `${length}px`;
-                    cutLine.style.transform = `rotate(${angle}deg)`;
-                }
-                
-                function handleCutEnd() {
-                    cutCount++;
-                    updateProgress(cutCount, step.target);
-                    
-                    document.removeEventListener('touchmove', handleCutMove);
-                    document.removeEventListener('touchend', handleCutEnd);
-                    document.removeEventListener('mousemove', handleCutMove);
-                    document.removeEventListener('mouseup', handleCutEnd);
-                    
-                    // Visual feedback
-                    food.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        food.style.transform = 'scale(1)';
-                    }, 200);
-                }
-                
-                document.addEventListener('touchmove', handleCutMove, { passive: false });
-                document.addEventListener('touchend', handleCutEnd);
-                document.addEventListener('mousemove', handleCutMove);
-                document.addEventListener('mouseup', handleCutEnd);
-            }
-        }
-
         // Frying interaction
-        function loadFryingInteraction(step) {
+        function loadFryingInteraction() {
             cookingInteraction.innerHTML = `
                 <div class="stove">
                     <div class="burner active">
                         <div class="pan">
-                            <div class="food-in-pan">${step.ingredient || '🥩'}</div>
+                            <div class="food-in-pan">🥩</div>
                         </div>
                     </div>
                 </div>
             `;
             
             const pan = cookingInteraction.querySelector('.pan');
-            let flipCount = 0;
+            let isFlipping = false;
             
-            pan.addEventListener('click', function() {
-                flipCount++;
-                updateProgress(flipCount, step.target);
+            function flip() {
+                if (isFlipping) return;
+                isFlipping = true;
+                
+                gameState.flipCount++;
+                updateProgress(gameState.flipCount, 10);
                 
                 // Animate flip
-                this.style.transform = 'rotateY(180deg)';
+                pan.style.transform = 'rotateY(180deg)';
                 setTimeout(() => {
-                    this.style.transform = 'rotateY(0deg)';
+                    pan.style.transform = 'rotateY(0deg)';
+                    isFlipping = false;
                 }, 300);
-            });
+            }
             
+            // Optimized event listeners
+            pan.addEventListener('click', flip, { passive: true });
             pan.addEventListener('touchstart', function(e) {
                 e.preventDefault();
-                flipCount++;
-                updateProgress(flipCount, step.target);
-                
-                // Animate flip
-                this.style.transform = 'rotateY(180deg)';
-                setTimeout(() => {
-                    this.style.transform = 'rotateY(0deg)';
-                }, 300);
-            });
-        }
-
-        // Assembling interaction
-        function loadAssemblingInteraction(step) {
-            cookingInteraction.innerHTML = `
-                <div style="text-align: center; padding: 20px; width: 100%;">
-                    <div style="font-size: 60px; margin-bottom: 20px;">🥪</div>
-                    <p>Seret dan susun bahan-bahan untuk membuat hidangan</p>
-                    <button class="action-btn" id="assemble-btn" style="width: auto; margin: 20px auto;">Selesaikan Penyusunan</button>
-                </div>
-            `;
-            
-            const assembleBtn = document.getElementById('assemble-btn');
-            assembleBtn.addEventListener('click', function() {
-                updateProgress(1, 1);
-            });
+                flip();
+            }, { passive: false });
         }
 
         // Update progress for current step
@@ -1454,22 +767,12 @@
 
         // Move to next step
         function nextStep() {
-            const level = gameData.levels.find(l => l.id === gameState.currentLevel);
-            gameState.currentStep++;
-            
-            if (gameState.currentStep < level.steps.length) {
-                loadStep(level.steps[gameState.currentStep]);
-            } else {
-                // Level completed
-                completeLevel();
-            }
-        }
-
-        // Complete the current level
-        function completeLevel() {
-            stopTimer();
-            alert(`Selamat! Anda menyelesaikan level ${gameState.currentLevel} dengan skor ${gameState.score}`);
-            showScreen('home-screen');
+            alert("Selamat! Anda telah menyelesaikan langkah ini.");
+            // Di sini akan pindah ke langkah berikutnya
+            // Untuk contoh, kita reset
+            gameState.flipCount = 0;
+            stepProgress.style.width = '0%';
+            nextStepBtn.disabled = true;
         }
 
         // Timer functions
@@ -1507,8 +810,25 @@
         function timeUp() {
             stopTimer();
             alert('Waktu habis! Hidanganmu tidak jadi. Coba lagi!');
-            startLevel(gameState.currentLevel);
         }
+
+        // Optimasi performa
+        // Mencegah default behavior untuk touch events
+        document.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Optimasi animasi dengan requestAnimationFrame
+        function optimizeAnimations() {
+            // Gunakan transform dan opacity untuk animasi yang smooth
+            const elements = document.querySelectorAll('.tool, .ingredient, .pan');
+            elements.forEach(el => {
+                el.style.willChange = 'transform';
+            });
+        }
+
+        // Panggil optimasi setelah DOM loaded
+        window.addEventListener('load', optimizeAnimations);
     </script>
 </body>
 </html>
