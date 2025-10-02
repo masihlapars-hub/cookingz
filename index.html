@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking Simulator - Game Memasak Interaktif</title>
+    <title>Cooking Simulator - Game Memasak Profesional</title>
     <style>
         :root {
             --primary-red: #d32f2f;
@@ -16,6 +16,8 @@
             --gold: #ffd700;
             --silver: #c0c0c0;
             --bronze: #cd7f32;
+            --kitchen-bg: #8B4513;
+            --counter-top: #A0522D;
         }
 
         * {
@@ -23,17 +25,24 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none;
         }
 
         body {
-            background-color: var(--black);
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
             color: var(--white);
-            overflow-x: hidden;
+            overflow: hidden;
+            height: 100vh;
         }
 
         .screen {
             display: none;
-            min-height: 100vh;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: auto;
         }
 
         .screen.active {
@@ -42,11 +51,10 @@
 
         /* Header */
         header {
-            background-color: var(--primary-red);
-            padding: 15px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            position: sticky;
-            top: 0;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
+            padding: 12px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            position: relative;
             z-index: 100;
         }
 
@@ -54,31 +62,36 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .logo h1 {
-            font-size: 24px;
+            font-size: 26px;
             color: var(--white);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 700;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--white);
+            width: 44px;
+            height: 44px;
+            background: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary-red);
             font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: 20px;
         }
 
         nav ul {
@@ -90,14 +103,16 @@
         nav a {
             color: var(--white);
             text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.1);
         }
 
         nav a:hover {
-            background-color: var(--dark-red);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .container {
@@ -109,89 +124,155 @@
         /* Home Screen */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23d32f2f"/><path d="M30,30 L70,30 L70,70 L30,70 Z" fill="%23b71c1c" stroke="%23ffffff" stroke-width="2"/><circle cx="50" cy="50" r="15" fill="%23ffffff"/></svg>');
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23d32f2f"/><path d="M50,50 L350,50 L350,250 L50,250 Z" fill="%23b71c1c" stroke="%23ffffff" stroke-width="3"/><circle cx="200" cy="150" r="60" fill="%23ffffff"/><path d="M120,150 L180,120 L180,180 Z" fill="%23d32f2f"/><path d="M280,150 L220,120 L220,180 Z" fill="%23d32f2f"/></svg>');
             background-size: cover;
             background-position: center;
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><g fill="%23ffffff" opacity="0.1"><circle cx="20" cy="20" r="5"/><circle cx="50" cy="80" r="8"/><circle cx="80" cy="40" r="3"/><circle cx="90" cy="90" r="6"/></g></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -100px); }
         }
 
         .hero h2 {
-            font-size: 48px;
+            font-size: 52px;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            position: relative;
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 22px;
             max-width: 700px;
             margin: 0 auto 30px;
             line-height: 1.6;
+            position: relative;
         }
 
         .btn {
             display: inline-block;
-            background-color: var(--primary-red);
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             color: var(--white);
-            padding: 12px 30px;
+            padding: 14px 32px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
             transition: all 0.3s;
-            border: 2px solid var(--primary-red);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background-color: transparent;
-            color: var(--white);
-            border-color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
         }
 
         .features {
             padding: 80px 0;
-            background-color: var(--dark-gray);
+            background: var(--dark-gray);
+            position: relative;
         }
 
         .section-title {
             text-align: center;
             margin-bottom: 50px;
-            font-size: 36px;
+            font-size: 38px;
             color: var(--white);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-red);
+            margin: 10px auto;
+            border-radius: 2px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
         .feature-card {
-            background-color: var(--black);
-            border-radius: 10px;
+            background: var(--black);
+            border-radius: 12px;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-red);
         }
 
         .feature-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
         .feature-icon {
             width: 80px;
             height: 80px;
-            background-color: var(--primary-red);
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             color: var(--white);
-            font-size: 30px;
+            font-size: 32px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .feature-card h3 {
@@ -207,36 +288,40 @@
 
         .levels {
             padding: 80px 0;
-            background-color: var(--black);
+            background: var(--black);
         }
 
         .levels-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 25px;
         }
 
         .level-card {
-            background-color: var(--dark-gray);
-            border-radius: 10px;
+            background: var(--dark-gray);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
             cursor: pointer;
+            position: relative;
         }
 
         .level-card:hover {
             transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
         .level-image {
             height: 180px;
-            background-color: var(--primary-red);
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
-            font-size: 60px;
+            font-size: 70px;
+            position: relative;
+            overflow: hidden;
         }
 
         .level-content {
@@ -273,7 +358,7 @@
         }
 
         footer {
-            background-color: var(--dark-gray);
+            background: var(--dark-gray);
             padding: 40px 0;
             text-align: center;
         }
@@ -291,20 +376,22 @@
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary-red);
+            width: 44px;
+            height: 44px;
+            background: var(--primary-red);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
             text-decoration: none;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .social-link:hover {
-            background-color: var(--dark-red);
+            background: var(--dark-red);
+            transform: translateY(-3px);
         }
 
         .copyright {
@@ -312,116 +399,37 @@
             font-size: 14px;
         }
 
-        /* Level Selection Screen */
-        .level-selection {
-            padding: 40px 0;
-            background-color: var(--dark-gray);
-            min-height: calc(100vh - 70px);
-        }
-
-        .level-filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background-color: var(--black);
-            color: var(--white);
-            border: 2px solid var(--primary-red);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .filter-btn.active {
-            background-color: var(--primary-red);
-        }
-
-        .levels-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .level-item {
-            background-color: var(--black);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .level-item:hover {
-            transform: scale(1.05);
-        }
-
-        .level-item.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .level-number {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-red);
-            margin-bottom: 10px;
-        }
-
-        .level-dish {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--white);
-        }
-
-        .level-stars {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-
-        .star {
-            color: var(--dark-gray);
-        }
-
-        .star.filled {
-            color: var(--gold);
-        }
-
         /* Game Screen */
         .game-container {
-            background-color: var(--dark-gray);
-            min-height: calc(100vh - 70px);
-            padding: 20px 0;
+            background: var(--dark-gray);
+            height: calc(100vh - 68px);
+            display: flex;
+            flex-direction: column;
         }
 
         .game-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-red);
+            padding: 15px 20px;
+            background: var(--black);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
         .game-info {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         .info-box {
-            background-color: var(--black);
+            background: var(--dark-gray);
             padding: 10px 15px;
-            border-radius: 5px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
         }
 
         .info-box i {
@@ -429,24 +437,67 @@
         }
 
         .game-area {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
+            display: flex;
+            flex: 1;
+            overflow: hidden;
         }
 
         .cooking-area {
-            background-color: var(--black);
-            border-radius: 10px;
-            padding: 20px;
-            min-height: 500px;
+            flex: 1;
+            background: var(--kitchen-bg);
             position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kitchen-counter {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: var(--counter-top);
+            border-top: 8px solid #8B4513;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .kitchen-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% - 120px);
+            background: linear-gradient(to bottom, #5D4037 0%, #8B4513 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cooking-space {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 70%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
         }
 
         .ingredients-panel {
-            background-color: var(--black);
-            border-radius: 10px;
+            width: 320px;
+            background: var(--black);
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
         }
 
         .panel-title {
@@ -454,7 +505,8 @@
             margin-bottom: 15px;
             color: var(--white);
             border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 5px;
+            padding-bottom: 8px;
+            font-weight: 600;
         }
 
         .ingredients-list {
@@ -465,80 +517,112 @@
         }
 
         .ingredient {
-            background-color: var(--dark-gray);
-            border-radius: 8px;
-            padding: 10px;
+            background: var(--dark-gray);
+            border-radius: 10px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 80px;
+            width: 85px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s;
+        }
+
+        .ingredient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .ingredient-img {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-red);
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             border-radius: 50%;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .ingredient-name {
             font-size: 12px;
             text-align: center;
+            font-weight: 600;
         }
 
         .instructions {
-            background-color: var(--dark-gray);
-            border-radius: 8px;
+            background: var(--dark-gray);
+            border-radius: 10px;
             padding: 15px;
             margin-top: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .instructions ol {
             padding-left: 20px;
             margin-top: 10px;
+            flex: 1;
         }
 
         .instructions li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--light-gray);
+            line-height: 1.5;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .instructions li.current {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .instructions li.current::before {
+            content: '▶';
+            position: absolute;
+            left: -15px;
+            color: var(--primary-red);
         }
 
         .cooking-tools {
             display: flex;
             gap: 10px;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
 
         .tool {
-            background-color: var(--dark-gray);
-            border-radius: 8px;
-            padding: 10px;
+            background: var(--dark-gray);
+            border-radius: 10px;
+            padding: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 70px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .tool:hover {
-            background-color: var(--primary-red);
+            background: var(--primary-red);
+            transform: translateY(-3px);
         }
 
         .tool.active {
-            background-color: var(--primary-red);
+            background: var(--primary-red);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
         }
 
         .tool-img {
             width: 40px;
             height: 40px;
-            background-color: var(--black);
+            background: var(--black);
             border-radius: 50%;
             margin-bottom: 5px;
             display: flex;
@@ -551,64 +635,74 @@
         .tool-name {
             font-size: 11px;
             text-align: center;
+            font-weight: 600;
         }
 
         /* Cooking Interactions */
         .cutting-board {
-            width: 100%;
+            width: 300px;
             height: 200px;
-            background-color: #8B4513;
+            background: #8B4513;
             border-radius: 10px;
-            margin: 20px auto;
             position: relative;
             overflow: hidden;
-            border: 2px solid #5D4037;
+            border: 5px solid #5D4037;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .food-to-cut {
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background-color: #FF5722;
-            border-radius: 5px;
+            width: 80px;
+            height: 80px;
+            background: #FF5722;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 24px;
+            font-size: 32px;
             user-select: none;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .food-to-cut:active {
+            transform: scale(0.95);
         }
 
         .cut-line {
             position: absolute;
-            height: 2px;
-            background-color: rgba(255, 255, 255, 0.7);
+            height: 3px;
+            background: rgba(255, 255, 255, 0.8);
             transform-origin: 0 0;
+            pointer-events: none;
+            z-index: 10;
         }
 
         .stove {
-            width: 100%;
+            width: 300px;
             height: 150px;
-            background-color: #757575;
+            background: #757575;
             border-radius: 10px;
-            margin: 20px auto;
             position: relative;
             display: flex;
             justify-content: space-around;
             align-items: center;
             padding: 0 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .burner {
             width: 80px;
             height: 80px;
-            background-color: #424242;
+            background: #424242;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .burner.active::after {
@@ -619,129 +713,114 @@
             border-radius: 50%;
             background: radial-gradient(circle, #ff9800 0%, #ff5722 70%, transparent 71%);
             animation: flame 1s infinite alternate;
+            box-shadow: 0 0 20px #ff5722;
         }
 
         @keyframes flame {
-            0% { opacity: 0.7; }
-            100% { opacity: 1; }
+            0% { opacity: 0.7; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.05); }
         }
 
         .pan {
             width: 70px;
             height: 70px;
-            background-color: #795548;
+            background: #795548;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             cursor: pointer;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
         }
 
         .food-in-pan {
             width: 50px;
             height: 50px;
-            background-color: #8BC34A;
+            background: #8BC34A;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 20px;
+            font-size: 24px;
+            transition: transform 0.3s;
         }
 
         .progress-container {
             width: 100%;
             height: 20px;
-            background-color: var(--dark-gray);
+            background: var(--dark-gray);
             border-radius: 10px;
             margin: 20px 0;
             overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         .progress-bar {
             height: 100%;
-            background-color: var(--primary-red);
+            background: linear-gradient(90deg, var(--primary-red), var(--light-red));
             width: 0%;
             transition: width 0.3s;
+            border-radius: 10px;
         }
 
         .action-btn {
             display: block;
             width: 100%;
-            padding: 12px;
-            background-color: var(--primary-red);
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .action-btn:hover {
-            background-color: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .action-btn:active {
+            transform: translateY(1px);
         }
 
         .action-btn:disabled {
-            background-color: var(--dark-gray);
+            background: var(--dark-gray);
             cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
-        /* Results Screen */
-        .results-screen {
-            padding: 40px 0;
-            background-color: var(--dark-gray);
-            min-height: calc(100vh - 70px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        /* Step Info */
+        .step-info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 10;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
 
-        .results-card {
-            background-color: var(--black);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .results-title {
-            font-size: 36px;
-            margin-bottom: 20px;
+        .step-title {
+            font-size: 20px;
+            margin-bottom: 8px;
             color: var(--white);
+            font-weight: 600;
         }
 
-        .results-stars {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 30px 0;
-        }
-
-        .result-star {
-            font-size: 50px;
-            color: var(--dark-gray);
-        }
-
-        .result-star.filled {
-            color: var(--gold);
-        }
-
-        .results-score {
-            font-size: 24px;
-            margin: 20px 0;
-            color: var(--white);
-        }
-
-        .results-message {
-            font-size: 18px;
-            margin: 20px 0;
+        .step-description {
             color: var(--light-gray);
+            line-height: 1.4;
         }
 
         /* Responsive Design */
@@ -760,15 +839,20 @@
             }
             
             .game-area {
-                grid-template-columns: 1fr;
+                flex-direction: column;
             }
             
             .ingredients-panel {
-                order: -1;
+                width: 100%;
+                height: 40%;
             }
             
-            .levels-container {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            .cooking-area {
+                height: 60%;
+            }
+            
+            .levels-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -777,20 +861,18 @@
     <!-- Home Screen -->
     <div id="home-screen" class="screen active">
         <header>
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <div class="logo-icon">🍳</div>
-                        <h1>Cooking Simulator</h1>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
-                            <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
-                            <li><a href="#" id="play-btn">Main Sekarang</a></li>
-                        </ul>
-                    </nav>
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🍳</div>
+                    <h1>Cooking Simulator</h1>
                 </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
+                        <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
+                        <li><a href="#" id="play-btn">Main Sekarang</a></li>
+                    </ul>
+                </nav>
             </div>
         </header>
 
@@ -917,183 +999,112 @@
         </footer>
     </div>
 
-    <!-- Level Selection Screen -->
-    <div id="level-selection-screen" class="screen">
-        <header>
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <div class="logo-icon">🍳</div>
-                        <h1>Pilih Level</h1>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
-                            <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-
-        <section class="level-selection">
-            <div class="container">
-                <h2 class="section-title">Pilih Level</h2>
-                
-                <div class="level-filters">
-                    <button class="filter-btn active" data-filter="all">Semua</button>
-                    <button class="filter-btn" data-filter="beginner">Pemula (1-20)</button>
-                    <button class="filter-btn" data-filter="intermediate">Menengah (21-50)</button>
-                    <button class="filter-btn" data-filter="advanced">Lanjutan (51-80)</button>
-                    <button class="filter-btn" data-filter="expert">Profesional (81-100)</button>
-                </div>
-                
-                <div class="levels-container" id="levels-list">
-                    <!-- Levels will be generated by JavaScript -->
-                </div>
-            </div>
-        </section>
-    </div>
-
     <!-- Game Screen -->
     <div id="game-screen" class="screen">
         <header>
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <div class="logo-icon">🍳</div>
-                        <h1 id="current-level-name">Memasak</h1>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
-                            <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
-                        </ul>
-                    </nav>
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🍳</div>
+                    <h1 id="current-level-name">Memasak</h1>
                 </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
+                        <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
+                    </ul>
+                </nav>
             </div>
         </header>
 
         <div class="game-container">
-            <div class="container">
-                <div class="game-header">
-                    <div class="game-info">
-                        <div class="info-box">
-                            <i>⏱️</i> <span id="timer">05:00</span>
-                        </div>
-                        <div class="info-box">
-                            <i>⭐</i> <span id="score">0</span>
-                        </div>
-                        <div class="info-box">
-                            <i>🔪</i> <span id="level">Level 1</span>
-                        </div>
+            <div class="game-header">
+                <div class="game-info">
+                    <div class="info-box">
+                        <i>⏱️</i> <span id="timer">05:00</span>
                     </div>
-                    <div>
-                        <a href="#" class="btn" id="back-home">Kembali</a>
+                    <div class="info-box">
+                        <i>⭐</i> <span id="score">0</span>
+                    </div>
+                    <div class="info-box">
+                        <i>🔪</i> <span id="level">Level 1</span>
                     </div>
                 </div>
+                <div>
+                    <a href="#" class="btn" id="back-home" style="padding: 10px 20px; font-size: 14px;">Kembali</a>
+                </div>
+            </div>
 
-                <div class="game-area">
-                    <div class="cooking-area">
-                        <h3 class="panel-title" id="step-title">Langkah 1: Potong Bahan</h3>
-                        
-                        <div id="cooking-interaction">
+            <div class="game-area">
+                <div class="cooking-area">
+                    <div class="kitchen-background">
+                        <div class="cooking-space">
                             <!-- Interactive cooking area will be loaded here -->
+                            <div id="cooking-interaction" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                                <div style="text-align: center; color: white;">
+                                    <div style="font-size: 60px; margin-bottom: 20px;">👨‍🍳</div>
+                                    <h3>Siap Memasak!</h3>
+                                    <p>Pilih alat dan ikuti instruksi untuk mulai memasak</p>
+                                </div>
+                            </div>
                         </div>
-                        
+                    </div>
+                    <div class="kitchen-counter"></div>
+                    
+                    <div class="step-info">
+                        <div class="step-title" id="step-title">Langkah 1: Potong Bahan</div>
+                        <div class="step-description" id="step-description">Potong bahan dengan menggeser jari/mouse di atasnya</div>
                         <div class="progress-container">
                             <div class="progress-bar" id="step-progress"></div>
                         </div>
-                        
-                        <button class="action-btn" id="next-step-btn" disabled>Lanjutkan</button>
+                        <button class="action-btn" id="next-step-btn" disabled>Langkah Selanjutnya</button>
+                    </div>
+                </div>
+
+                <div class="ingredients-panel">
+                    <h3 class="panel-title">Bahan-bahan</h3>
+                    <div class="ingredients-list" id="ingredients-container">
+                        <!-- Ingredients will be loaded here -->
                     </div>
 
-                    <div class="ingredients-panel">
-                        <h3 class="panel-title">Bahan-bahan</h3>
-                        <div class="ingredients-list" id="ingredients-container">
-                            <!-- Ingredients will be loaded here -->
+                    <div class="cooking-tools">
+                        <div class="tool" data-tool="knife">
+                            <div class="tool-img">🔪</div>
+                            <div class="tool-name">Pisau</div>
                         </div>
+                        <div class="tool" data-tool="pan">
+                            <div class="tool-img">🍳</div>
+                            <div class="tool-name">Wajan</div>
+                        </div>
+                        <div class="tool" data-tool="stove">
+                            <div class="tool-img">🔥</div>
+                            <div class="tool-name">Kompor</div>
+                        </div>
+                        <div class="tool" data-tool="bowl">
+                            <div class="tool-img">🥣</div>
+                            <div class="tool-name">Mangkuk</div>
+                        </div>
+                        <div class="tool" data-tool="seasoning">
+                            <div class="tool-img">🧂</div>
+                            <div class="tool-name">Bumbu</div>
+                        </div>
+                    </div>
 
-                        <div class="cooking-tools">
-                            <div class="tool" data-tool="knife">
-                                <div class="tool-img">🔪</div>
-                                <div class="tool-name">Pisau</div>
-                            </div>
-                            <div class="tool" data-tool="pan">
-                                <div class="tool-img">🍳</div>
-                                <div class="tool-name">Wajan</div>
-                            </div>
-                            <div class="tool" data-tool="stove">
-                                <div class="tool-img">🔥</div>
-                                <div class="tool-name">Kompor</div>
-                            </div>
-                            <div class="tool" data-tool="bowl">
-                                <div class="tool-img">🥣</div>
-                                <div class="tool-name">Mangkuk</div>
-                            </div>
-                            <div class="tool" data-tool="seasoning">
-                                <div class="tool-img">🧂</div>
-                                <div class="tool-name">Bumbu</div>
-                            </div>
-                        </div>
-
-                        <div class="instructions">
-                            <h3 class="panel-title">Langkah Memasak</h3>
-                            <ol id="instructions-list">
-                                <!-- Instructions will be loaded here -->
-                            </ol>
-                        </div>
+                    <div class="instructions">
+                        <h3 class="panel-title">Langkah Memasak</h3>
+                        <ol id="instructions-list">
+                            <!-- Instructions will be loaded here -->
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Results Screen -->
-    <div id="results-screen" class="screen">
-        <header>
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <div class="logo-icon">🍳</div>
-                        <h1>Hasil Memasak</h1>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
-                            <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-
-        <section class="results-screen">
-            <div class="container">
-                <div class="results-card">
-                    <h2 class="results-title" id="result-title">Selamat!</h2>
-                    <div class="results-stars" id="result-stars">
-                        <div class="result-star">⭐</div>
-                        <div class="result-star">⭐</div>
-                        <div class="result-star">⭐</div>
-                    </div>
-                    <div class="results-score" id="result-score">Skor: 850</div>
-                    <p class="results-message" id="result-message">Kamu berhasil menyelesaikan level dengan sempurna!</p>
-                    <div style="display: flex; gap: 15px; margin-top: 30px;">
-                        <button class="btn" id="replay-level">Main Lagi</button>
-                        <button class="btn" id="next-level">Level Berikutnya</button>
-                        <button class="btn" id="back-to-levels">Pilih Level</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
     <script>
         // Game Data - 100 levels with different recipes
         const gameData = {
             levels: [
-                // Level 1-20: Beginner
+                // Level 1: Beginner
                 {
                     id: 1,
                     name: "Sandwich Sederhana",
@@ -1109,6 +1120,7 @@
                     steps: [
                         {
                             title: "Potong Bahan",
+                            description: "Potong tomat menjadi irisan tipis",
                             tool: "knife",
                             instruction: "Potong tomat menjadi irisan tipis",
                             interaction: "cutting",
@@ -1117,6 +1129,7 @@
                         },
                         {
                             title: "Goreng Daging",
+                            description: "Goreng daging hingga matang sempurna",
                             tool: "pan",
                             instruction: "Goreng daging hingga matang sempurna",
                             interaction: "frying",
@@ -1125,6 +1138,7 @@
                         },
                         {
                             title: "Susun Sandwich",
+                            description: "Susun semua bahan di antara dua lembar roti",
                             tool: "bowl",
                             instruction: "Susun semua bahan di antara dua lembar roti",
                             interaction: "assembling",
@@ -1132,229 +1146,8 @@
                         }
                     ],
                     dish: "🥪"
-                },
-                {
-                    id: 2,
-                    name: "Salad Buah Segar",
-                    difficulty: "beginner",
-                    time: 240, // 4 minutes
-                    ingredients: [
-                        { name: "Apel", icon: "🍎", amount: "1 buah" },
-                        { name: "Pisang", icon: "🍌", amount: "1 buah" },
-                        { name: "Jeruk", icon: "🍊", amount: "1 buah" },
-                        { name: "Anggur", icon: "🍇", amount: "10 buah" },
-                        { name: "Yogurt", icon: "🥛", amount: "100ml" }
-                    ],
-                    steps: [
-                        {
-                            title: "Potong Buah",
-                            tool: "knife",
-                            instruction: "Potong semua buah menjadi potongan kecil",
-                            interaction: "cutting",
-                            target: 8,
-                            ingredient: "🍎"
-                        },
-                        {
-                            title: "Campur dengan Yogurt",
-                            tool: "bowl",
-                            instruction: "Campur semua buah dengan yogurt",
-                            interaction: "mixing",
-                            target: 15, // Need to mix 15 times
-                        }
-                    ],
-                    dish: "🥗"
-                },
-                // We would continue with more levels here in a real implementation
-                // For this example, we'll just add a few more to demonstrate
-                {
-                    id: 3,
-                    name: "Telur Dadar",
-                    difficulty: "beginner",
-                    time: 180,
-                    ingredients: [
-                        { name: "Telur", icon: "🥚", amount: "3 butir" },
-                        { name: "Garam", icon: "🧂", amount: "1/2 sdt" },
-                        { name: "Minyak", icon: "🛢️", amount: "1 sdm" }
-                    ],
-                    steps: [
-                        {
-                            title: "Kocok Telur",
-                            tool: "bowl",
-                            instruction: "Kocok telur dengan garam hingga rata",
-                            interaction: "mixing",
-                            target: 10,
-                        },
-                        {
-                            title: "Goreng Telur",
-                            tool: "pan",
-                            instruction: "Goreng telur di wajan dengan minyak panas",
-                            interaction: "frying",
-                            target: 5,
-                            ingredient: "🥚"
-                        }
-                    ],
-                    dish: "🍳"
-                },
-                {
-                    id: 21,
-                    name: "Spaghetti Bolognese",
-                    difficulty: "intermediate",
-                    time: 600,
-                    ingredients: [
-                        { name: "Spaghetti", icon: "🍝", amount: "200g" },
-                        { name: "Daging Cincang", icon: "🥩", amount: "250g" },
-                        { name: "Tomat", icon: "🍅", amount: "4 buah" },
-                        { name: "Bawang Bombay", icon: "🧅", amount: "1 buah" },
-                        { name: "Bawang Putih", icon: "🧄", amount: "3 siung" },
-                        { name: "Keju Parmesan", icon: "🧀", amount: "50g" }
-                    ],
-                    steps: [
-                        {
-                            title: "Rebus Spaghetti",
-                            tool: "stove",
-                            instruction: "Rebus spaghetti dalam air mendidih hingga al dente",
-                            interaction: "boiling",
-                            target: 120, // 2 minutes
-                        },
-                        {
-                            title: "Potong Bahan",
-                            tool: "knife",
-                            instruction: "Iris bawang bombay, bawang putih, dan tomat",
-                            interaction: "cutting",
-                            target: 10,
-                            ingredient: "🧅"
-                        },
-                        {
-                            title: "Tumis Bumbu",
-                            tool: "pan",
-                            instruction: "Tumis bawang bombay dan bawang putih hingga harum",
-                            interaction: "frying",
-                            target: 8,
-                        },
-                        {
-                            title: "Masak Saus",
-                            tool: "pan",
-                            instruction: "Masak daging cincang dengan tomat hingga menjadi saus",
-                            interaction: "cooking",
-                            target: 180, // 3 minutes
-                        },
-                        {
-                            title: "Campur dan Sajikan",
-                            tool: "bowl",
-                            instruction: "Campur spaghetti dengan saus dan taburi keju",
-                            interaction: "assembling",
-                            target: 1,
-                        }
-                    ],
-                    dish: "🍝"
-                },
-                {
-                    id: 51,
-                    name: "Sushi Roll",
-                    difficulty: "advanced",
-                    time: 900,
-                    ingredients: [
-                        { name: "Nasi Sushi", icon: "🍚", amount: "2 mangkuk" },
-                        { name: "Rumput Laut", icon: "🌿", amount: "4 lembar" },
-                        { name: "Ikan Salmon", icon: "🐟", amount: "150g" },
-                        { name: "Timun", icon: "🥒", amount: "1/2 buah" },
-                        { name: "Alpukat", icon: "🥑", amount: "1 buah" },
-                        { name: "Kecap Asin", icon: "🥢", amount: "secukupnya" }
-                    ],
-                    steps: [
-                        {
-                            title: "Siapkan Nasi",
-                            tool: "bowl",
-                            instruction: "Bentuk nasi sushi dengan tangan yang dibasahi",
-                            interaction: "shaping",
-                            target: 8,
-                        },
-                        {
-                            title: "Iris Bahan Isian",
-                            tool: "knife",
-                            instruction: "Iris salmon, timun, dan alpukat memanjang",
-                            interaction: "cutting",
-                            target: 15,
-                            ingredient: "🐟"
-                        },
-                        {
-                            title: "Gulung Sushi",
-                            tool: "bowl",
-                            instruction: "Letakkan nasi di atas nori, tambahkan isian, lalu gulung",
-                            interaction: "rolling",
-                            target: 4,
-                        },
-                        {
-                            title: "Potong Sushi",
-                            tool: "knife",
-                            instruction: "Potong sushi roll menjadi 8 bagian sama besar",
-                            interaction: "cutting",
-                            target: 4,
-                            ingredient: "🍣"
-                        }
-                    ],
-                    dish: "🍣"
-                },
-                {
-                    id: 81,
-                    name: "Beef Wellington",
-                    difficulty: "expert",
-                    time: 1200,
-                    ingredients: [
-                        { name: "Daging Sapi", icon: "🥩", amount: "500g" },
-                        { name: "Puff Pastry", icon: "🥐", amount: "1 lembar" },
-                        { name: "Jamur", icon: "🍄", amount: "200g" },
-                        { name: "Prosciutto", icon: "🐖", amount: "6 lembar" },
-                        { name: "Mustard", icon: "🟫", amount: "2 sdm" },
-                        { name: "Kuning Telur", icon: "🥚", amount: "1 butir" }
-                    ],
-                    steps: [
-                        {
-                            title: "Siapkan Daging",
-                            tool: "pan",
-                            instruction: "Panggang daging sapi di semua sisi hingga kecoklatan",
-                            interaction: "searing",
-                            target: 6,
-                        },
-                        {
-                            title: "Haluskan Jamur",
-                            tool: "knife",
-                            instruction: "Cincang jamur hingga sangat halus",
-                            interaction: "cutting",
-                            target: 20,
-                            ingredient: "🍄"
-                        },
-                        {
-                            title: "Masak Duxelles",
-                            tool: "pan",
-                            instruction: "Tumis jamur cincang hingga kering",
-                            interaction: "cooking",
-                            target: 300, // 5 minutes
-                        },
-                        {
-                            title: "Bungkus Daging",
-                            tool: "bowl",
-                            instruction: "Bungkus daging dengan prosciutto dan duxelles",
-                            interaction: "wrapping",
-                            target: 1,
-                        },
-                        {
-                            title: "Bungkus Pastry",
-                            tool: "bowl",
-                            instruction: "Bungkus daging dengan puff pastry, olesi kuning telur",
-                            interaction: "wrapping",
-                            target: 1,
-                        },
-                        {
-                            title: "Panggang",
-                            tool: "stove",
-                            instruction: "Panggang dalam oven hingga pastry matang dan emas",
-                            interaction: "baking",
-                            target: 600, // 10 minutes
-                        }
-                    ],
-                    dish: "🎩"
                 }
+                // More levels would be added here in a full implementation
             ]
         };
 
@@ -1365,19 +1158,12 @@
             score: 0,
             timeLeft: 0,
             timerInterval: null,
-            progress: 0,
-            stars: 0,
-            completedLevels: JSON.parse(localStorage.getItem('completedLevels')) || {},
-            unlockedLevels: JSON.parse(localStorage.getItem('unlockedLevels')) || {1: true}
+            progress: 0
         };
 
         // DOM Elements
         const screens = document.querySelectorAll('.screen');
         const navLinks = document.querySelectorAll('.nav-link');
-        const levelCards = document.querySelectorAll('.level-card');
-        const playLevelBtns = document.querySelectorAll('.play-level-btn');
-        const levelsList = document.getElementById('levels-list');
-        const filterBtns = document.querySelectorAll('.filter-btn');
         const startGameBtn = document.getElementById('start-game');
         const playBtn = document.getElementById('play-btn');
         const backHomeBtn = document.getElementById('back-home');
@@ -1387,52 +1173,17 @@
         const levelElement = document.getElementById('level');
         const currentLevelName = document.getElementById('current-level-name');
         const stepTitle = document.getElementById('step-title');
+        const stepDescription = document.getElementById('step-description');
         const cookingInteraction = document.getElementById('cooking-interaction');
         const stepProgress = document.getElementById('step-progress');
         const ingredientsContainer = document.getElementById('ingredients-container');
         const instructionsList = document.getElementById('instructions-list');
         const tools = document.querySelectorAll('.tool');
-        const replayLevelBtn = document.getElementById('replay-level');
-        const nextLevelBtn = document.getElementById('next-level');
-        const backToLevelsBtn = document.getElementById('back-to-levels');
-        const resultTitle = document.getElementById('result-title');
-        const resultStars = document.getElementById('result-stars');
-        const resultScore = document.getElementById('result-score');
-        const resultMessage = document.getElementById('result-message');
 
         // Initialize the game
         document.addEventListener('DOMContentLoaded', function() {
-            generateLevelsList();
             attachEventListeners();
         });
-
-        // Generate levels list for level selection screen
-        function generateLevelsList() {
-            levelsList.innerHTML = '';
-            
-            gameData.levels.forEach(level => {
-                const levelItem = document.createElement('div');
-                levelItem.className = `level-item ${gameState.unlockedLevels[level.id] ? '' : 'locked'}`;
-                levelItem.dataset.levelId = level.id;
-                
-                const stars = gameState.completedLevels[level.id] ? gameState.completedLevels[level.id].stars : 0;
-                
-                levelItem.innerHTML = `
-                    <div class="level-number">Level ${level.id}</div>
-                    <div class="level-dish">${level.dish}</div>
-                    <div class="level-stars">
-                        ${'<div class="star filled">⭐</div>'.repeat(stars) + '<div class="star">⭐</div>'.repeat(3 - stars)}
-                    </div>
-                    <div class="level-name">${level.name}</div>
-                `;
-                
-                if (gameState.unlockedLevels[level.id]) {
-                    levelItem.addEventListener('click', () => startLevel(level.id));
-                }
-                
-                levelsList.appendChild(levelItem);
-            });
-        }
 
         // Attach event listeners
         function attachEventListeners() {
@@ -1445,45 +1196,15 @@
                 });
             });
             
-            // Level cards on home screen
-            levelCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const levelRange = this.dataset.levelRange;
-                    const startLevel = parseInt(levelRange.split('-')[0]);
-                    startLevel(startLevel);
-                });
-            });
-            
-            // Play level buttons
-            playLevelBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const levelRange = this.closest('.level-card').dataset.levelRange;
-                    const startLevel = parseInt(levelRange.split('-')[0]);
-                    startLevel(startLevel);
-                });
-            });
-            
-            // Filter buttons
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const filter = this.dataset.filter;
-                    filterLevels(filter);
-                });
-            });
-            
             // Start game buttons
             startGameBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                showScreen('level-selection-screen');
+                startLevel(1);
             });
             
             playBtn.addEventListener('click', function(e) {
                 e.preventDefault();
-                showScreen('level-selection-screen');
+                startLevel(1);
             });
             
             // Back home button
@@ -1503,24 +1224,6 @@
                     this.classList.add('active');
                 });
             });
-            
-            // Results screen buttons
-            replayLevelBtn.addEventListener('click', function() {
-                startLevel(gameState.currentLevel);
-            });
-            
-            nextLevelBtn.addEventListener('click', function() {
-                const nextLevel = gameState.currentLevel + 1;
-                if (nextLevel <= 100) {
-                    startLevel(nextLevel);
-                } else {
-                    showScreen('level-selection-screen');
-                }
-            });
-            
-            backToLevelsBtn.addEventListener('click', function() {
-                showScreen('level-selection-screen');
-            });
         }
 
         // Show specific screen
@@ -1529,26 +1232,6 @@
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
-        }
-
-        // Filter levels by difficulty
-        function filterLevels(filter) {
-            const levelItems = document.querySelectorAll('.level-item');
-            
-            levelItems.forEach(item => {
-                const levelId = parseInt(item.dataset.levelId);
-                const level = gameData.levels.find(l => l.id === levelId);
-                
-                if (filter === 'all' || 
-                    (filter === 'beginner' && level.difficulty === 'beginner') ||
-                    (filter === 'intermediate' && level.difficulty === 'intermediate') ||
-                    (filter === 'advanced' && level.difficulty === 'advanced') ||
-                    (filter === 'expert' && level.difficulty === 'expert')) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
         }
 
         // Start a level
@@ -1609,6 +1292,7 @@
         // Load a cooking step
         function loadStep(step) {
             stepTitle.textContent = step.title;
+            stepDescription.textContent = step.description;
             nextStepBtn.disabled = true;
             stepProgress.style.width = '0%';
             
@@ -1623,32 +1307,8 @@
                 case 'frying':
                     loadFryingInteraction(step);
                     break;
-                case 'mixing':
-                    loadMixingInteraction(step);
-                    break;
                 case 'assembling':
                     loadAssemblingInteraction(step);
-                    break;
-                case 'boiling':
-                    loadBoilingInteraction(step);
-                    break;
-                case 'cooking':
-                    loadCookingInteraction(step);
-                    break;
-                case 'shaping':
-                    loadShapingInteraction(step);
-                    break;
-                case 'rolling':
-                    loadRollingInteraction(step);
-                    break;
-                case 'searing':
-                    loadSearingInteraction(step);
-                    break;
-                case 'wrapping':
-                    loadWrappingInteraction(step);
-                    break;
-                case 'baking':
-                    loadBakingInteraction(step);
                     break;
                 default:
                     cookingInteraction.innerHTML = '<p>Interaksi tidak dikenali</p>';
@@ -1665,9 +1325,8 @@
         function loadCuttingInteraction(step) {
             cookingInteraction.innerHTML = `
                 <div class="cutting-board">
-                    <div class="food-to-cut" style="top: 70px; left: 100px;">${step.ingredient || '🍎'}</div>
+                    <div class="food-to-cut" style="top: 60px; left: 110px;">${step.ingredient || '🍎'}</div>
                 </div>
-                <p>Potong bahan dengan menggeser jari/mouse di atasnya</p>
             `;
             
             const food = cookingInteraction.querySelector('.food-to-cut');
@@ -1712,6 +1371,12 @@
                     document.removeEventListener('touchend', handleCutEnd);
                     document.removeEventListener('mousemove', handleCutMove);
                     document.removeEventListener('mouseup', handleCutEnd);
+                    
+                    // Visual feedback
+                    food.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        food.style.transform = 'scale(1)';
+                    }, 200);
                 }
                 
                 document.addEventListener('touchmove', handleCutMove, { passive: false });
@@ -1731,7 +1396,6 @@
                         </div>
                     </div>
                 </div>
-                <p>Klik/tap pada wajan untuk membalik makanan</p>
             `;
             
             const pan = cookingInteraction.querySelector('.pan');
@@ -1761,72 +1425,13 @@
             });
         }
 
-        // Mixing interaction
-        function loadMixingInteraction(step) {
-            cookingInteraction.innerHTML = `
-                <div style="width: 200px; height: 200px; background-color: #8B4513; border-radius: 50%; margin: 0 auto; position: relative; overflow: hidden;">
-                    <div style="width: 160px; height: 160px; background-color: #FFEB3B; border-radius: 50%; position: absolute; top: 20px; left: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px;">🥣</div>
-                </div>
-                <p>Aduk dengan gerakan memutar</p>
-            `;
-            
-            const bowl = cookingInteraction.querySelector('div');
-            let mixCount = 0;
-            let isMixing = false;
-            let lastAngle = 0;
-            
-            bowl.addEventListener('touchstart', startMixing);
-            bowl.addEventListener('mousedown', startMixing);
-            
-            function startMixing(e) {
-                e.preventDefault();
-                isMixing = true;
-                const rect = bowl.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-                const startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-                lastAngle = Math.atan2(startY - centerY, startX - centerX);
-                
-                function handleMixMove(e) {
-                    if (!isMixing) return;
-                    
-                    const currentX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-                    const currentY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-                    const currentAngle = Math.atan2(currentY - centerY, currentX - centerX);
-                    const angleDiff = currentAngle - lastAngle;
-                    
-                    // Count a mix when we've completed about half a rotation
-                    if (Math.abs(angleDiff) > 2) {
-                        mixCount++;
-                        updateProgress(mixCount, step.target);
-                        lastAngle = currentAngle;
-                    }
-                }
-                
-                function stopMixing() {
-                    isMixing = false;
-                    document.removeEventListener('touchmove', handleMixMove);
-                    document.removeEventListener('touchend', stopMixing);
-                    document.removeEventListener('mousemove', handleMixMove);
-                    document.removeEventListener('mouseup', stopMixing);
-                }
-                
-                document.addEventListener('touchmove', handleMixMove, { passive: false });
-                document.addEventListener('touchend', stopMixing);
-                document.addEventListener('mousemove', handleMixMove);
-                document.addEventListener('mouseup', stopMixing);
-            }
-        }
-
-        // For other interaction types, we would implement similar functions
-        // For this example, we'll create placeholder implementations
+        // Assembling interaction
         function loadAssemblingInteraction(step) {
             cookingInteraction.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
+                <div style="text-align: center; padding: 20px; width: 100%;">
                     <div style="font-size: 60px; margin-bottom: 20px;">🥪</div>
                     <p>Seret dan susun bahan-bahan untuk membuat hidangan</p>
-                    <button class="action-btn" id="assemble-btn">Selesaikan Penyusunan</button>
+                    <button class="action-btn" id="assemble-btn" style="width: auto; margin: 20px auto;">Selesaikan Penyusunan</button>
                 </div>
             `;
             
@@ -1836,38 +1441,6 @@
             });
         }
 
-        function loadBoilingInteraction(step) {
-            cookingInteraction.innerHTML = `
-                <div style="text-align: center; padding: 20px;">
-                    <div style="font-size: 60px; margin-bottom: 20px;">🍜</div>
-                    <p>Tunggu hingga makanan matang</p>
-                    <div class="progress-container">
-                        <div class="progress-bar" id="cooking-progress"></div>
-                    </div>
-                </div>
-            `;
-            
-            const cookingProgress = document.getElementById('cooking-progress');
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 100 / (step.target / 10);
-                cookingProgress.style.width = `${progress}%`;
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    updateProgress(1, 1);
-                }
-            }, 100);
-        }
-
-        // Placeholder for other interaction types
-        function loadCookingInteraction(step) { loadBoilingInteraction(step); }
-        function loadShapingInteraction(step) { loadAssemblingInteraction(step); }
-        function loadRollingInteraction(step) { loadAssemblingInteraction(step); }
-        function loadSearingInteraction(step) { loadFryingInteraction(step); }
-        function loadWrappingInteraction(step) { loadAssemblingInteraction(step); }
-        function loadBakingInteraction(step) { loadBoilingInteraction(step); }
-
         // Update progress for current step
         function updateProgress(current, target) {
             const progress = Math.min(current / target * 100, 100);
@@ -1875,6 +1448,7 @@
             
             if (progress >= 100) {
                 nextStepBtn.disabled = false;
+                nextStepBtn.focus();
             }
         }
 
@@ -1894,59 +1468,8 @@
         // Complete the current level
         function completeLevel() {
             stopTimer();
-            
-            // Calculate score based on time left and performance
-            const level = gameData.levels.find(l => l.id === gameState.currentLevel);
-            const timeBonus = Math.floor(gameState.timeLeft / 10);
-            gameState.score = 500 + timeBonus;
-            
-            // Calculate stars (1-3)
-            if (gameState.timeLeft > level.time * 0.7) {
-                gameState.stars = 3;
-            } else if (gameState.timeLeft > level.time * 0.4) {
-                gameState.stars = 2;
-            } else {
-                gameState.stars = 1;
-            }
-            
-            // Save progress
-            gameState.completedLevels[gameState.currentLevel] = {
-                stars: gameState.stars,
-                score: gameState.score
-            };
-            
-            // Unlock next level
-            if (gameState.currentLevel < 100) {
-                gameState.unlockedLevels[gameState.currentLevel + 1] = true;
-            }
-            
-            // Save to localStorage
-            localStorage.setItem('completedLevels', JSON.stringify(gameState.completedLevels));
-            localStorage.setItem('unlockedLevels', JSON.stringify(gameState.unlockedLevels));
-            
-            // Show results
-            showResults();
-        }
-
-        // Show results screen
-        function showResults() {
-            resultTitle.textContent = gameState.stars === 3 ? "Sempurna!" : 
-                                    gameState.stars === 2 ? "Bagus!" : "Cukup Baik";
-            
-            resultScore.textContent = `Skor: ${gameState.score}`;
-            
-            resultMessage.textContent = 
-                gameState.stars === 3 ? "Kamu memasak dengan sempurna! Semua bintang didapatkan!" :
-                gameState.stars === 2 ? "Hampir sempurna! Coba lagi untuk dapatkan bintang ketiga!" :
-                "Kamu berhasil menyelesaikan level! Coba lagi untuk hasil yang lebih baik!";
-            
-            // Update stars display
-            const stars = resultStars.querySelectorAll('.result-star');
-            stars.forEach((star, index) => {
-                star.classList.toggle('filled', index < gameState.stars);
-            });
-            
-            showScreen('results-screen');
+            alert(`Selamat! Anda menyelesaikan level ${gameState.currentLevel} dengan skor ${gameState.score}`);
+            showScreen('home-screen');
         }
 
         // Timer functions
