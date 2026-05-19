@@ -1,834 +1,326 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cooking Simulator - Game Memasak</title>
-    <style>
-        :root {
-            --primary-red: #d32f2f;
-            --dark-red: #b71c1c;
-            --light-red: #ff6659;
-            --black: #212121;
-            --dark-gray: #424242;
-            --white: #ffffff;
-            --light-gray: #f5f5f5;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
-            --bronze: #cd7f32;
-            --kitchen-bg: #8B4513;
-            --counter-top: #A0522D;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--black) 0%, var(--dark-gray) 100%);
-            color: var(--white);
-            overflow: hidden;
-            height: 100vh;
-            touch-action: manipulation;
-        }
-
-        .screen {
-            display: none;
-            width: 100%;
-            height: 100vh;
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: auto;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            padding: 12px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo h1 {
-            font-size: 26px;
-            color: var(--white);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            font-weight: 700;
-        }
-
-        .logo-icon {
-            width: 44px;
-            height: 44px;
-            background: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-red);
-            font-weight: bold;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            font-size: 20px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
-
-        nav a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 20px;
-            transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Game Screen */
-        .game-container {
-            background: var(--dark-gray);
-            height: calc(100vh - 68px);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background: var(--black);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .game-info {
-            display: flex;
-            gap: 15px;
-        }
-
-        .info-box {
-            background: var(--dark-gray);
-            padding: 10px 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-            font-weight: 600;
-        }
-
-        .info-box i {
-            color: var(--primary-red);
-        }
-
-        .game-area {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-        }
-
-        .cooking-area {
-            flex: 1;
-            background: var(--kitchen-bg);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .kitchen-counter {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background: var(--counter-top);
-            border-top: 8px solid #8B4513;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .kitchen-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: calc(100% - 120px);
-            background: linear-gradient(to bottom, #5D4037 0%, #8B4513 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .cooking-space {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            height: 70%;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .ingredients-panel {
-            width: 320px;
-            background: var(--black);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-            overflow-y: auto;
-        }
-
-        .panel-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--white);
-            border-bottom: 2px solid var(--primary-red);
-            padding-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .ingredients-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .ingredient {
-            background: var(--dark-gray);
-            border-radius: 10px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 85px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.2s;
-        }
-
-        .ingredient-img {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            border-radius: 50%;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .ingredient-name {
-            font-size: 12px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .instructions {
-            background: var(--dark-gray);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .instructions ol {
-            padding-left: 20px;
-            margin-top: 10px;
-            flex: 1;
-        }
-
-        .instructions li {
-            margin-bottom: 10px;
-            color: var(--light-gray);
-            line-height: 1.5;
-            position: relative;
-            padding-left: 10px;
-        }
-
-        .instructions li.current {
-            color: var(--white);
-            font-weight: 600;
-        }
-
-        .instructions li.current::before {
-            content: '▶';
-            position: absolute;
-            left: -15px;
-            color: var(--primary-red);
-        }
-
-        .cooking-tools {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tool {
-            background: var(--dark-gray);
-            border-radius: 10px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 70px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .tool.active {
-            background: var(--primary-red);
-            box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
-        }
-
-        .tool-img {
-            width: 40px;
-            height: 40px;
-            background: var(--black);
-            border-radius: 50%;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-
-        .tool-name {
-            font-size: 11px;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        /* Cooking Interactions */
-        .cutting-board {
-            width: 300px;
-            height: 200px;
-            background: #8B4513;
-            border-radius: 10px;
-            position: relative;
-            overflow: hidden;
-            border: 5px solid #5D4037;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .food-to-cut {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: #FF5722;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 32px;
-            user-select: none;
-            transition: transform 0.2s;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            touch-action: none;
-        }
-
-        .cut-line {
-            position: absolute;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.8);
-            transform-origin: 0 0;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .stove {
-            width: 300px;
-            height: 150px;
-            background: #757575;
-            border-radius: 10px;
-            position: relative;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .burner {
-            width: 80px;
-            height: 80px;
-            background: #424242;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .burner.active::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle, #ff9800 0%, #ff5722 70%, transparent 71%);
-            animation: flame 1s infinite alternate;
-            box-shadow: 0 0 20px #ff5722;
-        }
-
-        @keyframes flame {
-            0% { opacity: 0.7; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1.05); }
-        }
-
-        .pan {
-            width: 70px;
-            height: 70px;
-            background: #795548;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            touch-action: manipulation;
-        }
-
-        .food-in-pan {
-            width: 50px;
-            height: 50px;
-            background: #8BC34A;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            transition: transform 0.3s;
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 20px;
-            background: var(--dark-gray);
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-red), var(--light-red));
-            width: 0%;
-            transition: width 0.3s;
-            border-radius: 10px;
-        }
-
-        .action-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            touch-action: manipulation;
-        }
-
-        .action-btn:active {
-            transform: translateY(1px);
-        }
-
-        .action-btn:disabled {
-            background: var(--dark-gray);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Step Info */
-        .step-info {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            z-index: 10;
-            max-width: 300px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .step-title {
-            font-size: 20px;
-            margin-bottom: 8px;
-            color: var(--white);
-            font-weight: 600;
-        }
-
-        .step-description {
-            color: var(--light-gray);
-            line-height: 1.4;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .game-area {
-                flex-direction: column;
-            }
-            
-            .ingredients-panel {
-                width: 100%;
-                height: 40%;
-            }
-            
-            .cooking-area {
-                height: 60%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cueku Store</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; }
+    header { background: #0a7e8b; color: white; padding: 2rem 1rem; text-align: center; position: relative; }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    header .promo { background: #ffb703; color: #000; display: inline-block; padding: 0.5rem 1.5rem; border-radius: 30px; font-weight: bold; margin-top: 0.5rem; }
+    .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+    .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.2s; display: flex; flex-direction: column; }
+    .card:hover { transform: translateY(-4px); }
+    .card img { width: 100%; height: 220px; object-fit: cover; background: #e0e0e0; }
+    .card-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; }
+    .card-body h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+    .card-body .price { font-size: 1.5rem; font-weight: bold; color: #0a7e8b; margin-bottom: 1rem; }
+    .btn-wa { display: block; background: #25D366; color: white; text-align: center; padding: 0.75rem; border-radius: 8px; text-decoration: none; font-weight: bold; margin-top: auto; transition: background 0.2s; }
+    .btn-wa:hover { background: #1da851; }
+    footer { text-align: center; margin: 2rem 1rem; color: #777; font-size: 0.9rem; }
+    /* QRIS */
+    .qris-float { position: fixed; bottom: 20px; right: 20px; width: 80px; height: 80px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; overflow: hidden; z-index: 10; display: none; }
+    .qris-float img { width: 100%; height: 100%; object-fit: contain; }
+    .qris-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 20; justify-content: center; align-items: center; }
+    .qris-modal.active { display: flex; }
+    .qris-modal-content { background: white; padding: 1rem; border-radius: 12px; max-width: 300px; text-align: center; }
+    .qris-modal-content img { width: 100%; }
+    .qris-modal-content button { margin-top: 0.5rem; background: #0a7e8b; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+    /* Admin */
+    .admin-login { position: fixed; bottom: 20px; left: 20px; color: #aaa; font-size: 0.8rem; cursor: pointer; z-index: 5; }
+    .admin-panel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f8f9fa; z-index: 30; overflow-y: auto; padding: 2rem 1rem; }
+    .admin-panel.active { display: block; }
+    .admin-inner { max-width: 700px; margin: auto; background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .admin-inner h2 { margin-bottom: 1rem; }
+    .admin-inner input, .admin-inner textarea { width: 100%; padding: 0.7rem; margin-bottom: 0.8rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+    .admin-inner button { background: #0a7e8b; color: white; border: none; padding: 0.7rem 1.2rem; border-radius: 6px; cursor: pointer; margin-right: 0.5rem; margin-top: 0.3rem; }
+    .admin-inner .danger { background: #e63946; }
+    .admin-inner .product-item { background: #f1f1f1; padding: 0.7rem; margin-bottom: 0.5rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .admin-inner .product-item span { flex: 1; margin-right: 0.5rem; }
+    .admin-inner .product-item button { padding: 0.3rem 0.7rem; font-size: 0.8rem; }
+    .back-btn { background: #6c757d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-bottom: 1rem; }
+    .preview-img { max-width: 150px; max-height: 100px; margin: 0.5rem 0; display: none; border-radius: 8px; }
+  </style>
 </head>
 <body>
-    <!-- Game Screen -->
-    <div id="game-screen" class="screen active">
-        <header>
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">🍳</div>
-                    <h1 id="current-level-name">Sandwich Sederhana</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="#" class="nav-link" data-screen="home-screen">Beranda</a></li>
-                        <li><a href="#" class="nav-link" data-screen="level-selection-screen">Level</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
+  <header>
+    <h1>Cueku Store</h1>
+    <div class="promo" id="promoText">🛍️ Promo Spesial! Diskon 10% semua produk</div>
+  </header>
 
-        <div class="game-container">
-            <div class="game-header">
-                <div class="game-info">
-                    <div class="info-box">
-                        <i>⏱️</i> <span id="timer">03:46</span>
-                    </div>
-                    <div class="info-box">
-                        <i>⭐</i> <span id="score">0</span>
-                    </div>
-                    <div class="info-box">
-                        <i>🔪</i> <span id="level">Level 1</span>
-                    </div>
-                </div>
-                <div>
-                    <a href="#" class="btn" id="back-home" style="padding: 10px 20px; font-size: 14px;">Kembali</a>
-                </div>
-            </div>
+  <div class="container" id="productContainer"></div>
 
-            <div class="game-area">
-                <div class="cooking-area">
-                    <div class="kitchen-background">
-                        <div class="cooking-space">
-                            <!-- Interactive cooking area will be loaded here -->
-                            <div id="cooking-interaction">
-                                <!-- Frying interaction will be loaded here -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="kitchen-counter"></div>
-                    
-                    <div class="step-info">
-                        <div class="step-title" id="step-title">Goreng Daging</div>
-                        <div class="step-description" id="step-description">Goreng daging hingga matang sempurna</div>
-                        <div class="progress-container">
-                            <div class="progress-bar" id="step-progress" style="width: 0%"></div>
-                        </div>
-                        <button class="action-btn" id="next-step-btn" disabled>Langkah Selanjutnya</button>
-                    </div>
-                </div>
+  <footer>© 2025 Cueku Store • Klik produk untuk langsung chat via WhatsApp</footer>
 
-                <div class="ingredients-panel">
-                    <h3 class="panel-title">Bahan-bahan</h3>
-                    <div class="ingredients-list" id="ingredients-container">
-                        <div class="ingredient">
-                            <div class="ingredient-img">🍞</div>
-                            <div class="ingredient-name">Roti</div>
-                        </div>
-                        <div class="ingredient">
-                            <div class="ingredient-img">🥬</div>
-                            <div class="ingredient-name">Selada</div>
-                        </div>
-                        <div class="ingredient">
-                            <div class="ingredient-img">🍅</div>
-                            <div class="ingredient-name">Tomat</div>
-                        </div>
-                        <div class="ingredient">
-                            <div class="ingredient-img">🧀</div>
-                            <div class="ingredient-name">Keju</div>
-                        </div>
-                        <div class="ingredient">
-                            <div class="ingredient-img">🥩</div>
-                            <div class="ingredient-name">Daging</div>
-                        </div>
-                    </div>
-
-                    <div class="cooking-tools">
-                        <div class="tool" data-tool="knife">
-                            <div class="tool-img">🔪</div>
-                            <div class="tool-name">Pisau</div>
-                        </div>
-                        <div class="tool active" data-tool="pan">
-                            <div class="tool-img">🍳</div>
-                            <div class="tool-name">Wajan</div>
-                        </div>
-                        <div class="tool" data-tool="stove">
-                            <div class="tool-img">🔥</div>
-                            <div class="tool-name">Kompor</div>
-                        </div>
-                        <div class="tool" data-tool="bowl">
-                            <div class="tool-img">🥣</div>
-                            <div class="tool-name">Mangkuk</div>
-                        </div>
-                        <div class="tool" data-tool="seasoning">
-                            <div class="tool-img">🧂</div>
-                            <div class="tool-name">Bumbu</div>
-                        </div>
-                    </div>
-
-                    <div class="instructions">
-                        <h3 class="panel-title">Langkah Memasak</h3>
-                        <ol id="instructions-list">
-                            <li>Potong tomat menjadi irisan tipis</li>
-                            <li class="current">Goreng daging hingga matang</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- QRIS -->
+  <div class="qris-float" id="qrisFloat"><img src="" alt="QRIS"></div>
+  <div class="qris-modal" id="qrisModal">
+    <div class="qris-modal-content">
+      <img src="" alt="QRIS" id="qrisModalImg">
+      <button onclick="document.getElementById('qrisModal').classList.remove('active')">Tutup</button>
     </div>
+  </div>
 
-    <script>
-        // Game State
-        let gameState = {
-            currentLevel: 1,
-            currentStep: 1, // Langkah 2: Goreng Daging
-            score: 0,
-            timeLeft: 226, // 3:46 dalam detik
-            timerInterval: null,
-            progress: 0,
-            flipCount: 0
+  <!-- Admin Login -->
+  <div class="admin-login" onclick="loginAdmin()">🔑 Login Admin</div>
+
+  <!-- Admin Panel -->
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-inner">
+      <button class="back-btn" onclick="closeAdmin()">← Kembali ke Katalog</button>
+      <h2>📦 Panel Admin - Cueku Store</h2>
+
+      <label>🏷️ Teks Promo</label>
+      <input type="text" id="promoInput" placeholder="Masukkan teks promo...">
+
+      <label>📱 Nomor WhatsApp (format 62...)</label>
+      <input type="text" id="waInput" placeholder="6281234567890">
+
+      <label>🖼️ Link Gambar QRIS (bisa upload ke imgbb dulu kalau ada)</label>
+      <input type="text" id="qrisInput" placeholder="https://...">
+
+      <button onclick="saveSettings()">💾 Simpan Pengaturan</button>
+
+      <hr style="margin: 1.5rem 0;">
+
+      <h3 id="formTitle">➕ Tambah Produk Baru</h3>
+      <input type="text" id="prodName" placeholder="Nama Produk">
+      <input type="number" id="prodPrice" placeholder="Harga (angka saja)">
+      <input type="file" id="prodImageFile" accept="image/*" onchange="previewImage(this)">
+      <img id="previewImage" class="preview-img" alt="Preview">
+      <br>
+      <button id="addUpdateBtn" onclick="handleAddOrUpdate()">➕ Tambah</button>
+      <button id="cancelEditBtn" onclick="cancelEdit()" style="display:none;" class="danger">Batal Edit</button>
+
+      <h3 style="margin-top: 1.5rem;">📋 Daftar Produk</h3>
+      <div id="productList"></div>
+      <button class="danger" onclick="resetAll()" style="margin-top:1rem;">⚠️ Reset Semua Data</button>
+    </div>
+  </div>
+
+  <script>
+    const DEFAULT_PRODUCTS = [
+      { name: "Kaos Polos Premium", price: 35000, image: "https://placehold.co/400x300/e0e0e0/999?text=No+Image" },
+      { name: "Tumbler Stainless", price: 55000, image: "https://placehold.co/400x300/e0e0e0/999?text=No+Image" },
+      { name: "Tote Bag Kanvas", price: 25000, image: "https://placehold.co/400x300/e0e0e0/999?text=No+Image" },
+    ];
+    const DEFAULT_SETTINGS = {
+      promo: "🛍️ Promo Spesial! Diskon 10% semua produk",
+      wa: "62895419050123",
+      qris: ""
+    };
+
+    let editingIndex = null;
+
+    function loadData() {
+      let products = localStorage.getItem('cueku_products');
+      if (!products) {
+        localStorage.setItem('cueku_products', JSON.stringify(DEFAULT_PRODUCTS));
+        products = JSON.stringify(DEFAULT_PRODUCTS);
+      }
+      let settings = localStorage.getItem('cueku_settings');
+      if (!settings) {
+        localStorage.setItem('cueku_settings', JSON.stringify(DEFAULT_SETTINGS));
+        settings = JSON.stringify(DEFAULT_SETTINGS);
+      }
+      return { products: JSON.parse(products), settings: JSON.parse(settings) };
+    }
+
+    function renderCatalog() {
+      const { products, settings } = loadData();
+      document.getElementById('promoText').textContent = settings.promo || 'Selamat berbelanja!';
+      const qrisFloat = document.getElementById('qrisFloat');
+      const qrisImg = qrisFloat.querySelector('img');
+      if (settings.qris) {
+        qrisFloat.style.display = 'block';
+        qrisImg.src = settings.qris;
+        document.getElementById('qrisModalImg').src = settings.qris;
+      } else {
+        qrisFloat.style.display = 'none';
+      }
+      const container = document.getElementById('productContainer');
+      container.innerHTML = products.map(p => `
+        <div class="card">
+          <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/400x300/e0e0e0/999?text=No+Image'">
+          <div class="card-body">
+            <h3>${p.name}</h3>
+            <div class="price">Rp ${p.price.toLocaleString('id-ID')}</div>
+            <a class="btn-wa" href="https://wa.me/${settings.wa}?text=Halo%2C%20saya%20mau%20pesan%20${encodeURIComponent(p.name)}%20-%20Rp%20${p.price.toLocaleString('id-ID')}" target="_blank">💬 Beli via WhatsApp</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // QRIS modal
+    document.getElementById('qrisFloat').addEventListener('click', () => {
+      document.getElementById('qrisModal').classList.add('active');
+    });
+
+    // Admin
+    function loginAdmin() {
+      const pw = prompt("Masukkan password admin:");
+      if (pw === "cueku123") {
+        document.getElementById('adminPanel').classList.add('active');
+        fillAdminForm();
+      } else if (pw !== null) {
+        alert("Password salah!");
+      }
+    }
+
+    function closeAdmin() {
+      document.getElementById('adminPanel').classList.remove('active');
+      cancelEdit();
+      renderCatalog();
+    }
+
+    function fillAdminForm() {
+      const { products, settings } = loadData();
+      document.getElementById('promoInput').value = settings.promo;
+      document.getElementById('waInput').value = settings.wa;
+      document.getElementById('qrisInput').value = settings.qris;
+      renderProductList(products);
+      cancelEdit(); // reset form tambah/edit
+    }
+
+    function renderProductList(products) {
+      const list = document.getElementById('productList');
+      list.innerHTML = products.map((p, i) => `
+        <div class="product-item">
+          <span><strong>${p.name}</strong> - Rp ${p.price.toLocaleString('id-ID')}</span>
+          <span>
+            <button onclick="editProduct(${i})">✏️ Edit</button>
+            <button class="danger" onclick="deleteProduct(${i})">🗑️ Hapus</button>
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function saveSettings() {
+      let products = JSON.parse(localStorage.getItem('cueku_products'));
+      const settings = {
+        promo: document.getElementById('promoInput').value,
+        wa: document.getElementById('waInput').value,
+        qris: document.getElementById('qrisInput').value
+      };
+      localStorage.setItem('cueku_settings', JSON.stringify(settings));
+      alert("Pengaturan disimpan!");
+      fillAdminForm();
+    }
+
+    function handleAddOrUpdate() {
+      const name = document.getElementById('prodName').value.trim();
+      const price = parseInt(document.getElementById('prodPrice').value);
+      const fileInput = document.getElementById('prodImageFile');
+      const previewImg = document.getElementById('previewImage');
+
+      if (!name || !price) return alert("Nama dan harga wajib diisi!");
+
+      let products = JSON.parse(localStorage.getItem('cueku_products'));
+
+      if (editingIndex !== null) {
+        // Mode edit
+        let imageData = products[editingIndex].image; // default gambar lama
+        if (fileInput.files && fileInput.files[0]) {
+          // upload gambar baru
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            products[editingIndex] = { name, price, image: e.target.result };
+            localStorage.setItem('cueku_products', JSON.stringify(products));
+            resetForm();
+            fillAdminForm();
+          };
+          reader.readAsDataURL(fileInput.files[0]);
+          return;
+        } else {
+          products[editingIndex] = { name, price, image: imageData };
+          localStorage.setItem('cueku_products', JSON.stringify(products));
+          resetForm();
+          fillAdminForm();
+        }
+      } else {
+        // Mode tambah
+        if (!fileInput.files || !fileInput.files[0]) {
+          return alert("Pilih gambar produk dulu!");
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          products.push({ name, price, image: e.target.result });
+          localStorage.setItem('cueku_products', JSON.stringify(products));
+          resetForm();
+          fillAdminForm();
         };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    }
 
-        // DOM Elements
-        const timerElement = document.getElementById('timer');
-        const scoreElement = document.getElementById('score');
-        const levelElement = document.getElementById('level');
-        const currentLevelName = document.getElementById('current-level-name');
-        const stepTitle = document.getElementById('step-title');
-        const stepDescription = document.getElementById('step-description');
-        const cookingInteraction = document.getElementById('cooking-interaction');
-        const stepProgress = document.getElementById('step-progress');
-        const nextStepBtn = document.getElementById('next-step-btn');
-        const tools = document.querySelectorAll('.tool');
+    function editProduct(index) {
+      const products = JSON.parse(localStorage.getItem('cueku_products'));
+      const p = products[index];
+      document.getElementById('prodName').value = p.name;
+      document.getElementById('prodPrice').value = p.price;
+      // Tampilkan preview gambar
+      const previewImg = document.getElementById('previewImage');
+      previewImg.src = p.image;
+      previewImg.style.display = 'block';
+      // Kosongkan file input
+      document.getElementById('prodImageFile').value = '';
+      // Ubah mode
+      editingIndex = index;
+      document.getElementById('formTitle').textContent = '✏️ Edit Produk';
+      document.getElementById('addUpdateBtn').textContent = '✏️ Update';
+      document.getElementById('cancelEditBtn').style.display = 'inline-block';
+    }
 
-        // Initialize the game
-        document.addEventListener('DOMContentLoaded', function() {
-            attachEventListeners();
-            startTimer();
-            loadFryingInteraction();
-        });
+    function cancelEdit() {
+      editingIndex = null;
+      document.getElementById('prodName').value = '';
+      document.getElementById('prodPrice').value = '';
+      document.getElementById('prodImageFile').value = '';
+      document.getElementById('previewImage').style.display = 'none';
+      document.getElementById('formTitle').textContent = '➕ Tambah Produk Baru';
+      document.getElementById('addUpdateBtn').textContent = '➕ Tambah';
+      document.getElementById('cancelEditBtn').style.display = 'none';
+    }
 
-        // Attach event listeners
-        function attachEventListeners() {
-            // Next step button
-            nextStepBtn.addEventListener('click', nextStep);
-            
-            // Tool selection
-            tools.forEach(tool => {
-                tool.addEventListener('click', function() {
-                    tools.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-        }
+    function resetForm() {
+      cancelEdit();
+    }
 
-        // Frying interaction
-        function loadFryingInteraction() {
-            cookingInteraction.innerHTML = `
-                <div class="stove">
-                    <div class="burner active">
-                        <div class="pan">
-                            <div class="food-in-pan">🥩</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            const pan = cookingInteraction.querySelector('.pan');
-            let isFlipping = false;
-            
-            function flip() {
-                if (isFlipping) return;
-                isFlipping = true;
-                
-                gameState.flipCount++;
-                updateProgress(gameState.flipCount, 10);
-                
-                // Animate flip
-                pan.style.transform = 'rotateY(180deg)';
-                setTimeout(() => {
-                    pan.style.transform = 'rotateY(0deg)';
-                    isFlipping = false;
-                }, 300);
-            }
-            
-            // Optimized event listeners
-            pan.addEventListener('click', flip, { passive: true });
-            pan.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                flip();
-            }, { passive: false });
-        }
+    function deleteProduct(index) {
+      if (!confirm("Yakin hapus produk ini?")) return;
+      let products = JSON.parse(localStorage.getItem('cueku_products'));
+      products.splice(index, 1);
+      localStorage.setItem('cueku_products', JSON.stringify(products));
+      fillAdminForm();
+    }
 
-        // Update progress for current step
-        function updateProgress(current, target) {
-            const progress = Math.min(current / target * 100, 100);
-            stepProgress.style.width = `${progress}%`;
-            
-            if (progress >= 100) {
-                nextStepBtn.disabled = false;
-                nextStepBtn.focus();
-            }
-        }
+    function resetAll() {
+      if (confirm("⚠️ Ini akan menghapus semua produk & pengaturan. Lanjutkan?")) {
+        localStorage.removeItem('cueku_products');
+        localStorage.removeItem('cueku_settings');
+        alert("Data direset. Halaman akan dimuat ulang.");
+        location.reload();
+      }
+    }
 
-        // Move to next step
-        function nextStep() {
-            alert("Selamat! Anda telah menyelesaikan langkah ini.");
-            // Di sini akan pindah ke langkah berikutnya
-            // Untuk contoh, kita reset
-            gameState.flipCount = 0;
-            stepProgress.style.width = '0%';
-            nextStepBtn.disabled = true;
-        }
+    function previewImage(input) {
+      const preview = document.getElementById('previewImage');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          preview.src = e.target.result;
+          preview.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        preview.style.display = 'none';
+      }
+    }
 
-        // Timer functions
-        function startTimer() {
-            gameState.timerInterval = setInterval(() => {
-                gameState.timeLeft--;
-                updateTimerDisplay();
-                
-                if (gameState.timeLeft <= 0) {
-                    timeUp();
-                }
-            }, 1000);
-        }
-
-        function stopTimer() {
-            if (gameState.timerInterval) {
-                clearInterval(gameState.timerInterval);
-                gameState.timerInterval = null;
-            }
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(gameState.timeLeft / 60);
-            const seconds = gameState.timeLeft % 60;
-            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            // Change color when time is running out
-            if (gameState.timeLeft < 60) {
-                timerElement.style.color = 'var(--light-red)';
-            } else {
-                timerElement.style.color = 'var(--white)';
-            }
-        }
-
-        function timeUp() {
-            stopTimer();
-            alert('Waktu habis! Hidanganmu tidak jadi. Coba lagi!');
-        }
-
-        // Optimasi performa
-        // Mencegah default behavior untuk touch events
-        document.addEventListener('touchmove', function(e) {
-            e.preventDefault();
-        }, { passive: false });
-
-        // Optimasi animasi dengan requestAnimationFrame
-        function optimizeAnimations() {
-            // Gunakan transform dan opacity untuk animasi yang smooth
-            const elements = document.querySelectorAll('.tool, .ingredient, .pan');
-            elements.forEach(el => {
-                el.style.willChange = 'transform';
-            });
-        }
-
-        // Panggil optimasi setelah DOM loaded
-        window.addEventListener('load', optimizeAnimations);
-    </script>
+    // Init
+    renderCatalog();
+  </script>
 </body>
 </html>
