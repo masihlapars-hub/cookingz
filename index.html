@@ -31,7 +31,6 @@
             100% { background: #e8f0fe; }
         }
 
-        /* Floating cute elements */
         .cute-bg {
             position: fixed;
             top: 0;
@@ -254,7 +253,6 @@
             transform: scale(1.03);
         }
 
-        /* admin panel */
         .admin-section {
             margin-top: 2.5rem;
             background: rgba(255, 255, 255, 0.8);
@@ -446,13 +444,13 @@
                 <textarea id="pDesc" class="form-control" rows="2" placeholder="Deskripsi singkat..."></textarea>
             </div>
             <div class="form-group">
-                <label>Upload Gambar</label>
+                <label>Upload Gambar (dari HP/Laptop)</label>
                 <input type="file" id="imageFile" accept="image/*" style="display:none;">
                 <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📸 Pilih Gambar</button>
                 <img id="imgPreview" class="preview-img" alt="preview">
             </div>
             <div class="form-group">
-                <label>Atau URL Gambar</label>
+                <label>Atau URL Gambar (jangan lupa upload dulu ke imgbb.com ya)</label>
                 <input type="text" id="pImageUrl" class="form-control" placeholder="https://i.imgur.com/...jpg">
             </div>
             <button class="btn btn-primary" onclick="addProduct()">✨ Simpan Produk</button>
@@ -469,7 +467,7 @@
 
     <script>
         (function() {
-            const STORAGE_KEY = 'cueku_cute_v5';
+            const STORAGE_KEY = 'cueku_cute_v6';
             const ADMIN_PASS = 'cueku2020';
             const WA_NUMBER = '62895419050123';
 
@@ -477,7 +475,7 @@
             let isAdmin = false;
             let selectedImageData = null;
 
-            // Generate floating cute emojis
+            // Floating cute emojis
             const cuteEmojis = ['🌸', '🩷', '🧸', '🍰', '🎀', '💖', '🦄', '🍭', '💕', '✨'];
             const bg = document.getElementById('cuteBg');
             for (let i = 0; i < 18; i++) {
@@ -494,6 +492,7 @@
                 if (stored) {
                     try { products = JSON.parse(stored); } catch(e) { products = []; }
                 } else {
+                    // Produk contoh dengan gambar valid
                     products = [
                         { id: Date.now()+1, name: 'Tas Ransel Pink', price: 450000, desc: 'Imut & elegan.', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
                         { id: Date.now()+2, name: 'Sneakers Pastel', price: 320000, desc: 'Nyaman & lucu.', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
@@ -502,7 +501,9 @@
                 }
             }
 
-            function saveProducts() { localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); }
+            function saveProducts() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+            }
 
             function renderCatalog() {
                 const grid = document.getElementById('productGrid');
@@ -517,7 +518,7 @@
                     const waMsg = `Hai Cueku Store, aku mau ${p.name} (Rp${price}) dong! 🌸`;
                     html += `
                     <div class="card">
-                        <img src="${p.image}" class="card-img" onerror="this.src='https://via.placeholder.com/400x240/fff0f5/d63384?text=No+Image'">
+                        <img src="${p.image}" class="card-img" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x240/fff0f5/d63384?text=No+Image';">
                         <div class="card-body">
                             <h3>${p.name}</h3>
                             <p>${p.desc || 'Lucu banget!'}</p>
@@ -534,12 +535,15 @@
             function renderAdminList() {
                 const list = document.getElementById('adminProductList');
                 if (!list) return;
-                if (products.length === 0) { list.innerHTML = '<p style="color:#b47b8c;">Belum ada.</p>'; return; }
+                if (products.length === 0) {
+                    list.innerHTML = '<p style="color:#b47b8c;">Belum ada produk.</p>';
+                    return;
+                }
                 let chips = '';
                 products.forEach(p => {
                     chips += `
                     <div class="product-chip">
-                        <img src="${p.image}" onerror="this.src='https://via.placeholder.com/40'">
+                        <img src="${p.image}" onerror="this.src='https://via.placeholder.com/40/fff0f5/d63384?text=X';">
                         <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
                         <button class="btn-delete" onclick="deleteProduct(${p.id})"><i class="fas fa-times-circle"></i></button>
                     </div>`;
@@ -549,27 +553,58 @@
 
             window.deleteProduct = function(id) {
                 products = products.filter(p => p.id !== id);
-                saveProducts(); renderCatalog(); renderAdminList();
+                saveProducts();
+                renderCatalog();
+                renderAdminList();
             };
 
+            // Perbaikan upload gambar dengan kompresi & validasi
             document.getElementById('imageFile').addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
+
+                // Validasi tipe file
+                if (!file.type.startsWith('image/')) {
+                    alert('File harus berupa gambar! 🖼️');
+                    return;
+                }
+
                 const reader = new FileReader();
                 reader.onload = function(ev) {
                     const img = new Image();
                     img.onload = function() {
+                        // Kompresi gambar
                         const canvas = document.createElement('canvas');
-                        let w = img.width, h = img.height, maxW = 800;
-                        if (w > maxW) { h *= maxW/w; w = maxW; }
-                        canvas.width = w; canvas.height = h;
+                        let w = img.width;
+                        let h = img.height;
+                        const maxW = 800; // maks lebar 800px
+                        if (w > maxW) {
+                            h *= maxW / w;
+                            w = maxW;
+                        }
+                        canvas.width = w;
+                        canvas.height = h;
                         const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img,0,0,w,h);
-                        selectedImageData = canvas.toDataURL('image/jpeg', 0.7);
-                        document.getElementById('imgPreview').src = selectedImageData;
-                        document.getElementById('imgPreview').style.display = 'block';
+                        ctx.drawImage(img, 0, 0, w, h);
+                        // Konversi ke base64 JPEG dengan kualitas 0.7
+                        try {
+                            selectedImageData = canvas.toDataURL('image/jpeg', 0.7);
+                            // Tampilkan preview
+                            const preview = document.getElementById('imgPreview');
+                            preview.src = selectedImageData;
+                            preview.style.display = 'block';
+                        } catch (err) {
+                            alert('Gagal memproses gambar. Coba gambar lain. 😢');
+                            console.error(err);
+                        }
+                    };
+                    img.onerror = function() {
+                        alert('Gambar rusak atau tidak bisa dibaca. 🥺');
                     };
                     img.src = ev.target.result;
+                };
+                reader.onerror = function() {
+                    alert('Gagal membaca file. 🥺');
                 };
                 reader.readAsDataURL(file);
             });
@@ -579,14 +614,39 @@
                 const price = parseInt(document.getElementById('pPrice').value);
                 const desc = document.getElementById('pDesc').value.trim();
                 const url = document.getElementById('pImageUrl').value.trim();
-                if (!name || isNaN(price) || price<=0) { alert('Isi nama & harga ya!'); return; }
-                let image = null;
-                if (selectedImageData) image = selectedImageData;
-                else if (url) image = url;
-                else { alert('Upload gambar atau isi URL.'); return; }
 
-                products.push({ id: Date.now(), name, price, desc, image });
-                saveProducts();
+                if (!name || isNaN(price) || price <= 0) {
+                    alert('Isi nama dan harga dengan benar ya! 🧐');
+                    return;
+                }
+
+                let image = null;
+                if (selectedImageData) {
+                    image = selectedImageData;
+                } else if (url) {
+                    // Validasi URL sederhana
+                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                        alert('URL gambar harus diawali http:// atau https:// 🌐');
+                        return;
+                    }
+                    image = url;
+                } else {
+                    alert('Upload gambar dulu, atau isi URL gambar ya! 🖼️');
+                    return;
+                }
+
+                // Cek ukuran data (localStorage batas ~5-10MB, aman)
+                const newProduct = { id: Date.now(), name, price, desc, image };
+                products.push(newProduct);
+                try {
+                    saveProducts();
+                } catch (e) {
+                    alert('Gagal menyimpan, mungkin memori penuh. Hapus beberapa produk lama dulu. 😢');
+                    products.pop(); // hapus produk yang gagal
+                    return;
+                }
+
+                // Reset form
                 document.getElementById('pName').value = '';
                 document.getElementById('pPrice').value = '';
                 document.getElementById('pDesc').value = '';
@@ -594,8 +654,10 @@
                 document.getElementById('pImageUrl').value = '';
                 document.getElementById('imgPreview').style.display = 'none';
                 selectedImageData = null;
-                renderCatalog(); renderAdminList();
-                alert('Yeay! Produk imut ditambahkan! 🎉');
+
+                renderCatalog();
+                renderAdminList();
+                alert('Yeay! Produk imut berhasil ditambahkan! 🎉');
             };
 
             window.toggleAdmin = function() {
@@ -616,7 +678,9 @@
                     document.getElementById('adminBtn').classList.add('hidden');
                     document.getElementById('logoutBtn').classList.remove('hidden');
                     renderAdminList();
-                } else { alert('Password salah! 🥺'); }
+                } else {
+                    alert('Password salah! 🥺');
+                }
             };
 
             window.logout = function() {
