@@ -1,698 +1,721 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Cueku Store | Cute Catalog</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cueku Store | Cute Catalog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: #fce4ec;
-            color: #4a2c3e;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            animation: bgFloat 8s ease-in-out infinite alternate;
-        }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fce4ec;
+      color: #4a2c3e;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      animation: bgFloat 10s ease-in-out infinite alternate;
+    }
 
-        @keyframes bgFloat {
-            0% { background: #fce4ec; }
-            50% { background: #f8e8ff; }
-            100% { background: #e8f0fe; }
-        }
+    @keyframes bgFloat {
+      0% { background: #fce4ec; }
+      50% { background: #f8e8ff; }
+      100% { background: #e8f0fe; }
+    }
 
-        .cute-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
+    .cute-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
 
-        .cute-bg span {
-            position: absolute;
-            display: block;
-            animation: floatUp 10s linear infinite;
-            opacity: 0.6;
-            font-size: 1.8rem;
-        }
+    .cute-bg span {
+      position: absolute;
+      display: block;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.6;
+      font-size: 1.8rem;
+    }
 
-        @keyframes floatUp {
-            0% {
-                transform: translateY(110vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-10vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    @keyframes floatUp {
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
 
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-bottom: 2px solid rgba(255, 182, 193, 0.5);
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 1rem;
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.15);
-            border-radius: 0 0 3rem 3rem;
-        }
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-bottom: 2px solid rgba(255, 182, 193, 0.5);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.15);
+      border-radius: 0 0 3rem 3rem;
+    }
 
-        .logo h1 {
-            font-weight: 800;
-            font-size: 2.2rem;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #ff6b9d, #c44dff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
+    .logo h1 {
+      font-weight: 800;
+      font-size: 2.2rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ff6b9d, #c44dff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .logo span {
-            font-size: 0.8rem;
-            color: #b47b8c;
-            font-weight: 600;
-        }
+    .logo span {
+      font-size: 0.8rem;
+      color: #b47b8c;
+      font-weight: 600;
+    }
 
-        .btn {
-            padding: 0.7rem 1.8rem;
-            border-radius: 3rem;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
+    .btn {
+      padding: 0.7rem 1.8rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
 
-        .btn-outline {
-            background: rgba(255, 255, 255, 0.8);
-            border: 2px solid #ffb6c1;
-            color: #d63384;
-            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
-        }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid #ffb6c1;
+      color: #d63384;
+      box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+    }
 
-        .btn-outline:hover {
-            background: #ffe4ec;
-            border-color: #ff69b4;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 20, 147, 0.3);
-        }
+    .btn-outline:hover {
+      background: #ffe4ec;
+      border-color: #ff69b4;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255, 20, 147, 0.3);
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #ff8aaf, #c44dff);
-            color: white;
-            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff8aaf, #c44dff);
+      color: white;
+      box-shadow: 0 10px 20px rgba(255, 105, 180, 0.4);
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 18px 30px rgba(255, 20, 147, 0.5);
-            filter: brightness(1.05);
-        }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 30px rgba(255, 20, 147, 0.5);
+      filter: brightness(1.05);
+    }
 
-        .btn-wa {
-            background: linear-gradient(135deg, #25D366, #1da851);
-            color: white;
-            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
-        }
+    .btn-wa {
+      background: linear-gradient(135deg, #25D366, #1da851);
+      color: white;
+      box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
+    }
 
-        .btn-wa:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 18px 28px rgba(37, 211, 102, 0.6);
-        }
+    .btn-wa:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 28px rgba(37, 211, 102, 0.6);
+    }
 
-        .container {
-            max-width: 1300px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
+    .container {
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 2.5rem;
-            margin-top: 1.5rem;
-        }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 2.5rem;
+      margin-top: 1.5rem;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-radius: 3rem;
-            overflow: hidden;
-            border: 2px solid rgba(255, 192, 203, 0.6);
-            box-shadow: 0 25px 40px rgba(255, 105, 180, 0.15);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 3rem;
+      overflow: hidden;
+      border: 2px solid rgba(255, 192, 203, 0.6);
+      box-shadow: 0 25px 40px rgba(255, 105, 180, 0.15);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #ff69b4;
-            box-shadow: 0 35px 55px rgba(255, 20, 147, 0.25), 0 0 30px rgba(255, 182, 193, 0.4);
-            animation: bounceSoft 0.6s ease;
-        }
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: #ff69b4;
+      box-shadow: 0 35px 55px rgba(255, 20, 147, 0.25), 0 0 30px rgba(255, 182, 193, 0.4);
+      animation: bounceSoft 0.6s ease;
+    }
 
-        @keyframes bounceSoft {
-            0%, 100% { transform: translateY(-10px) scale(1.02); }
-            50% { transform: translateY(-15px) scale(1.03); }
-        }
+    @keyframes bounceSoft {
+      0%, 100% { transform: translateY(-10px) scale(1.02); }
+      50% { transform: translateY(-15px) scale(1.03); }
+    }
 
-        .card-img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            background: #fff0f5;
-            transition: transform 0.5s ease;
-        }
+    .card-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      background: #fff0f5;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
 
-        .card:hover .card-img {
-            transform: scale(1.08);
-        }
+    .card:hover .card-img {
+      transform: scale(1.08);
+    }
 
-        .card-body {
-            padding: 1.6rem;
-            display: flex;
-            flex-direction: column;
-        }
+    .card-body {
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .card-body h3 {
-            font-weight: 800;
-            font-size: 1.3rem;
-            margin-bottom: 0.3rem;
-            color: #d6336c;
-        }
+    .card-body h3 {
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+      color: #d6336c;
+    }
 
-        .card-body p {
-            color: #7d5a6b;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            flex: 1;
-        }
+    .card-body p {
+      color: #7d5a6b;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
 
-        .price {
-            font-weight: 800;
-            font-size: 1.7rem;
-            color: #c44dff;
-            margin-bottom: 1.2rem;
-        }
+    .price {
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: #c44dff;
+      margin-bottom: 1.2rem;
+    }
 
-        .order-btn {
-            background: linear-gradient(135deg, #ff69b4, #ff1493);
-            color: white;
-            padding: 0.8rem;
-            border-radius: 2.5rem;
-            text-align: center;
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 10px 18px rgba(255, 20, 147, 0.35);
-            transition: 0.3s;
-        }
+    .order-btn {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      padding: 0.8rem;
+      border-radius: 2.5rem;
+      text-align: center;
+      font-weight: 700;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 10px 18px rgba(255, 20, 147, 0.35);
+      transition: 0.3s;
+    }
 
-        .order-btn:hover {
-            filter: brightness(1.1);
-            box-shadow: 0 15px 25px rgba(255, 20, 147, 0.5);
-            transform: scale(1.03);
-        }
+    .order-btn:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 15px 25px rgba(255, 20, 147, 0.5);
+      transform: scale(1.03);
+    }
 
-        .admin-section {
-            margin-top: 2.5rem;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(30px);
-            border-radius: 3rem;
-            padding: 2.5rem;
-            border: 2px solid rgba(255, 182, 193, 0.6);
-            box-shadow: 0 30px 45px rgba(255, 105, 180, 0.2);
-            display: none;
-        }
+    .admin-section {
+      margin-top: 2.5rem;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(30px);
+      border-radius: 3rem;
+      padding: 2.5rem;
+      border: 2px solid rgba(255, 182, 193, 0.6);
+      box-shadow: 0 30px 45px rgba(255, 105, 180, 0.2);
+      display: none;
+    }
 
-        .admin-section.active {
-            display: block;
-            animation: fadeSlide 0.5s ease;
-        }
+    .admin-section.active {
+      display: block;
+      animation: fadeSlide 0.5s ease;
+    }
 
-        @keyframes fadeSlide {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .admin-title {
-            font-weight: 800;
-            font-size: 1.8rem;
-            color: #d63384;
-            margin-bottom: 2rem;
-        }
+    .admin-title {
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #d63384;
+      margin-bottom: 2rem;
+    }
 
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-            margin-bottom: 1.2rem;
-        }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
 
-        .form-group label {
-            font-weight: 700;
-            color: #b44d6e;
-            display: block;
-            margin-bottom: 0.4rem;
-        }
+    .form-group label {
+      font-weight: 700;
+      color: #b44d6e;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
 
-        .form-control {
-            width: 100%;
-            padding: 0.9rem 1.3rem;
-            border: 2px solid #ffb6c1;
-            border-radius: 1.5rem;
-            background: #fff5f9;
-            font-family: 'Nunito', sans-serif;
-        }
+    .form-control {
+      width: 100%;
+      padding: 0.9rem 1.3rem;
+      border: 2px solid #ffb6c1;
+      border-radius: 1.5rem;
+      background: #fff5f9;
+      font-family: 'Nunito', sans-serif;
+    }
 
-        .form-control:focus {
-            outline: none;
-            border-color: #ff69b4;
-            box-shadow: 0 0 12px rgba(255, 20, 147, 0.25);
-        }
+    .form-control:focus {
+      outline: none;
+      border-color: #ff69b4;
+      box-shadow: 0 0 12px rgba(255, 20, 147, 0.25);
+    }
 
-        .preview-img {
-            width: 75px;
-            height: 75px;
-            object-fit: cover;
-            border-radius: 1.2rem;
-            margin-top: 0.8rem;
-            border: 2px dashed #ffb6c1;
-            display: none;
-        }
+    .preview-img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 1.2rem;
+      margin-top: 0.8rem;
+      border: 2px dashed #ffb6c1;
+      display: none;
+    }
 
-        .product-list-mini {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
+    .product-list-mini {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
 
-        .product-chip {
-            background: #ffeef4;
-            padding: 0.6rem 1.4rem;
-            border-radius: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            border: 2px solid #ffb6c1;
-        }
+    .product-chip {
+      background: #ffeef4;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      border: 2px solid #ffb6c1;
+    }
 
-        .product-chip img {
-            width: 40px;
-            height: 40px;
-            border-radius: 1rem;
-            object-fit: cover;
-        }
+    .product-chip img {
+      width: 40px;
+      height: 40px;
+      border-radius: 1rem;
+      object-fit: cover;
+    }
 
-        .btn-delete {
-            background: none;
-            border: none;
-            color: #ff4d6d;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: 0.2s;
-        }
+    .btn-delete {
+      background: none;
+      border: none;
+      color: #ff4d6d;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: 0.2s;
+    }
 
-        .btn-delete:hover {
-            transform: scale(1.2);
-            color: #d9042b;
-        }
+    .btn-delete:hover {
+      transform: scale(1.2);
+      color: #d9042b;
+    }
 
-        .login-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(255, 192, 203, 0.6);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-        }
+    /* Lightbox */
+    .lightbox-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
-        .login-box {
-            background: white;
-            padding: 3rem;
-            border-radius: 3rem;
-            text-align: center;
-            box-shadow: 0 30px 50px rgba(255, 20, 147, 0.3);
-            border: 2px solid #ffb6c1;
-        }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
 
-        .login-box h3 {
-            color: #d63384;
-            font-weight: 800;
-        }
+    .lightbox-content img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 3px solid white;
+    }
 
-        .hidden {
-            display: none !important;
-        }
+    .close-lightbox {
+      position: absolute;
+      top: -15px; right: -15px;
+      background: white;
+      border-radius: 50%;
+      width: 40px; height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      color: #d63384;
+      border: none;
+    }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #b47b8c;
-            margin-top: 2rem;
-        }
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 192, 203, 0.6);
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
 
-        @media (max-width: 640px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .login-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 3rem;
+      text-align: center;
+      box-shadow: 0 30px 50px rgba(255, 20, 147, 0.3);
+      border: 2px solid #ffb6c1;
+    }
+
+    .login-box h3 {
+      color: #d63384;
+      font-weight: 800;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #b47b8c;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <div class="cute-bg" id="cuteBg"></div>
+<div class="cute-bg" id="cuteBg"></div>
 
-    <div class="login-overlay hidden" id="loginOverlay">
-        <div class="login-box">
-            <h3>🌸 Admin 🌸</h3>
-            <input type="password" id="passInput" class="form-control" placeholder="Kata sandi" autocomplete="off">
-            <button class="btn btn-primary" onclick="login()" style="width:100%; justify-content:center; margin-top:1rem;">Masuk ✨</button>
-        </div>
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <button class="close-lightbox" onclick="closeLightbox()">&times;</button>
+    <img id="lightboxImg" src="" alt="product preview">
+  </div>
+</div>
+
+<!-- Login -->
+<div id="loginOverlay" class="login-overlay hidden">
+  <div class="login-box">
+    <h3>🌸 Admin 🌸</h3>
+    <input type="password" id="passInput" class="form-control" placeholder="Kata sandi" autocomplete="off">
+    <button class="btn btn-primary" onclick="login()" style="width:100%; justify-content:center; margin-top:1rem;">Masuk ✨</button>
+  </div>
+</div>
+
+<header class="header">
+  <div class="logo">
+    <h1>🧸 CUEKU STORE</h1>
+    <span>🌸 Cute Catalog · Since 2020 🌸</span>
+  </div>
+  <div style="display:flex; gap:0.6rem; align-items:center;">
+    <button id="adminBtn" class="btn btn-outline" onclick="toggleAdmin()">🍭 Admin</button>
+    <button id="logoutBtn" class="btn btn-outline hidden" onclick="logout()">🚪 Tutup</button>
+    <a href="https://wa.me/62895419050123" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat</a>
+  </div>
+</header>
+
+<main class="container">
+  <div id="productGrid" class="product-grid"></div>
+
+  <div id="adminPanel" class="admin-section">
+    <h2 class="admin-title">🍰 Tambah Produk Imut</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nama</label>
+        <input type="text" id="pName" class="form-control" placeholder="Nama produk lucu">
+      </div>
+      <div class="form-group">
+        <label>Harga (Rp) · bebas 2000-50000</label>
+        <input type="number" id="pPrice" class="form-control" placeholder="2000" min="0" step="1">
+      </div>
     </div>
+    <div class="form-group">
+      <label>Deskripsi</label>
+      <textarea id="pDesc" class="form-control" rows="2" placeholder="Deskripsi singkat..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Upload Gambar</label>
+      <input type="file" id="imageFile" accept="image/*" style="display:none;">
+      <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📸 Pilih Gambar</button>
+      <img id="imgPreview" class="preview-img" alt="preview">
+    </div>
+    <div class="form-group">
+      <label>Atau URL Gambar</label>
+      <input type="text" id="pImageUrl" class="form-control" placeholder="https://i.imgur.com/...jpg">
+    </div>
+    <button class="btn btn-primary" onclick="addProduct()">✨ Simpan Produk</button>
+    <div style="margin-top:2.5rem;">
+      <h4 style="color:#d63384;">🧁 Produk Tersimpan</h4>
+      <div id="adminProductList" class="product-list-mini"></div>
+    </div>
+  </div>
+</main>
 
-    <header class="header">
-        <div class="logo">
-            <h1>🧸 CUEKU STORE</h1>
-            <span>🌸 Cute Catalog · Since 2020 🌸</span>
-        </div>
-        <div style="display:flex; gap:0.6rem; align-items:center;">
-            <button id="adminBtn" class="btn btn-outline" onclick="toggleAdmin()">🍭 Admin</button>
-            <button id="logoutBtn" class="btn btn-outline hidden" onclick="logout()">🚪 Tutup</button>
-            <a href="https://wa.me/62895419050123" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat</a>
-        </div>
-    </header>
+<footer>&copy; 2020 Cueku Store. Made with 💖</footer>
 
-    <main class="container">
-        <div id="productGrid" class="product-grid"></div>
+<script>
+  (function() {
+    const STORAGE_KEY = 'cueku_cute_v7';
+    const ADMIN_PASS = 'cueku2020';
+    const WA_NUMBER = '62895419050123';
 
-        <div id="adminPanel" class="admin-section">
-            <h2 class="admin-title">🍰 Tambah Produk Imut</h2>
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" id="pName" class="form-control" placeholder="Nama produk lucu">
-                </div>
-                <div class="form-group">
-                    <label>Harga (Rp)</label>
-                    <input type="number" id="pPrice" class="form-control" placeholder="150000">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Deskripsi</label>
-                <textarea id="pDesc" class="form-control" rows="2" placeholder="Deskripsi singkat..."></textarea>
-            </div>
-            <div class="form-group">
-                <label>Upload Gambar (dari HP/Laptop)</label>
-                <input type="file" id="imageFile" accept="image/*" style="display:none;">
-                <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📸 Pilih Gambar</button>
-                <img id="imgPreview" class="preview-img" alt="preview">
-            </div>
-            <div class="form-group">
-                <label>Atau URL Gambar (jangan lupa upload dulu ke imgbb.com ya)</label>
-                <input type="text" id="pImageUrl" class="form-control" placeholder="https://i.imgur.com/...jpg">
-            </div>
-            <button class="btn btn-primary" onclick="addProduct()">✨ Simpan Produk</button>
-            <div style="margin-top:2.5rem;">
-                <h4 style="color:#d63384;">🧁 Produk Tersimpan</h4>
-                <div id="adminProductList" class="product-list-mini"></div>
-            </div>
-        </div>
-    </main>
+    let products = [];
+    let isAdmin = false;
+    let selectedImageData = null;
 
-    <footer>
-        &copy; 2020 Cueku Store. Made with 💖
-    </footer>
+    // Cute floating emojis
+    const cuteEmojis = ['🌸', '🩷', '🧸', '🍰', '🎀', '💖', '🦄', '🍭', '💕', '✨'];
+    const bg = document.getElementById('cuteBg');
+    for (let i = 0; i < 18; i++) {
+      const span = document.createElement('span');
+      span.textContent = cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
+      span.style.left = Math.random() * 100 + '%';
+      span.style.animationDelay = Math.random() * 8 + 's';
+      span.style.fontSize = (1.4 + Math.random() * 2) + 'rem';
+      bg.appendChild(span);
+    }
 
-    <script>
-        (function() {
-            const STORAGE_KEY = 'cueku_cute_v6';
-            const ADMIN_PASS = 'cueku2020';
-            const WA_NUMBER = '62895419050123';
+    function loadProducts() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try { products = JSON.parse(stored); } catch(e) { products = []; }
+      } else {
+        products = [
+          { id: Date.now()+1, name: 'Tas Ransel Pink', price: 45000, desc: 'Imut & elegan.', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
+          { id: Date.now()+2, name: 'Sneakers Pastel', price: 32000, desc: 'Nyaman & lucu.', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
+        ];
+        saveProducts();
+      }
+    }
 
-            let products = [];
-            let isAdmin = false;
-            let selectedImageData = null;
+    function saveProducts() { localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); }
 
-            // Floating cute emojis
-            const cuteEmojis = ['🌸', '🩷', '🧸', '🍰', '🎀', '💖', '🦄', '🍭', '💕', '✨'];
-            const bg = document.getElementById('cuteBg');
-            for (let i = 0; i < 18; i++) {
-                const span = document.createElement('span');
-                span.textContent = cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
-                span.style.left = Math.random() * 100 + '%';
-                span.style.animationDelay = Math.random() * 8 + 's';
-                span.style.fontSize = (1.4 + Math.random() * 2) + 'rem';
-                bg.appendChild(span);
-            }
+    function renderCatalog() {
+      const grid = document.getElementById('productGrid');
+      if (!grid) return;
+      if (products.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:3rem; color:#b47b8c;">🌸 Belum ada produk imut. Tambahkan yuk!</div>';
+        return;
+      }
+      let html = '';
+      products.forEach(p => {
+        const price = new Intl.NumberFormat('id-ID').format(p.price);
+        const waMsg = `Hai Cueku Store, aku mau ${p.name} (Rp${price}) dong! 🌸`;
+        html += `
+        <div class="card">
+          <img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g, "\\'")}')" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x240/fff0f5/d63384?text=No+Image';">
+          <div class="card-body">
+            <h3>${p.name}</h3>
+            <p>${p.desc || 'Lucu banget!'}</p>
+            <div class="price">Rp${price}</div>
+            <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}" target="_blank" class="order-btn">
+              <i class="fab fa-whatsapp"></i> Order via WhatsApp
+            </a>
+          </div>
+        </div>`;
+      });
+      grid.innerHTML = html;
+    }
 
-            function loadProducts() {
-                const stored = localStorage.getItem(STORAGE_KEY);
-                if (stored) {
-                    try { products = JSON.parse(stored); } catch(e) { products = []; }
-                } else {
-                    // Produk contoh dengan gambar valid
-                    products = [
-                        { id: Date.now()+1, name: 'Tas Ransel Pink', price: 450000, desc: 'Imut & elegan.', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
-                        { id: Date.now()+2, name: 'Sneakers Pastel', price: 320000, desc: 'Nyaman & lucu.', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
-                    ];
-                    saveProducts();
-                }
-            }
+    function renderAdminList() {
+      const list = document.getElementById('adminProductList');
+      if (!list) return;
+      if (products.length === 0) {
+        list.innerHTML = '<p style="color:#b47b8c;">Belum ada produk.</p>';
+        return;
+      }
+      let chips = '';
+      products.forEach(p => {
+        chips += `
+        <div class="product-chip">
+          <img src="${p.image}" onerror="this.src='https://via.placeholder.com/40/fff0f5/d63384?text=X';">
+          <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
+          <button class="btn-delete" onclick="deleteProduct(${p.id})"><i class="fas fa-times-circle"></i></button>
+        </div>`;
+      });
+      list.innerHTML = chips;
+    }
 
-            function saveProducts() {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-            }
+    window.deleteProduct = function(id) {
+      products = products.filter(p => p.id !== id);
+      saveProducts();
+      renderCatalog();
+      renderAdminList();
+    };
 
-            function renderCatalog() {
-                const grid = document.getElementById('productGrid');
-                if (!grid) return;
-                if (products.length === 0) {
-                    grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:3rem; color:#b47b8c;">🌸 Belum ada produk imut. Tambahkan yuk!</div>';
-                    return;
-                }
-                let html = '';
-                products.forEach(p => {
-                    const price = new Intl.NumberFormat('id-ID').format(p.price);
-                    const waMsg = `Hai Cueku Store, aku mau ${p.name} (Rp${price}) dong! 🌸`;
-                    html += `
-                    <div class="card">
-                        <img src="${p.image}" class="card-img" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x240/fff0f5/d63384?text=No+Image';">
-                        <div class="card-body">
-                            <h3>${p.name}</h3>
-                            <p>${p.desc || 'Lucu banget!'}</p>
-                            <div class="price">Rp${price}</div>
-                            <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}" target="_blank" class="order-btn">
-                                <i class="fab fa-whatsapp"></i> Order via WhatsApp
-                            </a>
-                        </div>
-                    </div>`;
-                });
-                grid.innerHTML = html;
-            }
+    window.openLightbox = function(imgSrc) {
+      document.getElementById('lightboxImg').src = imgSrc;
+      document.getElementById('lightbox').style.display = 'flex';
+    };
 
-            function renderAdminList() {
-                const list = document.getElementById('adminProductList');
-                if (!list) return;
-                if (products.length === 0) {
-                    list.innerHTML = '<p style="color:#b47b8c;">Belum ada produk.</p>';
-                    return;
-                }
-                let chips = '';
-                products.forEach(p => {
-                    chips += `
-                    <div class="product-chip">
-                        <img src="${p.image}" onerror="this.src='https://via.placeholder.com/40/fff0f5/d63384?text=X';">
-                        <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
-                        <button class="btn-delete" onclick="deleteProduct(${p.id})"><i class="fas fa-times-circle"></i></button>
-                    </div>`;
-                });
-                list.innerHTML = chips;
-            }
+    window.closeLightbox = function() {
+      document.getElementById('lightbox').style.display = 'none';
+      document.getElementById('lightboxImg').src = '';
+    };
 
-            window.deleteProduct = function(id) {
-                products = products.filter(p => p.id !== id);
-                saveProducts();
-                renderCatalog();
-                renderAdminList();
-            };
+    // Upload & compress
+    document.getElementById('imageFile').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        alert('File harus gambar! 🖼️');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          const maxW = 800;
+          if (w > maxW) { h *= maxW / w; w = maxW; }
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          try {
+            selectedImageData = canvas.toDataURL('image/jpeg', 0.7);
+            const preview = document.getElementById('imgPreview');
+            preview.src = selectedImageData;
+            preview.style.display = 'block';
+          } catch (err) {
+            alert('Gagal memproses gambar. 😢');
+          }
+        };
+        img.onerror = () => alert('Gambar tidak terbaca. 🥺');
+        img.src = ev.target.result;
+      };
+      reader.onerror = () => alert('Gagal membaca file. 🥺');
+      reader.readAsDataURL(file);
+    });
 
-            // Perbaikan upload gambar dengan kompresi & validasi
-            document.getElementById('imageFile').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
+    window.addProduct = function() {
+      const name = document.getElementById('pName').value.trim();
+      const price = parseInt(document.getElementById('pPrice').value);
+      const desc = document.getElementById('pDesc').value.trim();
+      const url = document.getElementById('pImageUrl').value.trim();
 
-                // Validasi tipe file
-                if (!file.type.startsWith('image/')) {
-                    alert('File harus berupa gambar! 🖼️');
-                    return;
-                }
+      if (!name || isNaN(price) || price <= 0) {
+        alert('Isi nama dan harga dengan benar ya! 🧐');
+        return;
+      }
+      let image = null;
+      if (selectedImageData) image = selectedImageData;
+      else if (url) {
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+          alert('URL harus http/https 🌐');
+          return;
+        }
+        image = url;
+      } else {
+        alert('Upload gambar atau isi URL dulu ya! 🖼️');
+        return;
+      }
 
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    const img = new Image();
-                    img.onload = function() {
-                        // Kompresi gambar
-                        const canvas = document.createElement('canvas');
-                        let w = img.width;
-                        let h = img.height;
-                        const maxW = 800; // maks lebar 800px
-                        if (w > maxW) {
-                            h *= maxW / w;
-                            w = maxW;
-                        }
-                        canvas.width = w;
-                        canvas.height = h;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, w, h);
-                        // Konversi ke base64 JPEG dengan kualitas 0.7
-                        try {
-                            selectedImageData = canvas.toDataURL('image/jpeg', 0.7);
-                            // Tampilkan preview
-                            const preview = document.getElementById('imgPreview');
-                            preview.src = selectedImageData;
-                            preview.style.display = 'block';
-                        } catch (err) {
-                            alert('Gagal memproses gambar. Coba gambar lain. 😢');
-                            console.error(err);
-                        }
-                    };
-                    img.onerror = function() {
-                        alert('Gambar rusak atau tidak bisa dibaca. 🥺');
-                    };
-                    img.src = ev.target.result;
-                };
-                reader.onerror = function() {
-                    alert('Gagal membaca file. 🥺');
-                };
-                reader.readAsDataURL(file);
-            });
+      const newProduct = { id: Date.now(), name, price, desc, image };
+      products.push(newProduct);
+      try { saveProducts(); } catch(e) {
+        alert('Penyimpanan penuh, hapus produk lama dulu. 😢');
+        products.pop();
+        return;
+      }
 
-            window.addProduct = function() {
-                const name = document.getElementById('pName').value.trim();
-                const price = parseInt(document.getElementById('pPrice').value);
-                const desc = document.getElementById('pDesc').value.trim();
-                const url = document.getElementById('pImageUrl').value.trim();
+      document.getElementById('pName').value = '';
+      document.getElementById('pPrice').value = '';
+      document.getElementById('pDesc').value = '';
+      document.getElementById('imageFile').value = '';
+      document.getElementById('pImageUrl').value = '';
+      document.getElementById('imgPreview').style.display = 'none';
+      selectedImageData = null;
 
-                if (!name || isNaN(price) || price <= 0) {
-                    alert('Isi nama dan harga dengan benar ya! 🧐');
-                    return;
-                }
+      renderCatalog();
+      renderAdminList();
+      alert('Yeay! Produk imut ditambahkan! 🎉');
+    };
 
-                let image = null;
-                if (selectedImageData) {
-                    image = selectedImageData;
-                } else if (url) {
-                    // Validasi URL sederhana
-                    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                        alert('URL gambar harus diawali http:// atau https:// 🌐');
-                        return;
-                    }
-                    image = url;
-                } else {
-                    alert('Upload gambar dulu, atau isi URL gambar ya! 🖼️');
-                    return;
-                }
+    window.toggleAdmin = function() {
+      if (isAdmin) {
+        document.getElementById('adminPanel').classList.toggle('active');
+      } else {
+        document.getElementById('loginOverlay').classList.remove('hidden');
+        document.getElementById('passInput').value = '';
+        document.getElementById('passInput').focus();
+      }
+    };
 
-                // Cek ukuran data (localStorage batas ~5-10MB, aman)
-                const newProduct = { id: Date.now(), name, price, desc, image };
-                products.push(newProduct);
-                try {
-                    saveProducts();
-                } catch (e) {
-                    alert('Gagal menyimpan, mungkin memori penuh. Hapus beberapa produk lama dulu. 😢');
-                    products.pop(); // hapus produk yang gagal
-                    return;
-                }
+    window.login = function() {
+      if (document.getElementById('passInput').value === ADMIN_PASS) {
+        isAdmin = true;
+        document.getElementById('loginOverlay').classList.add('hidden');
+        document.getElementById('adminPanel').classList.add('active');
+        document.getElementById('adminBtn').classList.add('hidden');
+        document.getElementById('logoutBtn').classList.remove('hidden');
+        renderAdminList();
+      } else {
+        alert('Password salah! 🥺');
+      }
+    };
 
-                // Reset form
-                document.getElementById('pName').value = '';
-                document.getElementById('pPrice').value = '';
-                document.getElementById('pDesc').value = '';
-                document.getElementById('imageFile').value = '';
-                document.getElementById('pImageUrl').value = '';
-                document.getElementById('imgPreview').style.display = 'none';
-                selectedImageData = null;
+    window.logout = function() {
+      isAdmin = false;
+      document.getElementById('adminPanel').classList.remove('active');
+      document.getElementById('adminBtn').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.add('hidden');
+    };
 
-                renderCatalog();
-                renderAdminList();
-                alert('Yeay! Produk imut berhasil ditambahkan! 🎉');
-            };
-
-            window.toggleAdmin = function() {
-                if (isAdmin) {
-                    document.getElementById('adminPanel').classList.toggle('active');
-                } else {
-                    document.getElementById('loginOverlay').classList.remove('hidden');
-                    document.getElementById('passInput').value = '';
-                    document.getElementById('passInput').focus();
-                }
-            };
-
-            window.login = function() {
-                if (document.getElementById('passInput').value === ADMIN_PASS) {
-                    isAdmin = true;
-                    document.getElementById('loginOverlay').classList.add('hidden');
-                    document.getElementById('adminPanel').classList.add('active');
-                    document.getElementById('adminBtn').classList.add('hidden');
-                    document.getElementById('logoutBtn').classList.remove('hidden');
-                    renderAdminList();
-                } else {
-                    alert('Password salah! 🥺');
-                }
-            };
-
-            window.logout = function() {
-                isAdmin = false;
-                document.getElementById('adminPanel').classList.remove('active');
-                document.getElementById('adminBtn').classList.remove('hidden');
-                document.getElementById('logoutBtn').classList.add('hidden');
-            };
-
-            loadProducts();
-            renderCatalog();
-        })();
-    </script>
+    loadProducts();
+    renderCatalog();
+  })();
+</script>
 </body>
 </html>
+```
