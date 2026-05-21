@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | The Elegant Catalog</title>
+  <title>Cueku Store | Elegant Cute Catalog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
       100% { background: #e8f0fe; }
     }
 
-    /* Profesional abstract particles */
+    /* PARTIKEL ELEGAN - DIPERBAIKI */
     .particles-container {
       position: fixed;
       top: 0;
@@ -39,31 +39,31 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
       overflow: hidden;
     }
 
     .particle {
       position: absolute;
-      background: rgba(255, 182, 193, 0.4);
       border-radius: 50%;
-      filter: blur(1px);
       animation: floatParticle linear infinite;
+      opacity: 0.7;
+      box-shadow: 0 0 15px currentColor;
     }
 
     @keyframes floatParticle {
       0% {
-        transform: translateY(110vh) scale(0) rotate(0deg);
+        transform: translateY(110vh) scale(0.5) rotate(0deg);
         opacity: 0;
       }
-      10% {
-        opacity: 0.6;
+      15% {
+        opacity: 0.8;
       }
-      90% {
-        opacity: 0.6;
+      85% {
+        opacity: 0.8;
       }
       100% {
-        transform: translateY(-10vh) scale(1) rotate(360deg);
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
         opacity: 0;
       }
     }
@@ -157,6 +157,8 @@
       max-width: 1300px;
       margin: 2rem auto;
       padding: 0 2rem;
+      position: relative;
+      z-index: 1;
     }
 
     .product-grid {
@@ -442,7 +444,6 @@
   </style>
 </head>
 <body>
-<!-- Profesional particles -->
 <div class="particles-container" id="particlesContainer"></div>
 
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
@@ -524,21 +525,22 @@
     let products = [];
     let isAdmin = false;
     let selectedImageData = null;
-    let editingId = null; // null if adding new, product id if editing
+    let editingId = null;
 
-    // Generate profesional particles
+    // PARTIKEL DIPERBAIKI - warna solid & ukuran lebih besar
     const particlesContainer = document.getElementById('particlesContainer');
-    const colors = ['rgba(255,182,193,0.4)', 'rgba(221,160,221,0.4)', 'rgba(176,196,222,0.4)', 'rgba(255,218,185,0.4)'];
-    for (let i = 0; i < 30; i++) {
+    const colors = ['#ffb6c1', '#dda0dd', '#b0c4de', '#ffdab9', '#ff69b4', '#c44dff'];
+    for (let i = 0; i < 25; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
-      const size = Math.random() * 8 + 4;
+      const size = Math.random() * 12 + 6; // 6-18px
       particle.style.width = size + 'px';
       particle.style.height = size + 'px';
       particle.style.left = Math.random() * 100 + '%';
-      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.animationDuration = Math.random() * 10 + 8 + 's';
-      particle.style.animationDelay = Math.random() * 8 + 's';
+      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.color = particle.style.backgroundColor; // buat shadow
+      particle.style.animationDuration = Math.random() * 12 + 8 + 's'; // 8-20s
+      particle.style.animationDelay = Math.random() * 5 + 's';
       particlesContainer.appendChild(particle);
     }
 
@@ -628,11 +630,10 @@
         document.getElementById('pImageUrl').value = '';
         document.getElementById('imgPreview').src = product.image;
         document.getElementById('imgPreview').style.display = 'block';
-        selectedImageData = product.image; // base64
+        selectedImageData = product.image;
       }
       document.getElementById('saveProductBtn').innerText = '💾 Update';
       document.getElementById('cancelEditBtn').classList.remove('hidden');
-      // scroll to form
       document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
     };
 
@@ -684,7 +685,7 @@
             const preview = document.getElementById('imgPreview');
             preview.src = selectedImageData;
             preview.style.display = 'block';
-            document.getElementById('pImageUrl').value = ''; // clear URL if file chosen
+            document.getElementById('pImageUrl').value = '';
           } catch (err) {
             alert('Gagal memproses gambar. 😢');
           }
@@ -722,7 +723,6 @@
         }
         image = url;
       } else {
-        // Jika edit, boleh tidak ganti gambar (ambil dari produk lama)
         if (currentEditingId) {
           const oldProduct = products.find(p => p.id == currentEditingId);
           if (oldProduct) image = oldProduct.image;
@@ -737,7 +737,6 @@
       }
 
       if (currentEditingId) {
-        // Update existing
         const index = products.findIndex(p => p.id == currentEditingId);
         if (index !== -1) {
           products[index] = { ...products[index], name, price, desc, image };
@@ -745,7 +744,6 @@
           alert('Produk berhasil diperbarui! 🎉');
         }
       } else {
-        // Add new
         const newProduct = { id: Date.now(), name, price, desc, image };
         products.push(newProduct);
         try { saveProducts(); } catch(e) {
@@ -756,7 +754,6 @@
         alert('Yeay! Produk imut ditambahkan! 🎉');
       }
 
-      // Reset form and state
       cancelEdit();
       renderCatalog();
       renderAdminList();
@@ -780,7 +777,7 @@
         document.getElementById('adminBtn').classList.add('hidden');
         document.getElementById('logoutBtn').classList.remove('hidden');
         renderAdminList();
-        cancelEdit(); // ensure form is clean
+        cancelEdit();
       } else {
         alert('Password salah! 🥺');
       }
