@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Coquette Aesthetic</title>
+  <title>Cueku Store | Best Service</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -24,10 +24,13 @@
       overflow-x: hidden;
     }
 
-    /* Aurora latar */
+    /* Aurora background */
     .aurora {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle at 30% 30%, rgba(255,220,230,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 70% 70%, rgba(230,210,240,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 50% 50%, rgba(210,230,250,0.4) 0%, transparent 50%);
@@ -42,36 +45,144 @@
       100% { transform: rotate(360deg) scale(1); }
     }
 
-    /* Simbol coquette melayang */
+    /* Coquette symbols background */
     .coquette-symbols {
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 1;
     }
 
     .coquette-symbol {
       position: absolute;
-      color: rgba(180, 120, 140, 0.55);
+      color: rgba(180, 120, 140, 0.45);
       animation: symbolDrift linear infinite;
       white-space: pre;
       font-weight: 400;
-      text-shadow: 0 0 8px rgba(220,150,170,0.4);
+      text-shadow: 0 0 8px rgba(220,150,170,0.3);
     }
 
     @keyframes symbolDrift {
       0% { transform: translateY(-5vh) rotate(0deg) scale(0.9); opacity: 0; }
-      10% { opacity: 0.7; }
-      90% { opacity: 0.7; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
       100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
     }
 
+    /* ANIME CHIBI WALKING CHARACTERS */
+    .chibi-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .chibi {
+      position: absolute;
+      animation: chibiWalk linear infinite;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      filter: drop-shadow(0 8px 12px rgba(180,130,150,0.35));
+    }
+
+    @keyframes chibiWalk {
+      0% { transform: translateX(-120px) translateY(0); }
+      25% { transform: translateX(25vw) translateY(-8px); }
+      50% { transform: translateX(50vw) translateY(0); }
+      75% { transform: translateX(75vw) translateY(-5px); }
+      100% { transform: translateX(105vw) translateY(0); }
+    }
+
+    .chibi-head {
+      width: 36px;
+      height: 36px;
+      background: #fce4ec;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(180,120,140,0.3);
+      animation: headBounce 0.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes headBounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-2px); }
+    }
+
+    .chibi-eyes {
+      position: absolute;
+      top: 10px;
+      left: 8px;
+      width: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chibi-eye {
+      width: 5px;
+      height: 6px;
+      background: #4a2c3e;
+      border-radius: 50%;
+    }
+
+    .chibi-blush {
+      position: absolute;
+      top: 15px;
+      width: 36px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 4px;
+    }
+
+    .chibi-blush-spot {
+      width: 7px;
+      height: 4px;
+      background: rgba(255,160,180,0.6);
+      border-radius: 50%;
+    }
+
+    .chibi-mouth {
+      position: absolute;
+      bottom: 8px;
+      left: 15px;
+      width: 6px;
+      height: 4px;
+      border-bottom: 2px solid #c97a8b;
+      border-radius: 0 0 50% 50%;
+    }
+
+    .chibi-hair {
+      position: absolute;
+      top: -3px;
+      left: 4px;
+      width: 28px;
+      height: 10px;
+      background: #d4a0b0;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .chibi-body {
+      width: 22px;
+      height: 24px;
+      background: #fef0f5;
+      border-radius: 50% 50% 30% 30%;
+      margin-top: -2px;
+      box-shadow: 0 2px 4px rgba(180,120,140,0.2);
+    }
+
+    /* Header */
     .header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 245, 248, 0.7);
-      backdrop-filter: blur(25px);
+      background: rgba(255, 245, 248, 0.75);
+      backdrop-filter: blur(28px);
       border-bottom: 1px solid rgba(220, 160, 180, 0.5);
       padding: 1rem 2.5rem;
       display: flex;
@@ -79,7 +190,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 1rem;
-      box-shadow: 0 6px 20px rgba(210, 140, 160, 0.15);
+      box-shadow: 0 6px 24px rgba(210, 140, 160, 0.15);
       border-radius: 0 0 2.5rem 2.5rem;
     }
 
@@ -206,7 +317,6 @@
       text-decoration: none;
     }
 
-    /* admin, login dll tetap sama */
     .admin-section {
       margin-top: 2rem;
       background: rgba(255,250,252,0.8);
@@ -229,11 +339,17 @@
     footer {
       text-align: center; padding: 2rem; color: #b3929c; margin-top: 2rem;
     }
+
+    @media (max-width: 640px) {
+      .header { padding: 0.8rem 1.5rem; }
+      .container { padding: 0 1.2rem; }
+    }
   </style>
 </head>
 <body>
 <div class="aurora"></div>
 <div class="coquette-symbols" id="coquetteContainer"></div>
+<div class="chibi-container" id="chibiContainer"></div>
 
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -245,8 +361,8 @@
 <div id="loginOverlay" class="login-overlay hidden">
   <div class="login-box">
     <h3>˖⁺⊹ Admin ⊹⁺˖</h3>
-    <input type="password" id="passInput" class="form-control" placeholder="Kata sandi" autocomplete="off">
-    <button class="btn btn-primary" onclick="login()" style="width:100%; margin-top:1rem;">Masuk ✧</button>
+    <input type="password" id="passInput" class="form-control" placeholder="Kata sandi" autocomplete="off" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:2rem;text-align:center;margin:0.8rem 0;">
+    <button class="btn btn-primary" onclick="login()" style="width:100%; margin-top:0.5rem;">Masuk ✧</button>
   </div>
 </div>
 
@@ -268,19 +384,21 @@
   <div id="adminPanel" class="admin-section">
     <h2 class="admin-title" id="formTitle">୨୧ Tambah Produk</h2>
     <input type="hidden" id="editingId" value="">
-    <div class="form-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-      <div><label>Nama</label><input type="text" id="pName" class="form-control"></div>
-      <div><label>Harga</label><input type="number" id="pPrice" class="form-control" min="1"></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+      <div><label style="font-weight:700;color:#b35d7a;">Nama</label><input type="text" id="pName" class="form-control" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
+      <div><label style="font-weight:700;color:#b35d7a;">Harga</label><input type="number" id="pPrice" class="form-control" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;" min="1"></div>
     </div>
-    <div><label>Deskripsi</label><textarea id="pDesc" class="form-control" rows="2"></textarea></div>
-    <div><label>Upload Gambar</label><input type="file" id="imageFile" accept="image/*" hidden>
+    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Deskripsi</label><textarea id="pDesc" class="form-control" rows="2" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></textarea></div>
+    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Upload Gambar</label><input type="file" id="imageFile" accept="image/*" hidden>
       <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📁 Pilih</button>
-      <img id="imgPreview" class="preview-img" style="width:70px;height:70px;display:none;">
+      <img id="imgPreview" style="width:70px;height:70px;border-radius:1rem;display:none;margin-top:0.5rem;object-fit:cover;">
     </div>
-    <div><label>URL Gambar</label><input type="text" id="pImageUrl" class="form-control"></div>
-    <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">꒰ Simpan ꒱</button>
-    <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
-    <div style="margin-top:2rem;"><h4>Produk Tersimpan</h4><div id="adminProductList" class="product-list-mini"></div></div>
+    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">URL Gambar</label><input type="text" id="pImageUrl" class="form-control" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
+    <div style="display:flex; gap:0.8rem;">
+      <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">꒰ Simpan ꒱</button>
+      <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
+    </div>
+    <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" class="product-list-mini" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
   </div>
 </main>
 
@@ -288,23 +406,52 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_coquette_v1';
+    const STORAGE_KEY = 'cueku_coquette_chibi_v2';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
     let products = [], isAdmin = false, selectedImageData = null, editingId = null;
 
-    // Coquette symbols
-    const container = document.getElementById('coquetteContainer');
+    // COQUETTE SYMBOLS
+    const symbolContainer = document.getElementById('coquetteContainer');
     const symbols = ['❥', '‧₊˚', '⊹₊', '꒰', '꒱', '✧', '୨୧', '˖⁺', '⁕', '𓇢', '𓆸', '⊹', '❀', '‧', '₊', '˚₊', '꒷', '꒦', '༘', '✿'];
-    for (let i=0; i<35; i++) {
+    for (let i = 0; i < 30; i++) {
       const el = document.createElement('div');
       el.className = 'coquette-symbol';
-      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
-      el.style.left = Math.random()*100+'%';
-      el.style.animationDuration = 10+Math.random()*15+'s';
-      el.style.animationDelay = Math.random()*6+'s';
-      el.style.fontSize = (1.2+Math.random()*2.2)+'rem';
-      container.appendChild(el);
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = 10 + Math.random() * 18 + 's';
+      el.style.animationDelay = Math.random() * 6 + 's';
+      el.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
+      symbolContainer.appendChild(el);
+    }
+
+    // ANIME CHIBI WALKING CHARACTERS
+    const chibiContainer = document.getElementById('chibiContainer');
+    const hairColors = ['#d4a0b0', '#c49bcf', '#b0c4de', '#ffdab9', '#f8a5c2'];
+    for (let i = 0; i < 8; i++) {
+      const chibi = document.createElement('div');
+      chibi.className = 'chibi';
+      chibi.style.top = (15 + Math.random() * 70) + '%';
+      chibi.style.animationDuration = 12 + Math.random() * 18 + 's';
+      chibi.style.animationDelay = Math.random() * 10 + 's';
+      const hairColor = hairColors[Math.floor(Math.random() * hairColors.length)];
+
+      chibi.innerHTML = `
+        <div class="chibi-head">
+          <div class="chibi-hair" style="background:${hairColor};"></div>
+          <div class="chibi-eyes">
+            <div class="chibi-eye"></div>
+            <div class="chibi-eye"></div>
+          </div>
+          <div class="chibi-blush">
+            <div class="chibi-blush-spot"></div>
+            <div class="chibi-blush-spot"></div>
+          </div>
+          <div class="chibi-mouth"></div>
+        </div>
+        <div class="chibi-body"></div>
+      `;
+      chibiContainer.appendChild(chibi);
     }
 
     function loadProducts() {
@@ -324,7 +471,7 @@
       const grid = document.getElementById('productGrid');
       if (!grid) return;
       if (!products.length) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;">˖⁺ Belum ada produk ⊹</div>';
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#b3929c;">˖⁺ Belum ada produk ⊹</div>';
         return;
       }
       let h = '';
@@ -349,11 +496,11 @@
       if (!products.length) { list.innerHTML = '<p style="color:#b3929c;">Belum ada.</p>'; return; }
       let chips = '';
       products.forEach(p => {
-        chips += `<div class="product-chip" style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;">
-          <img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;" onerror="this.src='https://via.placeholder.com/35'">
+        chips += `<div style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;border:1px solid #f0d6e0;">
+          <img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;object-fit:cover;" onerror="this.src='https://via.placeholder.com/35'">
           <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
-          <button class="btn-edit" onclick="editProduct(${p.id})"><i class="fas fa-pencil-alt"></i></button>
-          <button class="btn-delete" onclick="deleteProduct(${p.id})"><i class="fas fa-times-circle"></i></button>
+          <button onclick="editProduct(${p.id})" style="background:none;border:none;color:#6c5ce7;cursor:pointer;font-size:1.1rem;"><i class="fas fa-pencil-alt"></i></button>
+          <button onclick="deleteProduct(${p.id})" style="background:none;border:none;color:#ff4d6d;cursor:pointer;font-size:1.1rem;"><i class="fas fa-times-circle"></i></button>
         </div>`;
       });
       list.innerHTML = chips;
