@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Cute Catalog</title>
+  <title>Cueku Store | The Elegant Catalog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +31,8 @@
       100% { background: #e8f0fe; }
     }
 
-    .cute-bg {
+    /* Profesional abstract particles */
+    .particles-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -42,19 +43,29 @@
       overflow: hidden;
     }
 
-    .cute-bg span {
+    .particle {
       position: absolute;
-      display: block;
-      animation: floatUp 10s linear infinite;
-      opacity: 0.6;
-      font-size: 1.8rem;
+      background: rgba(255, 182, 193, 0.4);
+      border-radius: 50%;
+      filter: blur(1px);
+      animation: floatParticle linear infinite;
     }
 
-    @keyframes floatUp {
-      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(110vh) scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     .header {
@@ -332,19 +343,19 @@
       object-fit: cover;
     }
 
-    .btn-delete {
+    .btn-delete, .btn-edit {
       background: none;
       border: none;
-      color: #ff4d6d;
       cursor: pointer;
       font-size: 1.2rem;
       transition: 0.2s;
+      margin-left: 0.3rem;
     }
 
-    .btn-delete:hover {
-      transform: scale(1.2);
-      color: #d9042b;
-    }
+    .btn-delete { color: #ff4d6d; }
+    .btn-delete:hover { transform: scale(1.2); color: #d9042b; }
+    .btn-edit { color: #6c5ce7; }
+    .btn-edit:hover { transform: scale(1.2); color: #4a3fcf; }
 
     .lightbox-overlay {
       position: fixed;
@@ -431,7 +442,8 @@
   </style>
 </head>
 <body>
-<div class="cute-bg" id="cuteBg"></div>
+<!-- Profesional particles -->
+<div class="particles-container" id="particlesContainer"></div>
 
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -442,7 +454,7 @@
 
 <div id="loginOverlay" class="login-overlay hidden">
   <div class="login-box">
-    <h3>🌸 Admin 🌸</h3>
+    <h3>🌸 Admin</h3>
     <input type="password" id="passInput" class="form-control" placeholder="Kata sandi" autocomplete="off">
     <button class="btn btn-primary" onclick="login()" style="width:100%; justify-content:center; margin-top:1rem;">Masuk ✨</button>
   </div>
@@ -451,7 +463,7 @@
 <header class="header">
   <div class="logo">
     <h1>🧸 CUEKU STORE</h1>
-    <span>🌸 Cute Catalog · Since 2020 🌸</span>
+    <span>🌸 Elegant Cute · Since 2020</span>
   </div>
   <div style="display:flex; gap:0.6rem; align-items:center;">
     <button id="adminBtn" class="btn btn-outline" onclick="toggleAdmin()">🍭 Admin</button>
@@ -464,14 +476,15 @@
   <div id="productGrid" class="product-grid"></div>
 
   <div id="adminPanel" class="admin-section">
-    <h2 class="admin-title">🍰 Tambah Produk Imut</h2>
+    <h2 class="admin-title" id="formTitle">🍰 Tambah Produk</h2>
+    <input type="hidden" id="editingId" value="">
     <div class="form-grid">
       <div class="form-group">
         <label>Nama</label>
         <input type="text" id="pName" class="form-control" placeholder="Nama produk lucu">
       </div>
       <div class="form-group">
-        <label>Harga (Rp) · bebas, bisa jutaan 🤑</label>
+        <label>Harga (Rp)</label>
         <input type="number" id="pPrice" class="form-control" placeholder="150000" min="1" step="1">
       </div>
     </div>
@@ -480,7 +493,7 @@
       <textarea id="pDesc" class="form-control" rows="2" placeholder="Deskripsi singkat..."></textarea>
     </div>
     <div class="form-group">
-      <label>Upload Gambar</label>
+      <label>Upload Gambar (biarkan jika tidak ingin diubah)</label>
       <input type="file" id="imageFile" accept="image/*" style="display:none;">
       <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📸 Pilih Gambar</button>
       <img id="imgPreview" class="preview-img" alt="preview">
@@ -489,7 +502,10 @@
       <label>Atau URL Gambar</label>
       <input type="text" id="pImageUrl" class="form-control" placeholder="https://i.imgur.com/...jpg">
     </div>
-    <button class="btn btn-primary" onclick="addProduct()">✨ Simpan Produk</button>
+    <div style="display: flex; gap: 1rem;">
+      <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">✨ Simpan</button>
+      <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">❌ Batal</button>
+    </div>
     <div style="margin-top:2.5rem;">
       <h4 style="color:#d63384;">🧁 Produk Tersimpan</h4>
       <div id="adminProductList" class="product-list-mini"></div>
@@ -501,23 +517,29 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_cute_v9';
+    const STORAGE_KEY = 'cueku_elegant_v10';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
 
     let products = [];
     let isAdmin = false;
     let selectedImageData = null;
+    let editingId = null; // null if adding new, product id if editing
 
-    const cuteEmojis = ['🌸', '🩷', '🧸', '🍰', '🎀', '💖', '🦄', '🍭', '💕', '✨'];
-    const bg = document.getElementById('cuteBg');
-    for (let i = 0; i < 18; i++) {
-      const span = document.createElement('span');
-      span.textContent = cuteEmojis[Math.floor(Math.random() * cuteEmojis.length)];
-      span.style.left = Math.random() * 100 + '%';
-      span.style.animationDelay = Math.random() * 8 + 's';
-      span.style.fontSize = (1.4 + Math.random() * 2) + 'rem';
-      bg.appendChild(span);
+    // Generate profesional particles
+    const particlesContainer = document.getElementById('particlesContainer');
+    const colors = ['rgba(255,182,193,0.4)', 'rgba(221,160,221,0.4)', 'rgba(176,196,222,0.4)', 'rgba(255,218,185,0.4)'];
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      const size = Math.random() * 8 + 4;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.animationDuration = Math.random() * 10 + 8 + 's';
+      particle.style.animationDelay = Math.random() * 8 + 's';
+      particlesContainer.appendChild(particle);
     }
 
     function loadProducts() {
@@ -575,6 +597,7 @@
         <div class="product-chip">
           <img src="${p.image}" onerror="this.src='https://via.placeholder.com/40/fff0f5/d63384?text=X';">
           <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
+          <button class="btn-edit" onclick="editProduct(${p.id})"><i class="fas fa-pencil-alt"></i></button>
           <button class="btn-delete" onclick="deleteProduct(${p.id})"><i class="fas fa-times-circle"></i></button>
         </div>`;
       });
@@ -586,6 +609,46 @@
       saveProducts();
       renderCatalog();
       renderAdminList();
+    };
+
+    window.editProduct = function(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      editingId = id;
+      document.getElementById('editingId').value = id;
+      document.getElementById('formTitle').innerText = '✏️ Edit Produk';
+      document.getElementById('pName').value = product.name;
+      document.getElementById('pPrice').value = product.price;
+      document.getElementById('pDesc').value = product.desc || '';
+      if (product.image && (product.image.startsWith('http://') || product.image.startsWith('https://'))) {
+        document.getElementById('pImageUrl').value = product.image;
+        document.getElementById('imgPreview').style.display = 'none';
+        selectedImageData = null;
+      } else {
+        document.getElementById('pImageUrl').value = '';
+        document.getElementById('imgPreview').src = product.image;
+        document.getElementById('imgPreview').style.display = 'block';
+        selectedImageData = product.image; // base64
+      }
+      document.getElementById('saveProductBtn').innerText = '💾 Update';
+      document.getElementById('cancelEditBtn').classList.remove('hidden');
+      // scroll to form
+      document.getElementById('adminPanel').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.cancelEdit = function() {
+      editingId = null;
+      document.getElementById('editingId').value = '';
+      document.getElementById('formTitle').innerText = '🍰 Tambah Produk';
+      document.getElementById('pName').value = '';
+      document.getElementById('pPrice').value = '';
+      document.getElementById('pDesc').value = '';
+      document.getElementById('imageFile').value = '';
+      document.getElementById('pImageUrl').value = '';
+      document.getElementById('imgPreview').style.display = 'none';
+      selectedImageData = null;
+      document.getElementById('saveProductBtn').innerText = '✨ Simpan';
+      document.getElementById('cancelEditBtn').classList.add('hidden');
     };
 
     window.openLightbox = function(imgSrc) {
@@ -621,6 +684,7 @@
             const preview = document.getElementById('imgPreview');
             preview.src = selectedImageData;
             preview.style.display = 'block';
+            document.getElementById('pImageUrl').value = ''; // clear URL if file chosen
           } catch (err) {
             alert('Gagal memproses gambar. 😢');
           }
@@ -632,54 +696,70 @@
       reader.readAsDataURL(file);
     });
 
-    window.addProduct = function() {
+    window.saveOrUpdateProduct = function() {
       const name = document.getElementById('pName').value.trim();
       const price = parseInt(document.getElementById('pPrice').value);
       const desc = document.getElementById('pDesc').value.trim();
       const url = document.getElementById('pImageUrl').value.trim();
+      const currentEditingId = document.getElementById('editingId').value;
 
       if (!name) {
         alert('Nama produk harus diisi ya! 🧸');
         return;
       }
-
       if (isNaN(price) || price <= 0) {
         alert('Harga harus angka di atas 0 ya! 💸');
         return;
       }
 
       let image = null;
-      if (selectedImageData) image = selectedImageData;
-      else if (url) {
+      if (selectedImageData) {
+        image = selectedImageData;
+      } else if (url) {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
           alert('URL harus http/https 🌐');
           return;
         }
         image = url;
       } else {
-        alert('Upload gambar atau isi URL dulu ya! 🖼️');
-        return;
+        // Jika edit, boleh tidak ganti gambar (ambil dari produk lama)
+        if (currentEditingId) {
+          const oldProduct = products.find(p => p.id == currentEditingId);
+          if (oldProduct) image = oldProduct.image;
+          else {
+            alert('Upload gambar atau isi URL dulu ya! 🖼️');
+            return;
+          }
+        } else {
+          alert('Upload gambar atau isi URL dulu ya! 🖼️');
+          return;
+        }
       }
 
-      const newProduct = { id: Date.now(), name, price, desc, image };
-      products.push(newProduct);
-      try { saveProducts(); } catch(e) {
-        alert('Penyimpanan penuh, hapus produk lama dulu. 😢');
-        products.pop();
-        return;
+      if (currentEditingId) {
+        // Update existing
+        const index = products.findIndex(p => p.id == currentEditingId);
+        if (index !== -1) {
+          products[index] = { ...products[index], name, price, desc, image };
+          saveProducts();
+          alert('Produk berhasil diperbarui! 🎉');
+        }
+      } else {
+        // Add new
+        const newProduct = { id: Date.now(), name, price, desc, image };
+        products.push(newProduct);
+        try { saveProducts(); } catch(e) {
+          alert('Penyimpanan penuh, hapus produk lama dulu. 😢');
+          products.pop();
+          return;
+        }
+        alert('Yeay! Produk imut ditambahkan! 🎉');
       }
 
-      document.getElementById('pName').value = '';
-      document.getElementById('pPrice').value = '';
-      document.getElementById('pDesc').value = '';
-      document.getElementById('imageFile').value = '';
-      document.getElementById('pImageUrl').value = '';
-      document.getElementById('imgPreview').style.display = 'none';
-      selectedImageData = null;
-
+      // Reset form and state
+      cancelEdit();
       renderCatalog();
       renderAdminList();
-      alert('Yeay! Produk imut ditambahkan! 🎉');
     };
 
     window.toggleAdmin = function() {
@@ -700,6 +780,7 @@
         document.getElementById('adminBtn').classList.add('hidden');
         document.getElementById('logoutBtn').classList.remove('hidden');
         renderAdminList();
+        cancelEdit(); // ensure form is clean
       } else {
         alert('Password salah! 🥺');
       }
