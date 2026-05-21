@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Elegant Cute Catalog</title>
+  <title>Cueku Store | Elegant Catalog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
       100% { background: #e8f0fe; }
     }
 
-    /* PARTIKEL ELEGAN - DIPERBAIKI */
+    /* Partikel Konfeti 3D Organik Profesional */
     .particles-container {
       position: fixed;
       top: 0;
@@ -43,27 +43,46 @@
       overflow: hidden;
     }
 
-    .particle {
+    .confetti {
       position: absolute;
-      border-radius: 50%;
-      animation: floatParticle linear infinite;
-      opacity: 0.7;
-      box-shadow: 0 0 15px currentColor;
+      animation: confettiFall linear infinite;
+      opacity: 0.75;
+      transform-origin: center;
     }
 
-    @keyframes floatParticle {
+    /* Bentuk kelopak bunga */
+    .confetti.petal {
+      width: 12px;
+      height: 18px;
+      background: rgba(255, 182, 193, 0.8);
+      border-radius: 50% 0 50% 50%;
+      box-shadow: 0 0 12px rgba(255, 105, 180, 0.4);
+      transform: rotate(45deg);
+    }
+
+    /* Bentuk bintang kecil */
+    .confetti.star {
+      width: 14px;
+      height: 14px;
+      background: transparent;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      box-shadow: 0 0 15px currentColor;
+      opacity: 0.7;
+    }
+
+    @keyframes confettiFall {
       0% {
-        transform: translateY(110vh) scale(0.5) rotate(0deg);
+        transform: translateY(-10vh) rotate(0deg) scale(0.8);
         opacity: 0;
       }
-      15% {
-        opacity: 0.8;
+      10% {
+        opacity: 0.7;
       }
-      85% {
-        opacity: 0.8;
+      90% {
+        opacity: 0.7;
       }
       100% {
-        transform: translateY(-10vh) scale(1.2) rotate(360deg);
+        transform: translateY(105vh) rotate(720deg) scale(1.2);
         opacity: 0;
       }
     }
@@ -518,7 +537,7 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_elegant_v10';
+    const STORAGE_KEY = 'cueku_elegant_v11';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
 
@@ -527,21 +546,33 @@
     let selectedImageData = null;
     let editingId = null;
 
-    // PARTIKEL DIPERBAIKI - warna solid & ukuran lebih besar
+    // Konfeti 3D Organik Profesional
     const particlesContainer = document.getElementById('particlesContainer');
-    const colors = ['#ffb6c1', '#dda0dd', '#b0c4de', '#ffdab9', '#ff69b4', '#c44dff'];
-    for (let i = 0; i < 25; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'particle';
-      const size = Math.random() * 12 + 6; // 6-18px
-      particle.style.width = size + 'px';
-      particle.style.height = size + 'px';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.color = particle.style.backgroundColor; // buat shadow
-      particle.style.animationDuration = Math.random() * 12 + 8 + 's'; // 8-20s
-      particle.style.animationDelay = Math.random() * 5 + 's';
-      particlesContainer.appendChild(particle);
+    const palette = ['#ffb6c1', '#dda0dd', '#b0c4de', '#ffdab9', '#ff69b4', '#c44dff', '#f8a5c2', '#c3bef0'];
+    
+    // Buat 30 konfeti: campuran kelopak dan bintang
+    for (let i = 0; i < 35; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      
+      // Pilih bentuk acak: petal atau star
+      if (Math.random() < 0.6) {
+        confetti.classList.add('petal');
+        confetti.style.background = palette[Math.floor(Math.random() * palette.length)];
+        confetti.style.boxShadow = `0 0 15px ${confetti.style.backgroundColor}`;
+      } else {
+        confetti.classList.add('star');
+        const color = palette[Math.floor(Math.random() * palette.length)];
+        confetti.style.backgroundColor = color;
+        confetti.style.color = color;
+      }
+
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.animationDuration = Math.random() * 12 + 8 + 's'; // 8-20s
+      confetti.style.animationDelay = Math.random() * 5 + 's';
+      confetti.style.opacity = 0.5 + Math.random() * 0.4;
+      
+      particlesContainer.appendChild(confetti);
     }
 
     function loadProducts() {
