@@ -9,66 +9,315 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Nunito',sans-serif; background:#fef9fb; color:#5c3d4a; min-height:100vh; position:relative; overflow-x:hidden; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    .aurora { position:fixed; top:0; left:0; width:100%; height:100%;
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fef9fb;
+      color: #5c3d4a;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Aurora background */
+    .aurora {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle at 30% 30%, rgba(255,220,230,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 70% 70%, rgba(230,210,240,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 50% 50%, rgba(210,230,250,0.4) 0%, transparent 50%);
-      animation: auroraSpin 30s linear infinite; pointer-events:none; z-index:0; }
-    @keyframes auroraSpin { 0%{transform:rotate(0deg) scale(1);} 50%{transform:rotate(180deg) scale(1.15);} 100%{transform:rotate(360deg) scale(1);} }
+      animation: auroraSpin 30s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-    .coquette-symbols { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-    .coquette-symbol { position:absolute; color:rgba(180,120,140,0.45); animation:symbolDrift linear infinite; white-space:pre; font-weight:400; text-shadow:0 0 8px rgba(220,150,170,0.3); }
-    @keyframes symbolDrift { 0%{transform:translateY(-5vh) rotate(0deg) scale(0.9); opacity:0;} 10%{opacity:0.6;} 90%{opacity:0.6;} 100%{transform:translateY(105vh) rotate(360deg) scale(1.2); opacity:0;} }
+    @keyframes auroraSpin {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.15); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
 
-    .walker-container { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-    .walker { position:absolute; animation: walk linear infinite; }
-    .walker img { width:65px; height:auto; filter:drop-shadow(0 8px 14px rgba(180,130,150,0.35)); }
+    /* Coquette symbols */
+    .coquette-symbols {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .coquette-symbol {
+      position: absolute;
+      color: rgba(180, 120, 140, 0.45);
+      animation: symbolDrift linear infinite;
+      white-space: pre;
+      font-weight: 400;
+      text-shadow: 0 0 8px rgba(220,150,170,0.3);
+    }
+
+    @keyframes symbolDrift {
+      0% { transform: translateY(-5vh) rotate(0deg) scale(0.9); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 245, 248, 0.75);
+      backdrop-filter: blur(28px);
+      border-bottom: 1px solid rgba(220, 160, 180, 0.5);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      box-shadow: 0 6px 24px rgba(210, 140, 160, 0.15);
+      border-radius: 0 0 2.5rem 2.5rem;
+    }
+
+    .logo h1 {
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: -0.4px;
+      background: linear-gradient(135deg, #db7a94, #b38bb0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo span {
+      font-size: 0.8rem;
+      color: #b3929c;
+      font-weight: 600;
+    }
+
+    .btn {
+      padding: 0.6rem 1.5rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: 0.3s;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #e6c4d0;
+      color: #b35d7a;
+    }
+
+    .btn-outline:hover {
+      background: #ffeef3;
+      border-color: #db7a94;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(210,130,150,0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #e6a0b5, #c49bcf);
+      color: white;
+      box-shadow: 0 10px 20px rgba(200, 120, 150, 0.3);
+    }
+
+    .btn-wa {
+      background: linear-gradient(135deg, #25D366, #1da851);
+      color: white;
+      box-shadow: 0 10px 18px rgba(37,211,102,0.25);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Area katalog + karakter berjalan di atasnya */
+    .catalog-area {
+      position: relative;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(18px);
+      border-radius: 2.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(235,195,210,0.7);
+      box-shadow: 0 20px 35px rgba(200, 140, 160, 0.1);
+      transition: 0.35s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: #db7a94;
+      box-shadow: 0 30px 45px rgba(210,120,150,0.2);
+    }
+
+    .card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      cursor: pointer;
+      background: #fff0f3;
+    }
+
+    .card-body {
+      padding: 1.2rem;
+    }
+
+    .card-body h3 {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #b85a74;
+    }
+
+    .price {
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: #af7ab0;
+      margin: 0.5rem 0 0.8rem;
+    }
+
+    .order-btn {
+      background: #db7a94;
+      color: white;
+      padding: 0.6rem;
+      border-radius: 2rem;
+      text-align: center;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    /* Walker di area katalog */
+    .walker-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .walker {
+      position: absolute;
+      animation: walk linear infinite;
+      filter: drop-shadow(0 8px 12px rgba(180,130,150,0.3));
+    }
+
+    .walker img {
+      width: 60px;
+      height: auto;
+    }
+
     @keyframes walk {
       0% { transform: translateX(-80px) translateY(0); }
-      25% { transform: translateX(25vw) translateY(-6px); }
+      25% { transform: translateX(25vw) translateY(-5px); }
       50% { transform: translateX(50vw) translateY(0); }
-      75% { transform: translateX(75vw) translateY(-4px); }
+      75% { transform: translateX(75vw) translateY(-3px); }
       100% { transform: translateX(105vw) translateY(0); }
     }
 
-    .header { position:sticky; top:0; z-index:100; background:rgba(255,245,248,0.75); backdrop-filter:blur(28px); border-bottom:1px solid rgba(220,160,180,0.5); padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; box-shadow:0 6px 24px rgba(210,140,160,0.15); border-radius:0 0 2.5rem 2.5rem; }
-    .logo h1 { font-weight:800; font-size:2.1rem; letter-spacing:-0.4px; background:linear-gradient(135deg,#db7a94,#b38bb0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .logo span { font-size:0.8rem; color:#b3929c; font-weight:600; }
-    .btn { padding:0.6rem 1.8rem; border-radius:3rem; font-weight:700; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:0.4rem; transition:0.3s; text-decoration:none; font-size:0.85rem; }
-    .btn-outline { background:rgba(255,255,255,0.8); border:1px solid #e6c4d0; color:#b35d7a; }
-    .btn-outline:hover { background:#ffeef3; border-color:#db7a94; transform:translateY(-2px); box-shadow:0 8px 18px rgba(210,130,150,0.2); }
-    .btn-primary { background:linear-gradient(135deg,#e6a0b5,#c49bcf); color:white; box-shadow:0 10px 20px rgba(200,120,150,0.3); }
-    .btn-wa { background:linear-gradient(135deg,#25D366,#1da851); color:white; box-shadow:0 10px 18px rgba(37,211,102,0.25); }
-    .container { max-width:1300px; margin:2rem auto; padding:0 2rem; position:relative; z-index:2; }
-    .product-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.3rem; margin-top:1.2rem; }
-    .card { background:rgba(255,255,255,0.7); backdrop-filter:blur(18px); border-radius:2.5rem; overflow:hidden; border:1px solid rgba(235,195,210,0.7); box-shadow:0 20px 35px rgba(200,140,160,0.1); transition:0.35s; }
-    .card:hover { transform:translateY(-8px); border-color:#db7a94; box-shadow:0 30px 45px rgba(210,120,150,0.2); }
-    .card-img { width:100%; height:230px; object-fit:cover; cursor:pointer; background:#fff0f3; }
-    .card-body { padding:1.5rem; }
-    .card-body h3 { font-weight:800; font-size:1.25rem; color:#b85a74; }
-    .price { font-weight:800; font-size:1.6rem; color:#af7ab0; margin:0.6rem 0 1rem; }
-    .order-btn { background:#db7a94; color:white; padding:0.7rem; border-radius:2rem; text-align:center; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none; }
-    .admin-section { margin-top:2rem; background:rgba(255,250,252,0.8); backdrop-filter:blur(30px); border-radius:2.5rem; padding:2.5rem; border:1px solid rgba(220,160,180,0.5); display:none; }
-    .admin-section.active { display:block; }
-    .login-overlay { position:fixed; inset:0; background:rgba(245,220,230,0.7); backdrop-filter:blur(15px); display:flex; align-items:center; justify-content:center; z-index:999; }
-    .login-box { background:white; padding:2.5rem; border-radius:2.5rem; text-align:center; box-shadow:0 25px 45px rgba(180,110,130,0.2); }
-    .hidden { display:none !important; }
-    footer { text-align:center; padding:2rem; color:#b3929c; margin-top:2rem; }
-    @media (max-width:640px) { .header { padding:0.8rem 1.5rem; } .container { padding:0 1.2rem; } }
+    /* Admin panel */
+    .admin-section {
+      margin-top: 2rem;
+      background: rgba(255,250,252,0.8);
+      backdrop-filter: blur(30px);
+      border-radius: 2.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(220,160,180,0.5);
+      display: none;
+    }
+
+    .admin-section.active {
+      display: block;
+    }
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(245,220,230,0.7);
+      backdrop-filter: blur(15px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .login-box {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 2.5rem;
+      text-align: center;
+      box-shadow: 0 25px 45px rgba(180,110,130,0.2);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #b3929c;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 0.8rem 1rem;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
 <div class="aurora"></div>
 <div class="coquette-symbols" id="coquetteContainer"></div>
-<div class="walker-container" id="walkerContainer"></div>
 
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <button class="close-lightbox" onclick="closeLightbox()">&times;</button>
-    <img id="lightboxImg" src="" alt="preview">
+    <img id="lightboxImg" src="" alt="gambar produk">
   </div>
 </div>
 
@@ -93,7 +342,11 @@
 </header>
 
 <main class="container">
-  <div id="productGrid" class="product-grid"></div>
+  <div class="catalog-area">
+    <div class="product-grid" id="productGrid"></div>
+    <!-- Karakter anime berjalan di area ini -->
+    <div class="walker-container" id="walkerContainer"></div>
+  </div>
 
   <div id="adminPanel" class="admin-section">
     <h2 id="formTitle">୨୧ Tambah Produk</h2>
@@ -113,19 +366,24 @@
       <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
     </div>
 
-    <!-- Anime walker manager (transparan dijamin) -->
+    <!-- GitHub Config -->
+    <div style="margin-top:2rem; background:#fff5f8; border-radius:1.5rem; padding:1.2rem;">
+      <h3 style="color:#b35d7a;">⚙️ Konfigurasi GitHub (sinkronisasi)</h3>
+      <p style="font-size:0.8rem; margin-bottom:0.8rem;">Isi token & repo, lalu klik "Publikasi ke GitHub". Data akan muncul di semua device.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+        <input type="text" id="ghToken" placeholder="Token (repo)" style="padding:0.6rem;border-radius:2rem;border:1px solid #e6c4d0;">
+        <input type="text" id="ghRepo" placeholder="username/repo" style="padding:0.6rem;border-radius:2rem;border:1px solid #e6c4d0;">
+      </div>
+      <button class="btn btn-primary" onclick="publishToGitHub()" style="margin-top:0.8rem;">🌍 Publikasi ke GitHub</button>
+    </div>
+
+    <!-- Anime walker manager -->
     <div style="margin-top:2.5rem; border-top:2px solid #f0d6e0; padding-top:1.8rem;">
       <h3 style="color:#b35d7a;">🌸 Karakter Anime Berjalan</h3>
-      <p style="font-size:0.8rem; color:#b3929c;">Upload gambar <strong>PNG transparan</strong> karakter anime favoritmu (maks 4). Mereka berjalan di background katalog.<br>
-      <em>📌 Data hanya tersimpan di browser ini. Gunakan <strong>Ekspor/Impor</strong> untuk pindah ke device lain.</em></p>
+      <p style="font-size:0.8rem; color:#b3929c;">Upload PNG transparan (maks 4). Mereka akan berjalan di area katalog.</p>
       <div id="walkerSlots" style="display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1rem;"></div>
       <button class="btn btn-outline" onclick="addWalkerSlot()" style="margin-top:0.8rem;">+ Tambah Slot</button>
-      <button class="btn btn-primary" onclick="saveWalkers()" style="margin-left:0.5rem;">💾 Simpan Karakter</button>
-      <div style="margin-top:1rem; display:flex; gap:0.8rem;">
-        <button class="btn btn-outline" onclick="exportAllData()" style="font-size:0.75rem;">📤 Ekspor Data</button>
-        <button class="btn btn-outline" onclick="importAllData()" style="font-size:0.75rem;">📥 Impor Data</button>
-        <input type="file" id="importFile" accept=".json" style="display:none;">
-      </div>
+      <button class="btn btn-outline" onclick="saveWalkerLocally()" style="margin-left:0.5rem;">💾 Simpan Karakter</button>
     </div>
 
     <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
@@ -136,16 +394,15 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_animewalker_v1';
-    const WALKER_STORAGE = 'cueku_walkers';
+    const STORAGE_KEY = 'cueku_local_backup';
+    const WALKER_KEY = 'cueku_walkers_local';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
-    let products = [], isAdmin = false, selectedImageData = null, editingId = null;
-    let walkers = []; // { id, image (base64 png original) }
+    let products = [], walkers = [], isAdmin = false, editingId = null, selectedImageData = null;
 
     // Coquette symbols
     const symbolContainer = document.getElementById('coquetteContainer');
-    const symbols = ['❥', '‧₊˚', '⊹₊', '꒰', '꒱', '✧', '୨୧', '˖⁺', '⁕', '𓇢', '𓆸', '⊹', '❀', '‧', '₊', '˚₊', '꒷', '꒦', '༘', '✿'];
+    const symbols = ['❥','‧₊˚','⊹₊','꒰','꒱','✧','୨୧','˖⁺','⁕','𓇢','𓆸','⊹','❀','‧','₊','˚₊','꒷','꒦','༘','✿'];
     for (let i=0;i<30;i++) {
       const el = document.createElement('div'); el.className='coquette-symbol';
       el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
@@ -154,14 +411,90 @@
       symbolContainer.appendChild(el);
     }
 
-    // Walker functions
-    function loadWalkers() {
-      const stored = localStorage.getItem(WALKER_STORAGE);
-      if (stored) { try { walkers = JSON.parse(stored); } catch(e) { walkers = []; } }
-      else { walkers = []; }
-      renderWalkers();
+    // GitHub helpers
+    function getToken() { return document.getElementById('ghToken').value.trim(); }
+    function getRepo() { return document.getElementById('ghRepo').value.trim(); }
+
+    async function fetchDataJson() {
+      const repo = getRepo(); if (!repo) return null;
+      const url = `https://api.github.com/repos/${repo}/contents/data.json`;
+      try {
+        const res = await fetch(url, {
+          headers: { 'Authorization': `token ${getToken()}` }
+        });
+        if (!res.ok) return null;
+        const data = await res.json();
+        const content = JSON.parse(atob(data.content));
+        return { sha: data.sha, content };
+      } catch(e) { return null; }
     }
-    function saveWalkersToStorage() { localStorage.setItem(WALKER_STORAGE, JSON.stringify(walkers)); renderWalkers(); }
+
+    async function commitDataJson(newContent, sha = null) {
+      const repo = getRepo(); if (!repo) return alert('Isi repo dulu!');
+      const body = {
+        message: 'Update data.json',
+        content: btoa(unescape(encodeURIComponent(JSON.stringify(newContent)))),
+        branch: 'main'
+      };
+      if (sha) body.sha = sha;
+      const url = `https://api.github.com/repos/${repo}/contents/data.json`;
+      try {
+        const res = await fetch(url, {
+          method: 'PUT',
+          headers: { 'Authorization': `token ${getToken()}` },
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error('Gagal');
+        return true;
+      } catch(e) { alert('Gagal publikasi: ' + e.message); return false; }
+    }
+
+    window.publishToGitHub = async function() {
+      const ghData = await fetchDataJson();
+      const newData = { products, walkers };
+      const sha = ghData ? ghData.sha : null;
+      const ok = await commitDataJson(newData, sha);
+      if (ok) alert('Data berhasil dipublikasikan ke GitHub! 🎉');
+    };
+
+    // Load data (GitHub prioritas)
+    async function loadData() {
+      const ghData = await fetchDataJson();
+      if (ghData && ghData.content) {
+        products = ghData.content.products || [];
+        walkers = ghData.content.walkers || [];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+        localStorage.setItem(WALKER_KEY, JSON.stringify(walkers));
+      } else {
+        const localProd = localStorage.getItem(STORAGE_KEY);
+        const localWalk = localStorage.getItem(WALKER_KEY);
+        products = localProd ? JSON.parse(localProd) : [
+          { id:Date.now()+1, name:'Tas Ransel Pink', price:45000, desc:'Imut & elegan.', image:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
+          { id:Date.now()+2, name:'Sneakers Pastel', price:32000, desc:'Nyaman & lucu.', image:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
+        ];
+        walkers = localWalk ? JSON.parse(localWalk) : [];
+      }
+      renderCatalog();
+      renderWalkers();
+      renderAdminList();
+      renderWalkerSlots();
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('productGrid');
+      if (!grid) return;
+      if (!products.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#b3929c;">˖⁺ Belum ada produk ⊹</div>';
+        return;
+      }
+      let h = '';
+      products.forEach(p => {
+        const price = new Intl.NumberFormat('id-ID').format(p.price);
+        h += `<div class="card"><img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g,"\\'")}')" onerror="this.src='https://via.placeholder.com/400x200/fff0f3/db7a94?text=No+Image'"><div class="card-body"><h3>${p.name}</h3><p style="color:#7a5b6b;font-size:0.9rem;">${p.desc||'Lucu.'}</p><div class="price">Rp${price}</div><a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau '+p.name+' (Rp'+price+') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a></div></div>`;
+      });
+      grid.innerHTML = h;
+    }
+
     function renderWalkers() {
       const container = document.getElementById('walkerContainer');
       container.innerHTML = '';
@@ -174,106 +507,6 @@
         const img = document.createElement('img'); img.src = w.image; img.alt = 'chibi';
         div.appendChild(img); container.appendChild(div);
       });
-      renderWalkerSlots();
-    }
-
-    function renderWalkerSlots() {
-      const slots = document.getElementById('walkerSlots');
-      if (!slots) return;
-      slots.innerHTML = '';
-      walkers.forEach((w, idx) => {
-        const slot = document.createElement('div');
-        slot.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:0.4rem;';
-        slot.innerHTML = `
-          <img src="${w.image || 'https://via.placeholder.com/65/fff0f3/db7a94?text=?'}" style="width:65px;height:65px;object-fit:contain;border-radius:1rem;border:2px dashed #e6c4d0;background:transparent;">
-          <input type="file" accept="image/*" id="walkerFile${idx}" style="display:none;">
-          <button class="btn btn-outline" style="font-size:0.7rem;padding:0.3rem 0.8rem;" onclick="document.getElementById('walkerFile${idx}').click()">Ubah</button>
-          <button class="btn btn-outline" style="font-size:0.7rem;color:#ef4444;" onclick="removeWalker(${idx})">Hapus</button>
-        `;
-        slots.appendChild(slot);
-        // file listener - simpan langsung base64 asli tanpa kompresi
-        document.getElementById('walkerFile'+idx).addEventListener('change', function(e) {
-          const file = e.target.files[0]; if(!file) return;
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            walkers[idx].image = ev.target.result; // base64 asli (png transparan)
-            renderWalkerSlots(); // update preview
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-    }
-
-    window.addWalkerSlot = function() {
-      if (walkers.length >= 4) { alert('Maksimal 4 karakter!'); return; }
-      walkers.push({ id: Date.now(), image: '' });
-      renderWalkerSlots();
-    };
-    window.removeWalker = function(idx) {
-      walkers.splice(idx,1);
-      renderWalkerSlots();
-    };
-    window.saveWalkers = function() {
-      walkers = walkers.filter(w => w.image && w.image.length > 50);
-      saveWalkersToStorage();
-      alert('Karakter berjalan disimpan! 🎉');
-    };
-
-    // Ekspor / Impor
-    window.exportAllData = function() {
-      const data = {
-        products: products,
-        walkers: walkers
-      };
-      const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-      a.download = 'cueku_backup.json'; a.click();
-      alert('Data diekspor! Simpan file ini.');
-    };
-    window.importAllData = function() {
-      document.getElementById('importFile').click();
-    };
-    document.getElementById('importFile').addEventListener('change', function(e) {
-      const file = e.target.files[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        try {
-          const data = JSON.parse(ev.target.result);
-          if (data.products) { products = data.products; saveProducts(); }
-          if (data.walkers) { walkers = data.walkers; saveWalkersToStorage(); }
-          renderCatalog(); renderAdminList(); renderWalkers();
-          alert('Data berhasil diimpor!');
-        } catch (ex) { alert('File tidak valid.'); }
-      };
-      reader.readAsText(file);
-    });
-
-    function loadProducts() {
-      const s = localStorage.getItem(STORAGE_KEY);
-      if (s) { try { products = JSON.parse(s); } catch(e) { products = []; } }
-      else {
-        products = [
-          { id:Date.now()+1, name:'Tas Ransel Pink', price:45000, desc:'Imut & elegan.', image:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
-          { id:Date.now()+2, name:'Sneakers Pastel', price:32000, desc:'Nyaman & lucu.', image:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
-        ];
-        saveProducts();
-      }
-    }
-    function saveProducts() { localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); }
-
-    function renderCatalog() {
-      const grid = document.getElementById('productGrid');
-      if (!grid) return;
-      if (!products.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#b3929c;">˖⁺ Belum ada produk ⊹</div>'; return; }
-      let h = '';
-      products.forEach(p => {
-        const price = new Intl.NumberFormat('id-ID').format(p.price);
-        h += `<div class="card">
-          <img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g,"\\'")}')" onerror="this.src='https://via.placeholder.com/400x230/fff0f3/db7a94?text=No+Image'">
-          <div class="card-body"><h3>${p.name}</h3><p style="color:#7a5b6b;font-size:0.9rem;">${p.desc||'Lucu.'}</p><div class="price">Rp${price}</div>
-          <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau '+p.name+' (Rp'+price+') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a></div></div>`;
-      });
-      grid.innerHTML = h;
     }
 
     function renderAdminList() {
@@ -282,17 +515,12 @@
       if (!products.length) { list.innerHTML = '<p style="color:#b3929c;">Belum ada.</p>'; return; }
       let chips = '';
       products.forEach(p => {
-        chips += `<div style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;border:1px solid #f0d6e0;">
-          <img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;object-fit:cover;" onerror="this.src='https://via.placeholder.com/35'">
-          <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
-          <button onclick="editProduct(${p.id})" style="background:none;border:none;color:#6c5ce7;cursor:pointer;font-size:1.1rem;"><i class="fas fa-pencil-alt"></i></button>
-          <button onclick="deleteProduct(${p.id})" style="background:none;border:none;color:#ff4d6d;cursor:pointer;font-size:1.1rem;"><i class="fas fa-times-circle"></i></button>
-        </div>`;
+        chips += `<div style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;border:1px solid #f0d6e0;"><img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;object-fit:cover;" onerror="this.src='https://via.placeholder.com/35'"><span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span><button onclick="editProduct(${p.id})" style="background:none;border:none;color:#6c5ce7;cursor:pointer;"><i class="fas fa-pencil-alt"></i></button><button onclick="deleteProduct(${p.id})" style="background:none;border:none;color:#ff4d6d;cursor:pointer;"><i class="fas fa-times-circle"></i></button></div>`;
       });
       list.innerHTML = chips;
     }
 
-    window.deleteProduct = (id) => { products = products.filter(p=>p.id!==id); saveProducts(); renderCatalog(); renderAdminList(); };
+    window.deleteProduct = (id) => { products = products.filter(p=>p.id!==id); localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); renderCatalog(); renderAdminList(); };
     window.editProduct = (id) => {
       const p = products.find(p=>p.id===id); if(!p) return;
       editingId=id; document.getElementById('editingId').value=id;
@@ -347,13 +575,55 @@
 
       if(editingId) {
         const idx = products.findIndex(p=>p.id==editingId);
-        if(idx!==-1) { products[idx] = {...products[idx], name, price, desc, image}; saveProducts(); alert('Diperbarui!'); }
+        if(idx!==-1) { products[idx] = {...products[idx], name, price, desc, image}; }
       } else {
         products.push({ id:Date.now(), name, price, desc, image });
-        saveProducts(); alert('Ditambahkan!');
       }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
       cancelEdit(); renderCatalog(); renderAdminList();
+      alert('Produk disimpan secara lokal. Gunakan "Publikasi ke GitHub" untuk menyebarkan ke semua device.');
     };
+
+    window.saveWalkerLocally = () => {
+      walkers = walkers.filter(w => w.image && w.image.length > 50);
+      localStorage.setItem(WALKER_KEY, JSON.stringify(walkers));
+      renderWalkers();
+      alert('Karakter disimpan lokal. Publikasi via GitHub untuk device lain.');
+    };
+
+    window.addWalkerSlot = () => {
+      if (walkers.length >= 4) { alert('Maksimal 4 karakter!'); return; }
+      walkers.push({ id: Date.now(), image: '' });
+      renderWalkerSlots();
+    };
+
+    function renderWalkerSlots() {
+      const slots = document.getElementById('walkerSlots');
+      if (!slots) return;
+      slots.innerHTML = '';
+      walkers.forEach((w, idx) => {
+        const slot = document.createElement('div');
+        slot.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:0.4rem;';
+        slot.innerHTML = `
+          <img src="${w.image || 'https://via.placeholder.com/60/fff0f3/db7a94?text=?'}" style="width:60px;height:60px;object-fit:contain;border-radius:1rem;border:2px dashed #e6c4d0;">
+          <input type="file" accept="image/*" id="walkerFile${idx}" style="display:none;">
+          <button class="btn btn-outline" style="font-size:0.7rem;padding:0.3rem 0.8rem;" onclick="document.getElementById('walkerFile${idx}').click()">Ubah</button>
+          <button class="btn btn-outline" style="font-size:0.7rem;color:#ef4444;" onclick="removeWalker(${idx})">Hapus</button>
+        `;
+        slots.appendChild(slot);
+        document.getElementById('walkerFile'+idx).addEventListener('change', function(e) {
+          const file = e.target.files[0]; if(!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            walkers[idx].image = ev.target.result;
+            renderWalkerSlots();
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    }
+
+    window.removeWalker = (idx) => { walkers.splice(idx,1); renderWalkerSlots(); };
 
     window.toggleAdmin = () => {
       if(isAdmin) document.getElementById('adminPanel').classList.toggle('active');
@@ -374,13 +644,7 @@
       document.getElementById('logoutBtn').classList.add('hidden');
     };
 
-    loadProducts(); renderCatalog();
-    loadWalkers();
-    // Pastikan file input impor tersedia
-    const importInput = document.getElementById('importFile');
-    if (importInput) {
-      importInput.addEventListener('click', (e) => e.stopPropagation());
-    }
+    loadData();
   })();
 </script>
 </body>
