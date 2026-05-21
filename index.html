@@ -3,297 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Coquette Aesthetic x Anime Chibi</title>
+  <title>Cueku Store | BEST SERVICE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Nunito',sans-serif; background:#fef9fb; color:#5c3d4a; min-height:100vh; position:relative; overflow-x:hidden; }
 
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: #fef9fb;
-      color: #5c3d4a;
-      min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Aurora */
-    .aurora {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+    .aurora { position:fixed; top:0; left:0; width:100%; height:100%;
       background: radial-gradient(circle at 30% 30%, rgba(255,220,230,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 70% 70%, rgba(230,210,240,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 50% 50%, rgba(210,230,250,0.4) 0%, transparent 50%);
-      animation: auroraSpin 30s linear infinite;
-      pointer-events: none;
-      z-index: 0;
+      animation: auroraSpin 30s linear infinite; pointer-events:none; z-index:0; }
+    @keyframes auroraSpin { 0%{transform:rotate(0deg) scale(1);} 50%{transform:rotate(180deg) scale(1.15);} 100%{transform:rotate(360deg) scale(1);} }
+
+    .coquette-symbols { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+    .coquette-symbol { position:absolute; color:rgba(180,120,140,0.45); animation:symbolDrift linear infinite; white-space:pre; font-weight:400; text-shadow:0 0 8px rgba(220,150,170,0.3); }
+    @keyframes symbolDrift { 0%{transform:translateY(-5vh) rotate(0deg) scale(0.9); opacity:0;} 10%{opacity:0.6;} 90%{opacity:0.6;} 100%{transform:translateY(105vh) rotate(360deg) scale(1.2); opacity:0;} }
+
+    /* Walker container */
+    .walker-container { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
+    .walker { position:absolute; animation: walk linear infinite; }
+    .walker img { width:60px; height:auto; filter:drop-shadow(0 8px 12px rgba(180,130,150,0.35)); }
+    @keyframes walk {
+      0% { transform: translateX(-80px) translateY(0); }
+      25% { transform: translateX(25vw) translateY(-6px); }
+      50% { transform: translateX(50vw) translateY(0); }
+      75% { transform: translateX(75vw) translateY(-4px); }
+      100% { transform: translateX(105vw) translateY(0); }
     }
 
-    @keyframes auroraSpin {
-      0% { transform: rotate(0deg) scale(1); }
-      50% { transform: rotate(180deg) scale(1.15); }
-      100% { transform: rotate(360deg) scale(1); }
-    }
-
-    /* Coquette symbols */
-    .coquette-symbols {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .coquette-symbol {
-      position: absolute;
-      color: rgba(180, 120, 140, 0.45);
-      animation: symbolDrift linear infinite;
-      white-space: pre;
-      font-weight: 400;
-      text-shadow: 0 0 8px rgba(220,150,170,0.3);
-    }
-
-    @keyframes symbolDrift {
-      0% { transform: translateY(-5vh) rotate(0deg) scale(0.9); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
-    }
-
-    /* ANIME CHIBI CHARACTERS */
-    .chibi-container {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .chibi {
-      position: absolute;
-      animation: chibiWalk linear infinite;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      filter: drop-shadow(0 10px 15px rgba(180,130,150,0.3));
-    }
-
-    @keyframes chibiWalk {
-      0% { transform: translateX(-140px) translateY(0); }
-      20% { transform: translateX(20vw) translateY(-10px); }
-      40% { transform: translateX(40vw) translateY(0); }
-      60% { transform: translateX(60vw) translateY(-8px); }
-      80% { transform: translateX(80vw) translateY(0); }
-      100% { transform: translateX(105vw) translateY(-6px); }
-    }
-
-    .chibi-head {
-      width: 40px;
-      height: 40px;
-      background: #fce4ec;
-      border-radius: 50%;
-      position: relative;
-      animation: headBounce 0.6s ease-in-out infinite alternate;
-    }
-
-    @keyframes headBounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-3px); }
-    }
-
-    .chibi-body {
-      width: 24px;
-      height: 28px;
-      border-radius: 50% 50% 35% 35%;
-      margin-top: -3px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .chibi-legs {
-      display: flex;
-      gap: 5px;
-      margin-top: 2px;
-    }
-
-    .chibi-leg {
-      width: 7px;
-      height: 12px;
-      border-radius: 50%;
-      animation: legWalk 0.4s ease-in-out infinite alternate;
-    }
-
-    .chibi-leg:nth-child(2) { animation-delay: 0.2s; }
-
-    @keyframes legWalk {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(-5px) rotate(-5deg); }
-    }
-
-    /* Header */
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255, 245, 248, 0.75);
-      backdrop-filter: blur(28px);
-      border-bottom: 1px solid rgba(220, 160, 180, 0.5);
-      padding: 1rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      box-shadow: 0 6px 24px rgba(210, 140, 160, 0.15);
-      border-radius: 0 0 2.5rem 2.5rem;
-    }
-
-    .logo h1 {
-      font-weight: 800;
-      font-size: 2.1rem;
-      letter-spacing: -0.4px;
-      background: linear-gradient(135deg, #db7a94, #b38bb0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .logo span {
-      font-size: 0.8rem;
-      color: #b3929c;
-      font-weight: 600;
-    }
-
-    .btn {
-      padding: 0.6rem 1.8rem;
-      border-radius: 3rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: 0.3s ease;
-      text-decoration: none;
-      font-size: 0.85rem;
-    }
-
-    .btn-outline {
-      background: rgba(255,255,255,0.8);
-      border: 1px solid #e6c4d0;
-      color: #b35d7a;
-    }
-    .btn-outline:hover {
-      background: #ffeef3;
-      border-color: #db7a94;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(210,130,150,0.2);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #e6a0b5, #c49bcf);
-      color: white;
-      box-shadow: 0 10px 20px rgba(200, 120, 150, 0.3);
-    }
-    .btn-primary:hover {
-      filter: brightness(1.04);
-      transform: translateY(-2px);
-    }
-
-    .btn-wa {
-      background: linear-gradient(135deg, #25D366, #1da851);
-      color: white;
-      box-shadow: 0 10px 18px rgba(37,211,102,0.25);
-    }
-
-    .container {
-      max-width: 1300px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 2.3rem;
-      margin-top: 1.2rem;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(18px);
-      border-radius: 2.5rem;
-      overflow: hidden;
-      border: 1px solid rgba(235,195,210,0.7);
-      box-shadow: 0 20px 35px rgba(200, 140, 160, 0.1);
-      transition: 0.35s ease;
-    }
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: #db7a94;
-      box-shadow: 0 30px 45px rgba(210,120,150,0.2);
-    }
-
-    .card-img {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      cursor: pointer;
-      background: #fff0f3;
-    }
-    .card-body { padding: 1.5rem; }
-    .card-body h3 { font-weight: 800; font-size: 1.25rem; color: #b85a74; }
-    .price { font-weight: 800; font-size: 1.6rem; color: #af7ab0; margin: 0.6rem 0 1rem; }
-    .order-btn {
-      background: #db7a94;
-      color: white;
-      padding: 0.7rem;
-      border-radius: 2rem;
-      text-align: center;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      text-decoration: none;
-    }
-
-    .admin-section {
-      margin-top: 2rem;
-      background: rgba(255,250,252,0.8);
-      backdrop-filter: blur(30px);
-      border-radius: 2.5rem;
-      padding: 2.5rem;
-      border: 1px solid rgba(220,160,180,0.5);
-      display: none;
-    }
-    .admin-section.active { display: block; }
-    .login-overlay {
-      position: fixed; inset:0; background:rgba(245,220,230,0.7); backdrop-filter:blur(15px);
-      display:flex; align-items:center; justify-content:center; z-index:999;
-    }
-    .login-box {
-      background: white; padding:2.5rem; border-radius:2.5rem; text-align:center;
-      box-shadow:0 25px 45px rgba(180,110,130,0.2);
-    }
-    .hidden { display: none !important; }
-    footer { text-align: center; padding: 2rem; color: #b3929c; margin-top: 2rem; }
-
-    @media (max-width: 640px) {
-      .header { padding: 0.8rem 1.5rem; }
-      .container { padding: 0 1.2rem; }
-    }
+    .header { position:sticky; top:0; z-index:100; background:rgba(255,245,248,0.75); backdrop-filter:blur(28px); border-bottom:1px solid rgba(220,160,180,0.5); padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; box-shadow:0 6px 24px rgba(210,140,160,0.15); border-radius:0 0 2.5rem 2.5rem; }
+    .logo h1 { font-weight:800; font-size:2.1rem; letter-spacing:-0.4px; background:linear-gradient(135deg,#db7a94,#b38bb0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .logo span { font-size:0.8rem; color:#b3929c; font-weight:600; }
+    .btn { padding:0.6rem 1.8rem; border-radius:3rem; font-weight:700; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:0.4rem; transition:0.3s; text-decoration:none; font-size:0.85rem; }
+    .btn-outline { background:rgba(255,255,255,0.8); border:1px solid #e6c4d0; color:#b35d7a; }
+    .btn-outline:hover { background:#ffeef3; border-color:#db7a94; transform:translateY(-2px); box-shadow:0 8px 18px rgba(210,130,150,0.2); }
+    .btn-primary { background:linear-gradient(135deg,#e6a0b5,#c49bcf); color:white; box-shadow:0 10px 20px rgba(200,120,150,0.3); }
+    .btn-wa { background:linear-gradient(135deg,#25D366,#1da851); color:white; box-shadow:0 10px 18px rgba(37,211,102,0.25); }
+    .container { max-width:1300px; margin:2rem auto; padding:0 2rem; position:relative; z-index:2; }
+    .product-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2.3rem; margin-top:1.2rem; }
+    .card { background:rgba(255,255,255,0.7); backdrop-filter:blur(18px); border-radius:2.5rem; overflow:hidden; border:1px solid rgba(235,195,210,0.7); box-shadow:0 20px 35px rgba(200,140,160,0.1); transition:0.35s; }
+    .card:hover { transform:translateY(-8px); border-color:#db7a94; box-shadow:0 30px 45px rgba(210,120,150,0.2); }
+    .card-img { width:100%; height:230px; object-fit:cover; cursor:pointer; background:#fff0f3; }
+    .card-body { padding:1.5rem; }
+    .card-body h3 { font-weight:800; font-size:1.25rem; color:#b85a74; }
+    .price { font-weight:800; font-size:1.6rem; color:#af7ab0; margin:0.6rem 0 1rem; }
+    .order-btn { background:#db7a94; color:white; padding:0.7rem; border-radius:2rem; text-align:center; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none; }
+    .admin-section { margin-top:2rem; background:rgba(255,250,252,0.8); backdrop-filter:blur(30px); border-radius:2.5rem; padding:2.5rem; border:1px solid rgba(220,160,180,0.5); display:none; }
+    .admin-section.active { display:block; }
+    .login-overlay { position:fixed; inset:0; background:rgba(245,220,230,0.7); backdrop-filter:blur(15px); display:flex; align-items:center; justify-content:center; z-index:999; }
+    .login-box { background:white; padding:2.5rem; border-radius:2.5rem; text-align:center; box-shadow:0 25px 45px rgba(180,110,130,0.2); }
+    .hidden { display:none !important; }
+    footer { text-align:center; padding:2rem; color:#b3929c; margin-top:2rem; }
+    @media (max-width:640px) { .header { padding:0.8rem 1.5rem; } .container { padding:0 1.2rem; } }
   </style>
 </head>
 <body>
 <div class="aurora"></div>
 <div class="coquette-symbols" id="coquetteContainer"></div>
-<div class="chibi-container" id="chibiContainer"></div>
+<div class="walker-container" id="walkerContainer"></div>
 
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -333,7 +104,7 @@
       <div><label style="font-weight:700;color:#b35d7a;">Harga</label><input type="number" id="pPrice" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;" min="1"></div>
     </div>
     <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Deskripsi</label><textarea id="pDesc" rows="2" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></textarea></div>
-    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Upload Gambar</label><input type="file" id="imageFile" accept="image/*" hidden>
+    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Upload Gambar Produk</label><input type="file" id="imageFile" accept="image/*" hidden>
       <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📁 Pilih</button>
       <img id="imgPreview" style="width:70px;height:70px;border-radius:1rem;display:none;margin-top:0.5rem;object-fit:cover;">
     </div>
@@ -342,6 +113,16 @@
       <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">꒰ Simpan ꒱</button>
       <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
     </div>
+
+    <!-- Anime walker manager -->
+    <div style="margin-top:2.5rem; border-top:2px solid #f0d6e0; padding-top:1.8rem;">
+      <h3 style="color:#b35d7a;">🌸 Karakter Anime Berjalan</h3>
+      <p style="font-size:0.8rem; color:#b3929c;">Upload gambar PNG karakter anime favoritmu (maks 4). Mereka akan berjalan lucu di background katalog.</p>
+      <div id="walkerSlots" style="display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1rem;"></div>
+      <button class="btn btn-outline" onclick="addWalkerSlot()" style="margin-top:0.8rem;">+ Tambah Slot</button>
+      <button class="btn btn-primary" onclick="saveWalkers()" style="margin-left:0.5rem;">💾 Simpan Karakter</button>
+    </div>
+
     <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
   </div>
 </main>
@@ -350,123 +131,89 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_animechibi_v1';
+    const STORAGE_KEY = 'cueku_animewalker_v1';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
     let products = [], isAdmin = false, selectedImageData = null, editingId = null;
+    let walkers = []; // array of { id, image (base64) }
 
     // Coquette symbols
     const symbolContainer = document.getElementById('coquetteContainer');
     const symbols = ['❥', '‧₊˚', '⊹₊', '꒰', '꒱', '✧', '୨୧', '˖⁺', '⁕', '𓇢', '𓆸', '⊹', '❀', '‧', '₊', '˚₊', '꒷', '꒦', '༘', '✿'];
-    for (let i = 0; i < 30; i++) {
-      const el = document.createElement('div');
-      el.className = 'coquette-symbol';
-      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      el.style.left = Math.random() * 100 + '%';
-      el.style.animationDuration = 10 + Math.random() * 18 + 's';
-      el.style.animationDelay = Math.random() * 6 + 's';
-      el.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
+    for (let i=0;i<30;i++) {
+      const el = document.createElement('div'); el.className='coquette-symbol';
+      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      el.style.left = Math.random()*100+'%'; el.style.animationDuration = 10+Math.random()*18+'s';
+      el.style.animationDelay = Math.random()*6+'s'; el.style.fontSize = (1.2+Math.random()*2.2)+'rem';
       symbolContainer.appendChild(el);
     }
 
-    // ANIME CHIBI CHARACTERS
-    const chibiContainer = document.getElementById('chibiContainer');
-    const characters = [
-      {
-        name: 'Gojo',
-        hair: '#f8f9fa',
-        hairStyle: 'spiky',
-        bodyColor: '#1a1a2e',
-        eyeCover: '#0f0f1a',
-        extra: 'blindfold'
-      },
-      {
-        name: 'Naruto',
-        hair: '#fcd34d',
-        hairStyle: 'spiky',
-        bodyColor: '#f97316',
-        headband: '#c0c0c0',
-        extra: 'whiskers'
-      },
-      {
-        name: 'Anya',
-        hair: '#f9a8d4',
-        hairStyle: 'twin',
-        bodyColor: '#111827',
-        horns: '#f9a8d4',
-        extra: 'horns'
-      },
-      {
-        name: 'SailorMoon',
-        hair: '#fcd34d',
-        hairStyle: 'odango',
-        bodyColor: '#ffffff',
-        ribbon: '#ef4444',
-        extra: 'odango'
-      },
-      {
-        name: 'Tanjiro',
-        hair: '#991b1b',
-        hairStyle: 'spiky',
-        bodyColor: '#1f2937',
-        earrings: '#f59e0b',
-        scar: '#ff0000'
-      }
-    ];
+    // Walker functions
+    function loadWalkers() {
+      const stored = localStorage.getItem('cueku_walkers');
+      if (stored) { try { walkers = JSON.parse(stored); } catch(e) { walkers = []; } }
+      else { walkers = []; }
+      renderWalkers();
+    }
+    function saveWalkersToStorage() { localStorage.setItem('cueku_walkers', JSON.stringify(walkers)); renderWalkers(); }
+    function renderWalkers() {
+      const container = document.getElementById('walkerContainer');
+      container.innerHTML = '';
+      walkers.forEach((w, idx) => {
+        if (!w.image) return;
+        const div = document.createElement('div'); div.className='walker';
+        div.style.top = (10 + idx * 18) + '%';
+        div.style.animationDuration = 14 + idx * 3 + 's';
+        div.style.animationDelay = idx * 2 + 's';
+        const img = document.createElement('img'); img.src = w.image; img.alt = 'chibi';
+        div.appendChild(img); container.appendChild(div);
+      });
+      // juga update admin slots
+      renderWalkerSlots();
+    }
 
-    characters.forEach((char, i) => {
-      const chibi = document.createElement('div');
-      chibi.className = 'chibi';
-      chibi.style.top = (12 + i * 17) + '%';
-      chibi.style.animationDuration = 15 + i * 4 + 's';
-      chibi.style.animationDelay = i * 2.5 + 's';
+    function renderWalkerSlots() {
+      const slots = document.getElementById('walkerSlots');
+      if (!slots) return;
+      slots.innerHTML = '';
+      walkers.forEach((w, idx) => {
+        const slot = document.createElement('div');
+        slot.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:0.4rem;';
+        slot.innerHTML = `
+          <img src="${w.image || 'https://via.placeholder.com/60/fff0f3/db7a94?text=?'}" style="width:60px;height:60px;object-fit:contain;border-radius:1rem;border:2px dashed #e6c4d0;">
+          <input type="file" accept="image/*" id="walkerFile${idx}" style="display:none;">
+          <button class="btn btn-outline" style="font-size:0.7rem;padding:0.3rem 0.8rem;" onclick="document.getElementById('walkerFile${idx}').click()">Ubah</button>
+          <button class="btn btn-outline" style="font-size:0.7rem;color:#ef4444;" onclick="removeWalker(${idx})">Hapus</button>
+        `;
+        slots.appendChild(slot);
+        // bind file change
+        document.getElementById('walkerFile'+idx).addEventListener('change', function(e) {
+          const file = e.target.files[0]; if(!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            walkers[idx].image = ev.target.result;
+            renderWalkerSlots();
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+    }
 
-      let headExtra = '';
-      if (char.extra === 'blindfold') {
-        headExtra = `<div style="position:absolute;top:8px;left:4px;width:32px;height:12px;background:${char.eyeCover};border-radius:6px;z-index:3;"></div>`;
-      } else if (char.extra === 'whiskers') {
-        headExtra = `
-          <div style="position:absolute;top:16px;left:-6px;width:6px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
-          <div style="position:absolute;top:19px;left:-5px;width:5px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
-          <div style="position:absolute;top:16px;right:-6px;width:6px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
-          <div style="position:absolute;top:19px;right:-5px;width:5px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
-        `;
-      } else if (char.extra === 'horns') {
-        headExtra = `
-          <div style="position:absolute;top:-8px;left:5px;width:5px;height:10px;background:${char.horns};border-radius:50% 50% 0 0;transform:rotate(-20deg);"></div>
-          <div style="position:absolute;top:-8px;right:5px;width:5px;height:10px;background:${char.horns};border-radius:50% 50% 0 0;transform:rotate(20deg);"></div>
-        `;
-      } else if (char.extra === 'odango') {
-        headExtra = `
-          <div style="position:absolute;top:-8px;left:-2px;width:10px;height:10px;background:#fcd34d;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.2);"></div>
-          <div style="position:absolute;top:-8px;right:-2px;width:10px;height:10px;background:#fcd34d;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.2);"></div>
-        `;
-      }
-
-      chibi.innerHTML = `
-        <div class="chibi-head" style="background:#fce4ec;">
-          <div style="position:absolute;top:-5px;left:2px;width:36px;height:14px;background:${char.hair};border-radius:50% 50% 0 0;"></div>
-          <div style="position:absolute;top:13px;left:9px;width:22px;display:flex;justify-content:space-between;">
-            <div style="width:6px;height:7px;background:#1a0a14;border-radius:50%;box-shadow:0 0 3px #000;"></div>
-            <div style="width:6px;height:7px;background:#1a0a14;border-radius:50%;box-shadow:0 0 3px #000;"></div>
-          </div>
-          ${headExtra}
-          <div style="position:absolute;top:19px;width:40px;display:flex;justify-content:space-between;padding:0 5px;">
-            <div style="width:8px;height:5px;background:rgba(255,120,140,0.55);border-radius:50%;filter:blur(2px);"></div>
-            <div style="width:8px;height:5px;background:rgba(255,120,140,0.55);border-radius:50%;filter:blur(2px);"></div>
-          </div>
-          <div style="position:absolute;bottom:8px;left:17px;width:6px;height:3px;border-bottom:2px solid #d48595;border-radius:0 0 60% 60%;"></div>
-        </div>
-        <div class="chibi-body" style="background:${char.bodyColor};">
-          ${char.name === 'Naruto' ? '<div style="width:14px;height:6px;background:white;border-radius:2px;margin-top:3px;"></div>' : ''}
-        </div>
-        <div class="chibi-legs">
-          <div class="chibi-leg" style="background:${char.bodyColor};"></div>
-          <div class="chibi-leg" style="background:${char.bodyColor};"></div>
-        </div>
-      `;
-      chibiContainer.appendChild(chibi);
-    });
+    window.addWalkerSlot = function() {
+      if (walkers.length >= 4) { alert('Maksimal 4 karakter!'); return; }
+      walkers.push({ id: Date.now(), image: '' });
+      renderWalkerSlots();
+    };
+    window.removeWalker = function(idx) {
+      walkers.splice(idx,1);
+      renderWalkerSlots();
+    };
+    window.saveWalkers = function() {
+      // filter empty images
+      walkers = walkers.filter(w => w.image && w.image.length > 50);
+      saveWalkersToStorage();
+      alert('Karakter berjalan disimpan!');
+    };
 
     function loadProducts() {
       const s = localStorage.getItem(STORAGE_KEY);
@@ -484,22 +231,14 @@
     function renderCatalog() {
       const grid = document.getElementById('productGrid');
       if (!grid) return;
-      if (!products.length) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#b3929c;">˖⁺ Belum ada produk ⊹</div>';
-        return;
-      }
+      if (!products.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#b3929c;">˖⁺ Belum ada produk ⊹</div>'; return; }
       let h = '';
       products.forEach(p => {
         const price = new Intl.NumberFormat('id-ID').format(p.price);
         h += `<div class="card">
           <img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g,"\\'")}')" onerror="this.src='https://via.placeholder.com/400x230/fff0f3/db7a94?text=No+Image'">
-          <div class="card-body">
-            <h3>${p.name}</h3>
-            <p style="color:#7a5b6b;font-size:0.9rem;">${p.desc||'Lucu.'}</p>
-            <div class="price">Rp${price}</div>
-            <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau '+p.name+' (Rp'+price+') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a>
-          </div>
-        </div>`;
+          <div class="card-body"><h3>${p.name}</h3><p style="color:#7a5b6b;font-size:0.9rem;">${p.desc||'Lucu.'}</p><div class="price">Rp${price}</div>
+          <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau '+p.name+' (Rp'+price+') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a></div></div>`;
       });
       grid.innerHTML = h;
     }
@@ -593,7 +332,7 @@
         document.getElementById('adminPanel').classList.add('active');
         document.getElementById('adminBtn').classList.add('hidden');
         document.getElementById('logoutBtn').classList.remove('hidden');
-        renderAdminList();
+        renderAdminList(); renderWalkerSlots();
       } else alert('Password salah!');
     };
     window.logout = () => {
@@ -603,6 +342,7 @@
     };
 
     loadProducts(); renderCatalog();
+    loadWalkers();
   })();
 </script>
 </body>
