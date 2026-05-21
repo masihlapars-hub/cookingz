@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Elegant Catalog</title>
+  <title>Cueku Store | Elegant Cute Catalog</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -31,58 +31,60 @@
       100% { background: #e8f0fe; }
     }
 
-    /* Partikel Konfeti 3D Organik Profesional */
-    .particles-container {
+    /* Aurora background */
+    .aurora {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+      z-index: -1;
+      background: radial-gradient(circle at 30% 20%, rgba(255,192,203,0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(221,160,221,0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 50%, rgba(176,196,222,0.2) 0%, transparent 60%);
+      animation: auroraMove 20s linear infinite;
     }
 
-    .confetti {
+    @keyframes auroraMove {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.1); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    /* 3D cute floating icons */
+    .floating-icons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .floating-icon {
       position: absolute;
-      animation: confettiFall linear infinite;
-      opacity: 0.75;
-      transform-origin: center;
-    }
-
-    /* Bentuk kelopak bunga */
-    .confetti.petal {
-      width: 12px;
-      height: 18px;
-      background: rgba(255, 182, 193, 0.8);
-      border-radius: 50% 0 50% 50%;
-      box-shadow: 0 0 12px rgba(255, 105, 180, 0.4);
-      transform: rotate(45deg);
-    }
-
-    /* Bentuk bintang kecil */
-    .confetti.star {
-      width: 14px;
-      height: 14px;
-      background: transparent;
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      box-shadow: 0 0 15px currentColor;
+      font-size: 2.2rem;
+      animation: floatIcon linear infinite;
       opacity: 0.7;
+      filter: drop-shadow(0 8px 12px rgba(255,105,180,0.3));
+      transition: transform 0.3s;
     }
 
-    @keyframes confettiFall {
+    @keyframes floatIcon {
       0% {
-        transform: translateY(-10vh) rotate(0deg) scale(0.8);
+        transform: translateY(-10vh) translateX(0) rotate(0deg) scale(0.9);
         opacity: 0;
       }
       10% {
-        opacity: 0.7;
+        opacity: 0.8;
       }
       90% {
-        opacity: 0.7;
+        opacity: 0.8;
       }
       100% {
-        transform: translateY(105vh) rotate(720deg) scale(1.2);
+        transform: translateY(110vh) translateX(20px) rotate(360deg) scale(1.2);
         opacity: 0;
       }
     }
@@ -91,9 +93,9 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       border-bottom: 2px solid rgba(255, 182, 193, 0.5);
       padding: 1rem 2rem;
       display: flex;
@@ -101,7 +103,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 1rem;
-      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.15);
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
       border-radius: 0 0 3rem 3rem;
     }
 
@@ -177,7 +179,7 @@
       margin: 2rem auto;
       padding: 0 2rem;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .product-grid {
@@ -188,9 +190,9 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 3rem;
       overflow: hidden;
       border: 2px solid rgba(255, 192, 203, 0.6);
@@ -275,7 +277,7 @@
 
     .admin-section {
       margin-top: 2.5rem;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.75);
       backdrop-filter: blur(30px);
       border-radius: 3rem;
       padding: 2.5rem;
@@ -463,7 +465,8 @@
   </style>
 </head>
 <body>
-<div class="particles-container" id="particlesContainer"></div>
+<div class="aurora"></div>
+<div class="floating-icons" id="floatingIcons"></div>
 
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -513,7 +516,7 @@
       <textarea id="pDesc" class="form-control" rows="2" placeholder="Deskripsi singkat..."></textarea>
     </div>
     <div class="form-group">
-      <label>Upload Gambar (biarkan jika tidak ingin diubah)</label>
+      <label>Upload Gambar</label>
       <input type="file" id="imageFile" accept="image/*" style="display:none;">
       <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📸 Pilih Gambar</button>
       <img id="imgPreview" class="preview-img" alt="preview">
@@ -537,7 +540,7 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_elegant_v11';
+    const STORAGE_KEY = 'cueku_elegant_v12';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
 
@@ -546,33 +549,18 @@
     let selectedImageData = null;
     let editingId = null;
 
-    // Konfeti 3D Organik Profesional
-    const particlesContainer = document.getElementById('particlesContainer');
-    const palette = ['#ffb6c1', '#dda0dd', '#b0c4de', '#ffdab9', '#ff69b4', '#c44dff', '#f8a5c2', '#c3bef0'];
-    
-    // Buat 30 konfeti: campuran kelopak dan bintang
-    for (let i = 0; i < 35; i++) {
-      const confetti = document.createElement('div');
-      confetti.className = 'confetti';
-      
-      // Pilih bentuk acak: petal atau star
-      if (Math.random() < 0.6) {
-        confetti.classList.add('petal');
-        confetti.style.background = palette[Math.floor(Math.random() * palette.length)];
-        confetti.style.boxShadow = `0 0 15px ${confetti.style.backgroundColor}`;
-      } else {
-        confetti.classList.add('star');
-        const color = palette[Math.floor(Math.random() * palette.length)];
-        confetti.style.backgroundColor = color;
-        confetti.style.color = color;
-      }
-
-      confetti.style.left = Math.random() * 100 + '%';
-      confetti.style.animationDuration = Math.random() * 12 + 8 + 's'; // 8-20s
-      confetti.style.animationDelay = Math.random() * 5 + 's';
-      confetti.style.opacity = 0.5 + Math.random() * 0.4;
-      
-      particlesContainer.appendChild(confetti);
+    // 3D floating icons (🎀🧸🌸🦄🍰💖✨)
+    const iconsContainer = document.getElementById('floatingIcons');
+    const iconList = ['🎀', '🧸', '🌸', '🦄', '🍰', '💖', '✨', '🎁', '💝', '🌷'];
+    for (let i = 0; i < 25; i++) {
+      const icon = document.createElement('div');
+      icon.className = 'floating-icon';
+      icon.textContent = iconList[Math.floor(Math.random() * iconList.length)];
+      icon.style.left = Math.random() * 100 + '%';
+      icon.style.animationDuration = Math.random() * 10 + 10 + 's';
+      icon.style.animationDelay = Math.random() * 5 + 's';
+      icon.style.fontSize = (1.8 + Math.random() * 2.5) + 'rem';
+      iconsContainer.appendChild(icon);
     }
 
     function loadProducts() {
