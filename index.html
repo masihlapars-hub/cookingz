@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Best Service</title>
+  <title>Cueku Store | Coquette Aesthetic</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -24,13 +24,10 @@
       overflow-x: hidden;
     }
 
-    /* Aurora background */
+    /* Aurora */
     .aurora {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       background: radial-gradient(circle at 30% 30%, rgba(255,220,230,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 70% 70%, rgba(230,210,240,0.5) 0%, transparent 45%),
                   radial-gradient(circle at 50% 50%, rgba(210,230,250,0.4) 0%, transparent 50%);
@@ -45,13 +42,10 @@
       100% { transform: rotate(360deg) scale(1); }
     }
 
-    /* Coquette symbols background */
+    /* Coquette symbols */
     .coquette-symbols {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       z-index: 1;
     }
@@ -72,13 +66,10 @@
       100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
     }
 
-    /* ANIME CHIBI WALKING CHARACTERS */
+    /* ANIME CHIBI WALKING (redesigned) */
     .chibi-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       z-index: 1;
     }
@@ -89,91 +80,119 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      filter: drop-shadow(0 8px 12px rgba(180,130,150,0.35));
+      filter: drop-shadow(0 10px 15px rgba(180,130,150,0.3));
     }
 
     @keyframes chibiWalk {
       0% { transform: translateX(-120px) translateY(0); }
-      25% { transform: translateX(25vw) translateY(-8px); }
-      50% { transform: translateX(50vw) translateY(0); }
-      75% { transform: translateX(75vw) translateY(-5px); }
-      100% { transform: translateX(105vw) translateY(0); }
+      20% { transform: translateX(20vw) translateY(-8px); }
+      40% { transform: translateX(40vw) translateY(0); }
+      60% { transform: translateX(60vw) translateY(-6px); }
+      80% { transform: translateX(80vw) translateY(0); }
+      100% { transform: translateX(105vw) translateY(-4px); }
     }
 
     .chibi-head {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       background: #fce4ec;
       border-radius: 50%;
       position: relative;
-      box-shadow: 0 2px 6px rgba(180,120,140,0.3);
-      animation: headBounce 0.8s ease-in-out infinite alternate;
+      box-shadow: 0 4px 8px rgba(180,120,140,0.3);
+      animation: headBounce 0.6s ease-in-out infinite alternate;
     }
 
     @keyframes headBounce {
       0% { transform: translateY(0); }
-      100% { transform: translateY(-2px); }
+      100% { transform: translateY(-3px); }
+    }
+
+    .chibi-hair {
+      position: absolute;
+      top: -5px;
+      left: 3px;
+      width: 34px;
+      height: 14px;
+      background: #d4a0b0;
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+    }
+
+    .chibi-fringe {
+      position: absolute;
+      top: -2px;
+      left: 8px;
+      width: 24px;
+      height: 8px;
+      background: inherit;
+      border-radius: 0 0 50% 50%;
+      opacity: 0.8;
     }
 
     .chibi-eyes {
       position: absolute;
-      top: 10px;
-      left: 8px;
+      top: 12px;
+      left: 10px;
       width: 20px;
       display: flex;
       justify-content: space-between;
     }
 
     .chibi-eye {
-      width: 5px;
-      height: 6px;
-      background: #4a2c3e;
+      width: 6px;
+      height: 7px;
+      background: radial-gradient(circle, #3a1c2e 60%, #1a0a14 100%);
       border-radius: 50%;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2);
     }
 
     .chibi-blush {
       position: absolute;
-      top: 15px;
-      width: 36px;
+      top: 18px;
+      width: 40px;
       display: flex;
       justify-content: space-between;
-      padding: 0 4px;
+      padding: 0 6px;
     }
 
     .chibi-blush-spot {
-      width: 7px;
-      height: 4px;
-      background: rgba(255,160,180,0.6);
+      width: 8px;
+      height: 5px;
+      background: rgba(255,140,160,0.5);
       border-radius: 50%;
+      filter: blur(1px);
     }
 
     .chibi-mouth {
       position: absolute;
-      bottom: 8px;
-      left: 15px;
+      bottom: 10px;
+      left: 17px;
       width: 6px;
-      height: 4px;
+      height: 3px;
       border-bottom: 2px solid #c97a8b;
       border-radius: 0 0 50% 50%;
     }
 
-    .chibi-hair {
-      position: absolute;
-      top: -3px;
-      left: 4px;
-      width: 28px;
-      height: 10px;
-      background: #d4a0b0;
-      border-radius: 50% 50% 0 0;
-    }
-
     .chibi-body {
-      width: 22px;
-      height: 24px;
+      width: 24px;
+      height: 28px;
       background: #fef0f5;
       border-radius: 50% 50% 30% 30%;
-      margin-top: -2px;
-      box-shadow: 0 2px 4px rgba(180,120,140,0.2);
+      margin-top: -3px;
+      box-shadow: 0 4px 6px rgba(180,120,140,0.2);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chibi-dress {
+      width: 18px;
+      height: 10px;
+      background: rgba(255,220,230,0.7);
+      border-radius: 50%;
+      margin-top: 2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 
     /* Header */
@@ -398,7 +417,7 @@
       <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">꒰ Simpan ꒱</button>
       <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
     </div>
-    <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" class="product-list-mini" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
+    <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
   </div>
 </main>
 
@@ -406,7 +425,7 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_coquette_chibi_v2';
+    const STORAGE_KEY = 'cueku_coquette_chibi_v3';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
     let products = [], isAdmin = false, selectedImageData = null, editingId = null;
@@ -425,20 +444,23 @@
       symbolContainer.appendChild(el);
     }
 
-    // ANIME CHIBI WALKING CHARACTERS
+    // CHIBI REDESIGN - lebih detail dan lucu
     const chibiContainer = document.getElementById('chibiContainer');
-    const hairColors = ['#d4a0b0', '#c49bcf', '#b0c4de', '#ffdab9', '#f8a5c2'];
-    for (let i = 0; i < 8; i++) {
+    const hairPalette = ['#d4a0b0', '#c49bcf', '#b0c4de', '#ffdab9', '#f8a5c2', '#e6a0b5'];
+    const dressPalette = ['#ffeef3', '#f9e6f0', '#eef2fa', '#fff5eb', '#fde8ef', '#fbe8f0'];
+    for (let i = 0; i < 6; i++) {
       const chibi = document.createElement('div');
       chibi.className = 'chibi';
-      chibi.style.top = (15 + Math.random() * 70) + '%';
-      chibi.style.animationDuration = 12 + Math.random() * 18 + 's';
-      chibi.style.animationDelay = Math.random() * 10 + 's';
-      const hairColor = hairColors[Math.floor(Math.random() * hairColors.length)];
+      chibi.style.top = (10 + i * 14) + '%';
+      chibi.style.animationDuration = 14 + i * 3 + 's';
+      chibi.style.animationDelay = i * 1.8 + 's';
+      const hairColor = hairPalette[i % hairPalette.length];
+      const dressColor = dressPalette[i % dressPalette.length];
 
       chibi.innerHTML = `
         <div class="chibi-head">
           <div class="chibi-hair" style="background:${hairColor};"></div>
+          <div class="chibi-fringe" style="background:${hairColor};"></div>
           <div class="chibi-eyes">
             <div class="chibi-eye"></div>
             <div class="chibi-eye"></div>
@@ -449,7 +471,9 @@
           </div>
           <div class="chibi-mouth"></div>
         </div>
-        <div class="chibi-body"></div>
+        <div class="chibi-body" style="background:${dressColor};">
+          <div class="chibi-dress" style="background:${hairColor}; opacity:0.6;"></div>
+        </div>
       `;
       chibiContainer.appendChild(chibi);
     }
