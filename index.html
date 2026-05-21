@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | BEST SERVICE</title>
+  <title>Cueku Store | Coquette + Anime Walker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -23,10 +23,9 @@
     .coquette-symbol { position:absolute; color:rgba(180,120,140,0.45); animation:symbolDrift linear infinite; white-space:pre; font-weight:400; text-shadow:0 0 8px rgba(220,150,170,0.3); }
     @keyframes symbolDrift { 0%{transform:translateY(-5vh) rotate(0deg) scale(0.9); opacity:0;} 10%{opacity:0.6;} 90%{opacity:0.6;} 100%{transform:translateY(105vh) rotate(360deg) scale(1.2); opacity:0;} }
 
-    /* Walker container */
     .walker-container { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
     .walker { position:absolute; animation: walk linear infinite; }
-    .walker img { width:60px; height:auto; filter:drop-shadow(0 8px 12px rgba(180,130,150,0.35)); }
+    .walker img { width:65px; height:auto; filter:drop-shadow(0 8px 14px rgba(180,130,150,0.35)); }
     @keyframes walk {
       0% { transform: translateX(-80px) translateY(0); }
       25% { transform: translateX(25vw) translateY(-6px); }
@@ -114,13 +113,19 @@
       <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
     </div>
 
-    <!-- Anime walker manager -->
+    <!-- Anime walker manager (transparan dijamin) -->
     <div style="margin-top:2.5rem; border-top:2px solid #f0d6e0; padding-top:1.8rem;">
       <h3 style="color:#b35d7a;">🌸 Karakter Anime Berjalan</h3>
-      <p style="font-size:0.8rem; color:#b3929c;">Upload gambar PNG karakter anime favoritmu (maks 4). Mereka akan berjalan lucu di background katalog.</p>
+      <p style="font-size:0.8rem; color:#b3929c;">Upload gambar <strong>PNG transparan</strong> karakter anime favoritmu (maks 4). Mereka berjalan di background katalog.<br>
+      <em>📌 Data hanya tersimpan di browser ini. Gunakan <strong>Ekspor/Impor</strong> untuk pindah ke device lain.</em></p>
       <div id="walkerSlots" style="display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1rem;"></div>
       <button class="btn btn-outline" onclick="addWalkerSlot()" style="margin-top:0.8rem;">+ Tambah Slot</button>
       <button class="btn btn-primary" onclick="saveWalkers()" style="margin-left:0.5rem;">💾 Simpan Karakter</button>
+      <div style="margin-top:1rem; display:flex; gap:0.8rem;">
+        <button class="btn btn-outline" onclick="exportAllData()" style="font-size:0.75rem;">📤 Ekspor Data</button>
+        <button class="btn btn-outline" onclick="importAllData()" style="font-size:0.75rem;">📥 Impor Data</button>
+        <input type="file" id="importFile" accept=".json" style="display:none;">
+      </div>
     </div>
 
     <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
@@ -132,10 +137,11 @@
 <script>
   (function() {
     const STORAGE_KEY = 'cueku_animewalker_v1';
+    const WALKER_STORAGE = 'cueku_walkers';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
     let products = [], isAdmin = false, selectedImageData = null, editingId = null;
-    let walkers = []; // array of { id, image (base64) }
+    let walkers = []; // { id, image (base64 png original) }
 
     // Coquette symbols
     const symbolContainer = document.getElementById('coquetteContainer');
@@ -150,12 +156,12 @@
 
     // Walker functions
     function loadWalkers() {
-      const stored = localStorage.getItem('cueku_walkers');
+      const stored = localStorage.getItem(WALKER_STORAGE);
       if (stored) { try { walkers = JSON.parse(stored); } catch(e) { walkers = []; } }
       else { walkers = []; }
       renderWalkers();
     }
-    function saveWalkersToStorage() { localStorage.setItem('cueku_walkers', JSON.stringify(walkers)); renderWalkers(); }
+    function saveWalkersToStorage() { localStorage.setItem(WALKER_STORAGE, JSON.stringify(walkers)); renderWalkers(); }
     function renderWalkers() {
       const container = document.getElementById('walkerContainer');
       container.innerHTML = '';
@@ -168,7 +174,6 @@
         const img = document.createElement('img'); img.src = w.image; img.alt = 'chibi';
         div.appendChild(img); container.appendChild(div);
       });
-      // juga update admin slots
       renderWalkerSlots();
     }
 
@@ -180,19 +185,19 @@
         const slot = document.createElement('div');
         slot.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:0.4rem;';
         slot.innerHTML = `
-          <img src="${w.image || 'https://via.placeholder.com/60/fff0f3/db7a94?text=?'}" style="width:60px;height:60px;object-fit:contain;border-radius:1rem;border:2px dashed #e6c4d0;">
+          <img src="${w.image || 'https://via.placeholder.com/65/fff0f3/db7a94?text=?'}" style="width:65px;height:65px;object-fit:contain;border-radius:1rem;border:2px dashed #e6c4d0;background:transparent;">
           <input type="file" accept="image/*" id="walkerFile${idx}" style="display:none;">
           <button class="btn btn-outline" style="font-size:0.7rem;padding:0.3rem 0.8rem;" onclick="document.getElementById('walkerFile${idx}').click()">Ubah</button>
           <button class="btn btn-outline" style="font-size:0.7rem;color:#ef4444;" onclick="removeWalker(${idx})">Hapus</button>
         `;
         slots.appendChild(slot);
-        // bind file change
+        // file listener - simpan langsung base64 asli tanpa kompresi
         document.getElementById('walkerFile'+idx).addEventListener('change', function(e) {
           const file = e.target.files[0]; if(!file) return;
           const reader = new FileReader();
           reader.onload = (ev) => {
-            walkers[idx].image = ev.target.result;
-            renderWalkerSlots();
+            walkers[idx].image = ev.target.result; // base64 asli (png transparan)
+            renderWalkerSlots(); // update preview
           };
           reader.readAsDataURL(file);
         });
@@ -209,11 +214,39 @@
       renderWalkerSlots();
     };
     window.saveWalkers = function() {
-      // filter empty images
       walkers = walkers.filter(w => w.image && w.image.length > 50);
       saveWalkersToStorage();
-      alert('Karakter berjalan disimpan!');
+      alert('Karakter berjalan disimpan! 🎉');
     };
+
+    // Ekspor / Impor
+    window.exportAllData = function() {
+      const data = {
+        products: products,
+        walkers: walkers
+      };
+      const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = 'cueku_backup.json'; a.click();
+      alert('Data diekspor! Simpan file ini.');
+    };
+    window.importAllData = function() {
+      document.getElementById('importFile').click();
+    };
+    document.getElementById('importFile').addEventListener('change', function(e) {
+      const file = e.target.files[0]; if(!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (data.products) { products = data.products; saveProducts(); }
+          if (data.walkers) { walkers = data.walkers; saveWalkersToStorage(); }
+          renderCatalog(); renderAdminList(); renderWalkers();
+          alert('Data berhasil diimpor!');
+        } catch (ex) { alert('File tidak valid.'); }
+      };
+      reader.readAsText(file);
+    });
 
     function loadProducts() {
       const s = localStorage.getItem(STORAGE_KEY);
@@ -343,6 +376,11 @@
 
     loadProducts(); renderCatalog();
     loadWalkers();
+    // Pastikan file input impor tersedia
+    const importInput = document.getElementById('importFile');
+    if (importInput) {
+      importInput.addEventListener('click', (e) => e.stopPropagation());
+    }
   })();
 </script>
 </body>
