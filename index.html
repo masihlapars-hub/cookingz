@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Coquette Aesthetic</title>
+  <title>Cueku Store | Coquette Aesthetic x Anime Chibi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Nunito', sans-serif;
@@ -66,7 +62,7 @@
       100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
     }
 
-    /* ANIME CHIBI WALKING (redesigned) */
+    /* ANIME CHIBI CHARACTERS */
     .chibi-container {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -84,12 +80,12 @@
     }
 
     @keyframes chibiWalk {
-      0% { transform: translateX(-120px) translateY(0); }
-      20% { transform: translateX(20vw) translateY(-8px); }
+      0% { transform: translateX(-140px) translateY(0); }
+      20% { transform: translateX(20vw) translateY(-10px); }
       40% { transform: translateX(40vw) translateY(0); }
-      60% { transform: translateX(60vw) translateY(-6px); }
+      60% { transform: translateX(60vw) translateY(-8px); }
       80% { transform: translateX(80vw) translateY(0); }
-      100% { transform: translateX(105vw) translateY(-4px); }
+      100% { transform: translateX(105vw) translateY(-6px); }
     }
 
     .chibi-head {
@@ -98,7 +94,6 @@
       background: #fce4ec;
       border-radius: 50%;
       position: relative;
-      box-shadow: 0 4px 8px rgba(180,120,140,0.3);
       animation: headBounce 0.6s ease-in-out infinite alternate;
     }
 
@@ -107,92 +102,35 @@
       100% { transform: translateY(-3px); }
     }
 
-    .chibi-hair {
-      position: absolute;
-      top: -5px;
-      left: 3px;
-      width: 34px;
-      height: 14px;
-      background: #d4a0b0;
-      border-radius: 50% 50% 0 0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
-    }
-
-    .chibi-fringe {
-      position: absolute;
-      top: -2px;
-      left: 8px;
-      width: 24px;
-      height: 8px;
-      background: inherit;
-      border-radius: 0 0 50% 50%;
-      opacity: 0.8;
-    }
-
-    .chibi-eyes {
-      position: absolute;
-      top: 12px;
-      left: 10px;
-      width: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .chibi-eye {
-      width: 6px;
-      height: 7px;
-      background: radial-gradient(circle, #3a1c2e 60%, #1a0a14 100%);
-      border-radius: 50%;
-      box-shadow: 0 0 4px rgba(0,0,0,0.2);
-    }
-
-    .chibi-blush {
-      position: absolute;
-      top: 18px;
-      width: 40px;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 6px;
-    }
-
-    .chibi-blush-spot {
-      width: 8px;
-      height: 5px;
-      background: rgba(255,140,160,0.5);
-      border-radius: 50%;
-      filter: blur(1px);
-    }
-
-    .chibi-mouth {
-      position: absolute;
-      bottom: 10px;
-      left: 17px;
-      width: 6px;
-      height: 3px;
-      border-bottom: 2px solid #c97a8b;
-      border-radius: 0 0 50% 50%;
-    }
-
     .chibi-body {
       width: 24px;
       height: 28px;
-      background: #fef0f5;
-      border-radius: 50% 50% 30% 30%;
+      border-radius: 50% 50% 35% 35%;
       margin-top: -3px;
-      box-shadow: 0 4px 6px rgba(180,120,140,0.2);
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .chibi-dress {
-      width: 18px;
-      height: 10px;
-      background: rgba(255,220,230,0.7);
-      border-radius: 50%;
+    .chibi-legs {
+      display: flex;
+      gap: 5px;
       margin-top: 2px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .chibi-leg {
+      width: 7px;
+      height: 12px;
+      border-radius: 50%;
+      animation: legWalk 0.4s ease-in-out infinite alternate;
+    }
+
+    .chibi-leg:nth-child(2) { animation-delay: 0.2s; }
+
+    @keyframes legWalk {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-5px) rotate(-5deg); }
     }
 
     /* Header */
@@ -308,20 +246,9 @@
       cursor: pointer;
       background: #fff0f3;
     }
-    .card-body {
-      padding: 1.5rem;
-    }
-    .card-body h3 {
-      font-weight: 800;
-      font-size: 1.25rem;
-      color: #b85a74;
-    }
-    .price {
-      font-weight: 800;
-      font-size: 1.6rem;
-      color: #af7ab0;
-      margin: 0.6rem 0 1rem;
-    }
+    .card-body { padding: 1.5rem; }
+    .card-body h3 { font-weight: 800; font-size: 1.25rem; color: #b85a74; }
+    .price { font-weight: 800; font-size: 1.6rem; color: #af7ab0; margin: 0.6rem 0 1rem; }
     .order-btn {
       background: #db7a94;
       color: white;
@@ -355,9 +282,7 @@
       box-shadow:0 25px 45px rgba(180,110,130,0.2);
     }
     .hidden { display: none !important; }
-    footer {
-      text-align: center; padding: 2rem; color: #b3929c; margin-top: 2rem;
-    }
+    footer { text-align: center; padding: 2rem; color: #b3929c; margin-top: 2rem; }
 
     @media (max-width: 640px) {
       .header { padding: 0.8rem 1.5rem; }
@@ -380,7 +305,7 @@
 <div id="loginOverlay" class="login-overlay hidden">
   <div class="login-box">
     <h3>˖⁺⊹ Admin ⊹⁺˖</h3>
-    <input type="password" id="passInput" class="form-control" placeholder="Kata sandi" autocomplete="off" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:2rem;text-align:center;margin:0.8rem 0;">
+    <input type="password" id="passInput" placeholder="Kata sandi" autocomplete="off" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:2rem;text-align:center;margin:0.8rem 0;">
     <button class="btn btn-primary" onclick="login()" style="width:100%; margin-top:0.5rem;">Masuk ✧</button>
   </div>
 </div>
@@ -401,18 +326,18 @@
   <div id="productGrid" class="product-grid"></div>
 
   <div id="adminPanel" class="admin-section">
-    <h2 class="admin-title" id="formTitle">୨୧ Tambah Produk</h2>
+    <h2 id="formTitle">୨୧ Tambah Produk</h2>
     <input type="hidden" id="editingId" value="">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-      <div><label style="font-weight:700;color:#b35d7a;">Nama</label><input type="text" id="pName" class="form-control" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
-      <div><label style="font-weight:700;color:#b35d7a;">Harga</label><input type="number" id="pPrice" class="form-control" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;" min="1"></div>
+      <div><label style="font-weight:700;color:#b35d7a;">Nama</label><input type="text" id="pName" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
+      <div><label style="font-weight:700;color:#b35d7a;">Harga</label><input type="number" id="pPrice" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;" min="1"></div>
     </div>
-    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Deskripsi</label><textarea id="pDesc" class="form-control" rows="2" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></textarea></div>
+    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Deskripsi</label><textarea id="pDesc" rows="2" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></textarea></div>
     <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Upload Gambar</label><input type="file" id="imageFile" accept="image/*" hidden>
       <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📁 Pilih</button>
       <img id="imgPreview" style="width:70px;height:70px;border-radius:1rem;display:none;margin-top:0.5rem;object-fit:cover;">
     </div>
-    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">URL Gambar</label><input type="text" id="pImageUrl" class="form-control" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
+    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">URL Gambar</label><input type="text" id="pImageUrl" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
     <div style="display:flex; gap:0.8rem;">
       <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">꒰ Simpan ꒱</button>
       <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
@@ -425,12 +350,12 @@
 
 <script>
   (function() {
-    const STORAGE_KEY = 'cueku_coquette_chibi_v3';
+    const STORAGE_KEY = 'cueku_animechibi_v1';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
     let products = [], isAdmin = false, selectedImageData = null, editingId = null;
 
-    // COQUETTE SYMBOLS
+    // Coquette symbols
     const symbolContainer = document.getElementById('coquetteContainer');
     const symbols = ['❥', '‧₊˚', '⊹₊', '꒰', '꒱', '✧', '୨୧', '˖⁺', '⁕', '𓇢', '𓆸', '⊹', '❀', '‧', '₊', '˚₊', '꒷', '꒦', '༘', '✿'];
     for (let i = 0; i < 30; i++) {
@@ -444,39 +369,104 @@
       symbolContainer.appendChild(el);
     }
 
-    // CHIBI REDESIGN - lebih detail dan lucu
+    // ANIME CHIBI CHARACTERS
     const chibiContainer = document.getElementById('chibiContainer');
-    const hairPalette = ['#d4a0b0', '#c49bcf', '#b0c4de', '#ffdab9', '#f8a5c2', '#e6a0b5'];
-    const dressPalette = ['#ffeef3', '#f9e6f0', '#eef2fa', '#fff5eb', '#fde8ef', '#fbe8f0'];
-    for (let i = 0; i < 6; i++) {
+    const characters = [
+      {
+        name: 'Gojo',
+        hair: '#f8f9fa',
+        hairStyle: 'spiky',
+        bodyColor: '#1a1a2e',
+        eyeCover: '#0f0f1a',
+        extra: 'blindfold'
+      },
+      {
+        name: 'Naruto',
+        hair: '#fcd34d',
+        hairStyle: 'spiky',
+        bodyColor: '#f97316',
+        headband: '#c0c0c0',
+        extra: 'whiskers'
+      },
+      {
+        name: 'Anya',
+        hair: '#f9a8d4',
+        hairStyle: 'twin',
+        bodyColor: '#111827',
+        horns: '#f9a8d4',
+        extra: 'horns'
+      },
+      {
+        name: 'SailorMoon',
+        hair: '#fcd34d',
+        hairStyle: 'odango',
+        bodyColor: '#ffffff',
+        ribbon: '#ef4444',
+        extra: 'odango'
+      },
+      {
+        name: 'Tanjiro',
+        hair: '#991b1b',
+        hairStyle: 'spiky',
+        bodyColor: '#1f2937',
+        earrings: '#f59e0b',
+        scar: '#ff0000'
+      }
+    ];
+
+    characters.forEach((char, i) => {
       const chibi = document.createElement('div');
       chibi.className = 'chibi';
-      chibi.style.top = (10 + i * 14) + '%';
-      chibi.style.animationDuration = 14 + i * 3 + 's';
-      chibi.style.animationDelay = i * 1.8 + 's';
-      const hairColor = hairPalette[i % hairPalette.length];
-      const dressColor = dressPalette[i % dressPalette.length];
+      chibi.style.top = (12 + i * 17) + '%';
+      chibi.style.animationDuration = 15 + i * 4 + 's';
+      chibi.style.animationDelay = i * 2.5 + 's';
+
+      let headExtra = '';
+      if (char.extra === 'blindfold') {
+        headExtra = `<div style="position:absolute;top:8px;left:4px;width:32px;height:12px;background:${char.eyeCover};border-radius:6px;z-index:3;"></div>`;
+      } else if (char.extra === 'whiskers') {
+        headExtra = `
+          <div style="position:absolute;top:16px;left:-6px;width:6px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
+          <div style="position:absolute;top:19px;left:-5px;width:5px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
+          <div style="position:absolute;top:16px;right:-6px;width:6px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
+          <div style="position:absolute;top:19px;right:-5px;width:5px;height:2px;background:#c0c0c0;border-radius:1px;"></div>
+        `;
+      } else if (char.extra === 'horns') {
+        headExtra = `
+          <div style="position:absolute;top:-8px;left:5px;width:5px;height:10px;background:${char.horns};border-radius:50% 50% 0 0;transform:rotate(-20deg);"></div>
+          <div style="position:absolute;top:-8px;right:5px;width:5px;height:10px;background:${char.horns};border-radius:50% 50% 0 0;transform:rotate(20deg);"></div>
+        `;
+      } else if (char.extra === 'odango') {
+        headExtra = `
+          <div style="position:absolute;top:-8px;left:-2px;width:10px;height:10px;background:#fcd34d;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.2);"></div>
+          <div style="position:absolute;top:-8px;right:-2px;width:10px;height:10px;background:#fcd34d;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.2);"></div>
+        `;
+      }
 
       chibi.innerHTML = `
-        <div class="chibi-head">
-          <div class="chibi-hair" style="background:${hairColor};"></div>
-          <div class="chibi-fringe" style="background:${hairColor};"></div>
-          <div class="chibi-eyes">
-            <div class="chibi-eye"></div>
-            <div class="chibi-eye"></div>
+        <div class="chibi-head" style="background:#fce4ec;">
+          <div style="position:absolute;top:-5px;left:2px;width:36px;height:14px;background:${char.hair};border-radius:50% 50% 0 0;"></div>
+          <div style="position:absolute;top:13px;left:9px;width:22px;display:flex;justify-content:space-between;">
+            <div style="width:6px;height:7px;background:#1a0a14;border-radius:50%;box-shadow:0 0 3px #000;"></div>
+            <div style="width:6px;height:7px;background:#1a0a14;border-radius:50%;box-shadow:0 0 3px #000;"></div>
           </div>
-          <div class="chibi-blush">
-            <div class="chibi-blush-spot"></div>
-            <div class="chibi-blush-spot"></div>
+          ${headExtra}
+          <div style="position:absolute;top:19px;width:40px;display:flex;justify-content:space-between;padding:0 5px;">
+            <div style="width:8px;height:5px;background:rgba(255,120,140,0.55);border-radius:50%;filter:blur(2px);"></div>
+            <div style="width:8px;height:5px;background:rgba(255,120,140,0.55);border-radius:50%;filter:blur(2px);"></div>
           </div>
-          <div class="chibi-mouth"></div>
+          <div style="position:absolute;bottom:8px;left:17px;width:6px;height:3px;border-bottom:2px solid #d48595;border-radius:0 0 60% 60%;"></div>
         </div>
-        <div class="chibi-body" style="background:${dressColor};">
-          <div class="chibi-dress" style="background:${hairColor}; opacity:0.6;"></div>
+        <div class="chibi-body" style="background:${char.bodyColor};">
+          ${char.name === 'Naruto' ? '<div style="width:14px;height:6px;background:white;border-radius:2px;margin-top:3px;"></div>' : ''}
+        </div>
+        <div class="chibi-legs">
+          <div class="chibi-leg" style="background:${char.bodyColor};"></div>
+          <div class="chibi-leg" style="background:${char.bodyColor};"></div>
         </div>
       `;
       chibiContainer.appendChild(chibi);
-    }
+    });
 
     function loadProducts() {
       const s = localStorage.getItem(STORAGE_KEY);
