@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Coquette + Anime Walker</title>
+  <title>Cueku Store | Coquette Aesthetic</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* Aurora background */
+    /* Aurora langsung jalan */
     .aurora {
       position: fixed;
       top: 0;
@@ -45,7 +45,7 @@
       100% { transform: rotate(360deg) scale(1); }
     }
 
-    /* Coquette symbols */
+    /* Coquette symbols langsung jalan */
     .coquette-symbols {
       position: fixed;
       top: 0;
@@ -58,7 +58,7 @@
 
     .coquette-symbol {
       position: absolute;
-      color: rgba(180, 120, 140, 0.45);
+      color: rgba(180, 120, 140, 0.55);
       animation: symbolDrift linear infinite;
       white-space: pre;
       font-weight: 400;
@@ -66,13 +66,16 @@
     }
 
     @keyframes symbolDrift {
-      0% { transform: translateY(-5vh) rotate(0deg) scale(0.9); opacity: 0; }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.6; }
-      100% { transform: translateY(105vh) rotate(360deg) scale(1.2); opacity: 0; }
+      0% {
+        transform: translateY(-5vh) rotate(0deg) scale(0.9);
+        opacity: 0.7; /* langsung terlihat */
+      }
+      100% {
+        transform: translateY(105vh) rotate(360deg) scale(1.2);
+        opacity: 0.7;
+      }
     }
 
-    /* Header */
     .header {
       position: sticky;
       top: 0;
@@ -153,18 +156,11 @@
       z-index: 2;
     }
 
-    /* Area katalog + karakter berjalan di atasnya */
-    .catalog-area {
-      position: relative;
-    }
-
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 2rem;
       margin-top: 1rem;
-      position: relative;
-      z-index: 2;
     }
 
     .card {
@@ -188,7 +184,7 @@
       height: 200px;
       object-fit: cover;
       cursor: pointer;
-      background: #fff0f3;
+      background: #fff0f3; /* fallback polos */
     }
 
     .card-body {
@@ -222,37 +218,6 @@
       text-decoration: none;
     }
 
-    /* Walker di area katalog */
-    .walker-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    .walker {
-      position: absolute;
-      animation: walk linear infinite;
-      filter: drop-shadow(0 8px 12px rgba(180,130,150,0.3));
-    }
-
-    .walker img {
-      width: 60px;
-      height: auto;
-    }
-
-    @keyframes walk {
-      0% { transform: translateX(-80px) translateY(0); }
-      25% { transform: translateX(25vw) translateY(-5px); }
-      50% { transform: translateX(50vw) translateY(0); }
-      75% { transform: translateX(75vw) translateY(-3px); }
-      100% { transform: translateX(105vw) translateY(0); }
-    }
-
-    /* Admin panel */
     .admin-section {
       margin-top: 2rem;
       background: rgba(255,250,252,0.8);
@@ -314,10 +279,11 @@
 <div class="aurora"></div>
 <div class="coquette-symbols" id="coquetteContainer"></div>
 
+<!-- Lightbox (tanpa tulisan preview) -->
 <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <div class="lightbox-content" onclick="event.stopPropagation()">
     <button class="close-lightbox" onclick="closeLightbox()">&times;</button>
-    <img id="lightboxImg" src="" alt="gambar produk">
+    <img id="lightboxImg" src="" alt="gambar">
   </div>
 </div>
 
@@ -342,11 +308,7 @@
 </header>
 
 <main class="container">
-  <div class="catalog-area">
-    <div class="product-grid" id="productGrid"></div>
-    <!-- Karakter anime berjalan di area ini -->
-    <div class="walker-container" id="walkerContainer"></div>
-  </div>
+  <div class="product-grid" id="productGrid"></div>
 
   <div id="adminPanel" class="admin-section">
     <h2 id="formTitle">୨୧ Tambah Produk</h2>
@@ -358,7 +320,7 @@
     <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Deskripsi</label><textarea id="pDesc" rows="2" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></textarea></div>
     <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Upload Gambar Produk</label><input type="file" id="imageFile" accept="image/*" hidden>
       <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📁 Pilih</button>
-      <img id="imgPreview" style="width:70px;height:70px;border-radius:1rem;display:none;margin-top:0.5rem;object-fit:cover;">
+      <img id="imgPreview" style="width:70px;height:70px;border-radius:1rem;display:none;margin-top:0.5rem;object-fit:cover;" alt="">
     </div>
     <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">URL Gambar</label><input type="text" id="pImageUrl" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
     <div style="display:flex; gap:0.8rem;">
@@ -368,22 +330,13 @@
 
     <!-- GitHub Config -->
     <div style="margin-top:2rem; background:#fff5f8; border-radius:1.5rem; padding:1.2rem;">
-      <h3 style="color:#b35d7a;">⚙️ Konfigurasi GitHub (sinkronisasi)</h3>
-      <p style="font-size:0.8rem; margin-bottom:0.8rem;">Isi token & repo, lalu klik "Publikasi ke GitHub". Data akan muncul di semua device.</p>
+      <h3 style="color:#b35d7a;">⚙️ Sinkronisasi GitHub</h3>
+      <p style="font-size:0.8rem; margin-bottom:0.8rem;">Isi token & repo, lalu klik "Publikasi". Data muncul di semua device.</p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
         <input type="text" id="ghToken" placeholder="Token (repo)" style="padding:0.6rem;border-radius:2rem;border:1px solid #e6c4d0;">
         <input type="text" id="ghRepo" placeholder="username/repo" style="padding:0.6rem;border-radius:2rem;border:1px solid #e6c4d0;">
       </div>
       <button class="btn btn-primary" onclick="publishToGitHub()" style="margin-top:0.8rem;">🌍 Publikasi ke GitHub</button>
-    </div>
-
-    <!-- Anime walker manager -->
-    <div style="margin-top:2.5rem; border-top:2px solid #f0d6e0; padding-top:1.8rem;">
-      <h3 style="color:#b35d7a;">🌸 Karakter Anime Berjalan</h3>
-      <p style="font-size:0.8rem; color:#b3929c;">Upload PNG transparan (maks 4). Mereka akan berjalan di area katalog.</p>
-      <div id="walkerSlots" style="display:flex; flex-wrap:wrap; gap:1.5rem; margin-top:1rem;"></div>
-      <button class="btn btn-outline" onclick="addWalkerSlot()" style="margin-top:0.8rem;">+ Tambah Slot</button>
-      <button class="btn btn-outline" onclick="saveWalkerLocally()" style="margin-left:0.5rem;">💾 Simpan Karakter</button>
     </div>
 
     <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
@@ -395,19 +348,21 @@
 <script>
   (function() {
     const STORAGE_KEY = 'cueku_local_backup';
-    const WALKER_KEY = 'cueku_walkers_local';
     const ADMIN_PASS = 'cueku2020';
     const WA_NUMBER = '62895419050123';
-    let products = [], walkers = [], isAdmin = false, editingId = null, selectedImageData = null;
+    let products = [], isAdmin = false, editingId = null, selectedImageData = null;
 
-    // Coquette symbols
+    // Coquette symbols langsung jalan (tanpa delay)
     const symbolContainer = document.getElementById('coquetteContainer');
     const symbols = ['❥','‧₊˚','⊹₊','꒰','꒱','✧','୨୧','˖⁺','⁕','𓇢','𓆸','⊹','❀','‧','₊','˚₊','꒷','꒦','༘','✿'];
-    for (let i=0;i<30;i++) {
-      const el = document.createElement('div'); el.className='coquette-symbol';
-      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
-      el.style.left = Math.random()*100+'%'; el.style.animationDuration = 10+Math.random()*18+'s';
-      el.style.animationDelay = Math.random()*6+'s'; el.style.fontSize = (1.2+Math.random()*2.2)+'rem';
+    for (let i = 0; i < 30; i++) {
+      const el = document.createElement('div');
+      el.className = 'coquette-symbol';
+      el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.top = Math.random() * 100 + '%'; // posisi acak langsung
+      el.style.animationDuration = 12 + Math.random() * 10 + 's';
+      el.style.fontSize = (1.2 + Math.random() * 2.2) + 'rem';
       symbolContainer.appendChild(el);
     }
 
@@ -426,7 +381,7 @@
         const data = await res.json();
         const content = JSON.parse(atob(data.content));
         return { sha: data.sha, content };
-      } catch(e) { return null; }
+      } catch (e) { return null; }
     }
 
     async function commitDataJson(newContent, sha = null) {
@@ -446,15 +401,15 @@
         });
         if (!res.ok) throw new Error('Gagal');
         return true;
-      } catch(e) { alert('Gagal publikasi: ' + e.message); return false; }
+      } catch (e) { alert('Gagal publikasi: ' + e.message); return false; }
     }
 
-    window.publishToGitHub = async function() {
+    window.publishToGitHub = async function () {
       const ghData = await fetchDataJson();
-      const newData = { products, walkers };
+      const newData = { products };
       const sha = ghData ? ghData.sha : null;
       const ok = await commitDataJson(newData, sha);
-      if (ok) alert('Data berhasil dipublikasikan ke GitHub! 🎉');
+      if (ok) alert('Data berhasil dipublikasikan! 🎉');
     };
 
     // Load data (GitHub prioritas)
@@ -462,22 +417,16 @@
       const ghData = await fetchDataJson();
       if (ghData && ghData.content) {
         products = ghData.content.products || [];
-        walkers = ghData.content.walkers || [];
         localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-        localStorage.setItem(WALKER_KEY, JSON.stringify(walkers));
       } else {
-        const localProd = localStorage.getItem(STORAGE_KEY);
-        const localWalk = localStorage.getItem(WALKER_KEY);
-        products = localProd ? JSON.parse(localProd) : [
-          { id:Date.now()+1, name:'Tas Ransel Pink', price:45000, desc:'Imut & elegan.', image:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
-          { id:Date.now()+2, name:'Sneakers Pastel', price:32000, desc:'Nyaman & lucu.', image:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
+        const local = localStorage.getItem(STORAGE_KEY);
+        products = local ? JSON.parse(local) : [
+          { id: Date.now() + 1, name: 'Tas Ransel Pink', price: 45000, desc: 'Imut & elegan.', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
+          { id: Date.now() + 2, name: 'Sneakers Pastel', price: 32000, desc: 'Nyaman & lucu.', image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
         ];
-        walkers = localWalk ? JSON.parse(localWalk) : [];
       }
       renderCatalog();
-      renderWalkers();
       renderAdminList();
-      renderWalkerSlots();
     }
 
     function renderCatalog() {
@@ -490,23 +439,19 @@
       let h = '';
       products.forEach(p => {
         const price = new Intl.NumberFormat('id-ID').format(p.price);
-        h += `<div class="card"><img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g,"\\'")}')" onerror="this.src='https://via.placeholder.com/400x200/fff0f3/db7a94?text=No+Image'"><div class="card-body"><h3>${p.name}</h3><p style="color:#7a5b6b;font-size:0.9rem;">${p.desc||'Lucu.'}</p><div class="price">Rp${price}</div><a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau '+p.name+' (Rp'+price+') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a></div></div>`;
+        // Fallback gambar polos tanpa teks
+        const fallback = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%23fff0f3\'/%3E%3C/svg%3E';
+        h += `<div class="card">
+          <img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g, "\\'")}')" onerror="this.onerror=null;this.src='${fallback}';">
+          <div class="card-body">
+            <h3>${p.name}</h3>
+            <p style="color:#7a5b6b;font-size:0.9rem;">${p.desc || 'Lucu.'}</p>
+            <div class="price">Rp${price}</div>
+            <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau ' + p.name + ' (Rp' + price + ') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a>
+          </div>
+        </div>`;
       });
       grid.innerHTML = h;
-    }
-
-    function renderWalkers() {
-      const container = document.getElementById('walkerContainer');
-      container.innerHTML = '';
-      walkers.forEach((w, idx) => {
-        if (!w.image) return;
-        const div = document.createElement('div'); div.className='walker';
-        div.style.top = (10 + idx * 18) + '%';
-        div.style.animationDuration = 14 + idx * 3 + 's';
-        div.style.animationDelay = idx * 2 + 's';
-        const img = document.createElement('img'); img.src = w.image; img.alt = 'chibi';
-        div.appendChild(img); container.appendChild(div);
-      });
     }
 
     function renderAdminList() {
@@ -515,48 +460,89 @@
       if (!products.length) { list.innerHTML = '<p style="color:#b3929c;">Belum ada.</p>'; return; }
       let chips = '';
       products.forEach(p => {
-        chips += `<div style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;border:1px solid #f0d6e0;"><img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;object-fit:cover;" onerror="this.src='https://via.placeholder.com/35'"><span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span><button onclick="editProduct(${p.id})" style="background:none;border:none;color:#6c5ce7;cursor:pointer;"><i class="fas fa-pencil-alt"></i></button><button onclick="deleteProduct(${p.id})" style="background:none;border:none;color:#ff4d6d;cursor:pointer;"><i class="fas fa-times-circle"></i></button></div>`;
+        chips += `<div style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;border:1px solid #f0d6e0;">
+          <img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;object-fit:cover;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'35\' height=\'35\'%3E%3Crect width=\'35\' height=\'35\' fill=\'%23fff0f3\'/%3E%3C/svg%3E';">
+          <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
+          <button onclick="editProduct(${p.id})" style="background:none;border:none;color:#6c5ce7;cursor:pointer;"><i class="fas fa-pencil-alt"></i></button>
+          <button onclick="deleteProduct(${p.id})" style="background:none;border:none;color:#ff4d6d;cursor:pointer;"><i class="fas fa-times-circle"></i></button>
+        </div>`;
       });
       list.innerHTML = chips;
     }
 
-    window.deleteProduct = (id) => { products = products.filter(p=>p.id!==id); localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); renderCatalog(); renderAdminList(); };
+    window.deleteProduct = (id) => {
+      products = products.filter(p => p.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+      renderCatalog();
+      renderAdminList();
+    };
+
     window.editProduct = (id) => {
-      const p = products.find(p=>p.id===id); if(!p) return;
-      editingId=id; document.getElementById('editingId').value=id;
-      document.getElementById('formTitle').innerText='✧ Edit Produk';
-      document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price;
-      document.getElementById('pDesc').value=p.desc||'';
-      if(p.image.startsWith('http')) { document.getElementById('pImageUrl').value=p.image; document.getElementById('imgPreview').style.display='none'; selectedImageData=null; }
-      else { document.getElementById('pImageUrl').value=''; document.getElementById('imgPreview').src=p.image; document.getElementById('imgPreview').style.display='block'; selectedImageData=p.image; }
-      document.getElementById('saveProductBtn').innerText='Update';
+      const p = products.find(p => p.id === id);
+      if (!p) return;
+      editingId = id;
+      document.getElementById('editingId').value = id;
+      document.getElementById('formTitle').innerText = '✧ Edit Produk';
+      document.getElementById('pName').value = p.name;
+      document.getElementById('pPrice').value = p.price;
+      document.getElementById('pDesc').value = p.desc || '';
+      if (p.image && (p.image.startsWith('http://') || p.image.startsWith('https://'))) {
+        document.getElementById('pImageUrl').value = p.image;
+        document.getElementById('imgPreview').style.display = 'none';
+        selectedImageData = null;
+      } else {
+        document.getElementById('pImageUrl').value = '';
+        document.getElementById('imgPreview').src = p.image;
+        document.getElementById('imgPreview').style.display = 'block';
+        selectedImageData = p.image;
+      }
+      document.getElementById('saveProductBtn').innerText = 'Update';
       document.getElementById('cancelEditBtn').classList.remove('hidden');
     };
+
     window.cancelEdit = () => {
-      editingId=null; document.getElementById('editingId').value='';
-      document.getElementById('formTitle').innerText='୨୧ Tambah Produk';
-      document.getElementById('pName').value=''; document.getElementById('pPrice').value='';
-      document.getElementById('pDesc').value=''; document.getElementById('imageFile').value='';
-      document.getElementById('pImageUrl').value=''; document.getElementById('imgPreview').style.display='none';
-      selectedImageData=null; document.getElementById('saveProductBtn').innerText='꒰ Simpan ꒱';
+      editingId = null;
+      document.getElementById('editingId').value = '';
+      document.getElementById('formTitle').innerText = '୨୧ Tambah Produk';
+      document.getElementById('pName').value = '';
+      document.getElementById('pPrice').value = '';
+      document.getElementById('pDesc').value = '';
+      document.getElementById('imageFile').value = '';
+      document.getElementById('pImageUrl').value = '';
+      document.getElementById('imgPreview').style.display = 'none';
+      selectedImageData = null;
+      document.getElementById('saveProductBtn').innerText = '꒰ Simpan ꒱';
       document.getElementById('cancelEditBtn').classList.add('hidden');
     };
-    window.openLightbox = (src) => { document.getElementById('lightboxImg').src=src; document.getElementById('lightbox').style.display='flex'; };
-    window.closeLightbox = () => { document.getElementById('lightbox').style.display='none'; };
 
-    document.getElementById('imageFile').addEventListener('change', function(e) {
-      const file = e.target.files[0]; if(!file) return;
+    window.openLightbox = (src) => {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    };
+
+    window.closeLightbox = () => {
+      document.getElementById('lightbox').style.display = 'none';
+    };
+
+    document.getElementById('imageFile').addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
       const reader = new FileReader();
       reader.onload = (ev) => {
         const img = new Image();
         img.onload = () => {
-          const canvas = document.createElement('canvas'); let w=img.width, h=img.height; const maxW=800;
-          if(w>maxW) { h*=maxW/w; w=maxW; }
-          canvas.width=w; canvas.height=h; canvas.getContext('2d').drawImage(img,0,0,w,h);
-          selectedImageData = canvas.toDataURL('image/jpeg',0.7);
-          document.getElementById('imgPreview').src=selectedImageData; document.getElementById('imgPreview').style.display='block';
+          const canvas = document.createElement('canvas');
+          let w = img.width, h = img.height;
+          const maxW = 800;
+          if (w > maxW) { h *= maxW / w; w = maxW; }
+          canvas.width = w;
+          canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          selectedImageData = canvas.toDataURL('image/jpeg', 0.7);
+          document.getElementById('imgPreview').src = selectedImageData;
+          document.getElementById('imgPreview').style.display = 'block';
         };
-        img.src=ev.target.result;
+        img.src = ev.target.result;
       };
       reader.readAsDataURL(file);
     });
@@ -566,80 +552,51 @@
       const price = parseInt(document.getElementById('pPrice').value);
       const desc = document.getElementById('pDesc').value.trim();
       const url = document.getElementById('pImageUrl').value.trim();
-      if(!name||isNaN(price)||price<=0) { alert('Isi nama & harga valid!'); return; }
+      if (!name || isNaN(price) || price <= 0) { alert('Isi nama & harga valid!'); return; }
       let image = null;
-      if(selectedImageData) image=selectedImageData;
-      else if(url) image=url;
-      else if(editingId) { const old=products.find(p=>p.id==editingId); if(old) image=old.image; else { alert('Butuh gambar!'); return; } }
-      else { alert('Upload atau isi URL!'); return; }
+      if (selectedImageData) image = selectedImageData;
+      else if (url) image = url;
+      else if (editingId) {
+        const old = products.find(p => p.id == editingId);
+        if (old) image = old.image;
+        else { alert('Butuh gambar!'); return; }
+      } else { alert('Upload atau isi URL!'); return; }
 
-      if(editingId) {
-        const idx = products.findIndex(p=>p.id==editingId);
-        if(idx!==-1) { products[idx] = {...products[idx], name, price, desc, image}; }
+      if (editingId) {
+        const idx = products.findIndex(p => p.id == editingId);
+        if (idx !== -1) products[idx] = { ...products[idx], name, price, desc, image };
       } else {
-        products.push({ id:Date.now(), name, price, desc, image });
+        products.push({ id: Date.now(), name, price, desc, image });
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-      cancelEdit(); renderCatalog(); renderAdminList();
-      alert('Produk disimpan secara lokal. Gunakan "Publikasi ke GitHub" untuk menyebarkan ke semua device.');
+      cancelEdit();
+      renderCatalog();
+      renderAdminList();
+      alert('Produk disimpan lokal. Klik "Publikasi ke GitHub" agar muncul di device lain.');
     };
-
-    window.saveWalkerLocally = () => {
-      walkers = walkers.filter(w => w.image && w.image.length > 50);
-      localStorage.setItem(WALKER_KEY, JSON.stringify(walkers));
-      renderWalkers();
-      alert('Karakter disimpan lokal. Publikasi via GitHub untuk device lain.');
-    };
-
-    window.addWalkerSlot = () => {
-      if (walkers.length >= 4) { alert('Maksimal 4 karakter!'); return; }
-      walkers.push({ id: Date.now(), image: '' });
-      renderWalkerSlots();
-    };
-
-    function renderWalkerSlots() {
-      const slots = document.getElementById('walkerSlots');
-      if (!slots) return;
-      slots.innerHTML = '';
-      walkers.forEach((w, idx) => {
-        const slot = document.createElement('div');
-        slot.style.cssText = 'display:flex; flex-direction:column; align-items:center; gap:0.4rem;';
-        slot.innerHTML = `
-          <img src="${w.image || 'https://via.placeholder.com/60/fff0f3/db7a94?text=?'}" style="width:60px;height:60px;object-fit:contain;border-radius:1rem;border:2px dashed #e6c4d0;">
-          <input type="file" accept="image/*" id="walkerFile${idx}" style="display:none;">
-          <button class="btn btn-outline" style="font-size:0.7rem;padding:0.3rem 0.8rem;" onclick="document.getElementById('walkerFile${idx}').click()">Ubah</button>
-          <button class="btn btn-outline" style="font-size:0.7rem;color:#ef4444;" onclick="removeWalker(${idx})">Hapus</button>
-        `;
-        slots.appendChild(slot);
-        document.getElementById('walkerFile'+idx).addEventListener('change', function(e) {
-          const file = e.target.files[0]; if(!file) return;
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            walkers[idx].image = ev.target.result;
-            renderWalkerSlots();
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-    }
-
-    window.removeWalker = (idx) => { walkers.splice(idx,1); renderWalkerSlots(); };
 
     window.toggleAdmin = () => {
-      if(isAdmin) document.getElementById('adminPanel').classList.toggle('active');
-      else { document.getElementById('loginOverlay').classList.remove('hidden'); document.getElementById('passInput').focus(); }
+      if (isAdmin) document.getElementById('adminPanel').classList.toggle('active');
+      else {
+        document.getElementById('loginOverlay').classList.remove('hidden');
+        document.getElementById('passInput').focus();
+      }
     };
+
     window.login = () => {
-      if(document.getElementById('passInput').value===ADMIN_PASS) {
-        isAdmin=true; document.getElementById('loginOverlay').classList.add('hidden');
+      if (document.getElementById('passInput').value === ADMIN_PASS) {
+        isAdmin = true;
+        document.getElementById('loginOverlay').classList.add('hidden');
         document.getElementById('adminPanel').classList.add('active');
         document.getElementById('adminBtn').classList.add('hidden');
         document.getElementById('logoutBtn').classList.remove('hidden');
-        renderAdminList(); renderWalkerSlots();
+        renderAdminList();
       } else alert('Password salah!');
     };
+
     window.logout = () => {
-      isAdmin=false; document.getElementById('adminPanel').classList.remove('active');
+      isAdmin = false;
+      document.getElementById('adminPanel').classList.remove('active');
       document.getElementById('adminBtn').classList.remove('hidden');
       document.getElementById('logoutBtn').classList.add('hidden');
     };
