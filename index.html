@@ -144,8 +144,209 @@ placeholder="Cari produk favoritmu..."
 ↑
 </button>
 
-<script src="products.js"></script>
-<script src="script.js"></script>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cueku Store</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- LOADING -->
+
+  <div id="loader">
+    <div class="loader-card">
+
+      <div class="loader-logo">
+        ♡
+      </div>
+
+      <h1>Cueku Store</h1>
+
+      <p>Loading your cute experience...</p>
+
+      <div class="progress">
+        <div class="progress-bar"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BUNNY -->
+
+  <img src="images/bunny-left.png" class="bunny bunny-left">
+  <img src="images/bunny-right.png" class="bunny bunny-right">
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="logo">
+      Cueku Store
+    </div>
+
+    <nav>
+
+      <a href="#products">Products</a>
+      <a href="#catalog">Catalog</a>
+      <a href="#footer">Contact</a>
+
+    </nav>
+
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <img
+      src="images/banner.jpg"
+      alt="Banner"
+      class="hero-banner"
+    >
+
+    <div class="hero-overlay">
+
+      <h1>
+        Cueku Store
+      </h1>
+
+      <p>
+        Trusted Digital Marketplace Since 2020
+      </p>
+
+      <a
+        href="https://wa.me/62895419050123"
+        target="_blank"
+        class="hero-btn"
+      >
+        Order via WhatsApp
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- SEARCH -->
+
+  <section class="search-section">
+
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search products..."
+    >
+
+  </section>
+
+  <!-- CATEGORY -->
+
+  <section class="categories">
+
+    <button class="category-btn active" data-category="All">
+      All
+    </button>
+
+    <button class="category-btn" data-category="Streaming">
+      Streaming
+    </button>
+
+    <button class="category-btn" data-category="Music">
+      Music
+    </button>
+
+    <button class="category-btn" data-category="AI">
+      AI
+    </button>
+
+    <button class="category-btn" data-category="Editing">
+      Editing
+    </button>
+
+    <button class="category-btn" data-category="Design">
+      Design
+    </button>
+
+    <button class="category-btn" data-category="VPN">
+      VPN
+    </button>
+
+    <button class="category-btn" data-category="Tools">
+      Tools
+    </button>
+
+  </section>
+
+  <!-- PRODUCTS -->
+
+  <section
+    id="products"
+    class="products-grid"
+  >
+  </section>
+
+  <!-- CATALOG -->
+
+  <section
+    id="catalog"
+    class="catalog-section"
+  >
+
+    <h2>Catalog Gallery</h2>
+
+    <div class="catalog-grid">
+
+      <img src="images/catalog1.jpg">
+      <img src="images/catalog2.jpg">
+      <img src="images/catalog3.jpg">
+      <img src="images/catalog4.jpg">
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer id="footer">
+
+    <h3>Cueku Store</h3>
+
+    <p>
+      Trusted Digital Marketplace
+    </p>
+
+    <div class="socials">
+
+      <a href="#">
+        Instagram
+      </a>
+
+      <a href="#">
+        @cueku
+      </a>
+
+    </div>
+
+    <p class="copyright">
+      © Since 2020 Cueku Store.
+    </p>
+
+  </footer>
+
+  <button id="scrollTopBtn">
+    ↑
+  </button>
+
+  <script src="products.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
