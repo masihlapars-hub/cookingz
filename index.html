@@ -1,285 +1,151 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Cueku Store | Coquette Aesthetic</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Nunito',sans-serif; background:#fef9fb; color:#5c3d4a; min-height:100vh; position:relative; overflow-x:hidden; }
-    .aurora { position:fixed; top:0; left:0; width:100%; height:100%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,220,230,0.5) 0%, transparent 45%),
-                  radial-gradient(circle at 70% 70%, rgba(230,210,240,0.5) 0%, transparent 45%),
-                  radial-gradient(circle at 50% 50%, rgba(210,230,250,0.4) 0%, transparent 50%);
-      animation: auroraSpin 30s linear infinite; pointer-events:none; z-index:0; }
-    @keyframes auroraSpin { 0%{transform:rotate(0deg) scale(1);} 50%{transform:rotate(180deg) scale(1.15);} 100%{transform:rotate(360deg) scale(1);} }
-    .coquette-symbols { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:1; }
-    .coquette-symbol { position:absolute; color:rgba(180,120,140,0.55); animation:symbolDrift linear infinite; white-space:pre; font-weight:400; text-shadow:0 0 8px rgba(220,150,170,0.3); }
-    @keyframes symbolDrift { 0%{transform:translateY(-5vh) rotate(0deg) scale(0.9); opacity:0.7;} 100%{transform:translateY(105vh) rotate(360deg) scale(1.2); opacity:0.7;} }
-    .header { position:sticky; top:0; z-index:100; background:rgba(255,245,248,0.75); backdrop-filter:blur(28px); border-bottom:1px solid rgba(220,160,180,0.5); padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; box-shadow:0 6px 24px rgba(210,140,160,0.15); border-radius:0 0 2.5rem 2.5rem; }
-    .logo h1 { font-weight:800; font-size:2rem; letter-spacing:-0.4px; background:linear-gradient(135deg,#db7a94,#b38bb0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .logo span { font-size:0.8rem; color:#b3929c; font-weight:600; }
-    .btn { padding:0.6rem 1.5rem; border-radius:3rem; font-weight:700; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:0.4rem; transition:0.3s; text-decoration:none; font-size:0.85rem; }
-    .btn-outline { background:rgba(255,255,255,0.8); border:1px solid #e6c4d0; color:#b35d7a; }
-    .btn-outline:hover { background:#ffeef3; border-color:#db7a94; transform:translateY(-2px); box-shadow:0 8px 18px rgba(210,130,150,0.2); }
-    .btn-primary { background:linear-gradient(135deg,#e6a0b5,#c49bcf); color:white; box-shadow:0 10px 20px rgba(200,120,150,0.3); }
-    .btn-wa { background:linear-gradient(135deg,#25D366,#1da851); color:white; box-shadow:0 10px 18px rgba(37,211,102,0.25); }
-    .container { max-width:1300px; margin:2rem auto; padding:0 2rem; position:relative; z-index:2; }
-    .product-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:2rem; margin-top:1rem; }
-    .card { background:rgba(255,255,255,0.7); backdrop-filter:blur(18px); border-radius:2.5rem; overflow:hidden; border:1px solid rgba(235,195,210,0.7); box-shadow:0 20px 35px rgba(200,140,160,0.1); transition:0.35s; }
-    .card:hover { transform:translateY(-8px); border-color:#db7a94; box-shadow:0 30px 45px rgba(210,120,150,0.2); }
-    .card-img { width:100%; height:200px; object-fit:cover; cursor:pointer; background:#fff0f3; }
-    .card-body { padding:1.2rem; }
-    .card-body h3 { font-weight:800; font-size:1.2rem; color:#b85a74; }
-    .price { font-weight:800; font-size:1.5rem; color:#af7ab0; margin:0.5rem 0 0.8rem; }
-    .order-btn { background:#db7a94; color:white; padding:0.6rem; border-radius:2rem; text-align:center; font-weight:700; display:flex; align-items:center; justify-content:center; gap:6px; text-decoration:none; }
-    .admin-section { margin-top:2rem; background:rgba(255,250,252,0.8); backdrop-filter:blur(30px); border-radius:2.5rem; padding:2rem; border:1px solid rgba(220,160,180,0.5); display:none; }
-    .admin-section.active { display:block; }
-    .login-overlay { position:fixed; inset:0; background:rgba(245,220,230,0.7); backdrop-filter:blur(15px); display:flex; align-items:center; justify-content:center; z-index:999; }
-    .login-box { background:white; padding:2.5rem; border-radius:2.5rem; text-align:center; box-shadow:0 25px 45px rgba(180,110,130,0.2); }
-    .hidden { display:none !important; }
-    footer { text-align:center; padding:2rem; color:#b3929c; margin-top:2rem; }
-    @media (max-width:640px) { .header { padding:0.8rem 1rem; } .container { padding:0 1rem; } .product-grid { grid-template-columns:1fr; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cueku Store</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<div class="aurora"></div>
-<div class="coquette-symbols" id="coquetteContainer"></div>
 
-<div id="lightbox" class="lightbox-overlay" onclick="closeLightbox()">
-  <div class="lightbox-content" onclick="event.stopPropagation()">
-    <button class="close-lightbox" onclick="closeLightbox()">&times;</button>
-    <img id="lightboxImg" src="" alt="gambar">
+<div id="loader">
+  <div class="loader-card">
+    <h1>Cueku Store</h1>
+    <p>Trusted Since 2020</p>
+    <div class="loading-bar">
+      <span></span>
+    </div>
   </div>
 </div>
 
-<div id="loginOverlay" class="login-overlay hidden">
-  <div class="login-box">
-    <h3>˖⁺⊹ Admin ⊹⁺˖</h3>
-    <input type="password" id="passInput" placeholder="Kata sandi" autocomplete="off" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:2rem;text-align:center;margin:0.8rem 0;">
-    <button class="btn btn-primary" onclick="login()" style="width:100%; margin-top:0.5rem;">Masuk ✧</button>
-  </div>
-</div>
+<div class="floating-stars"></div>
 
 <header class="header">
+
   <div class="logo">
-    <h1>⊹₊ CUEKU STORE ₊⊹</h1>
-    <span>Coquette Aesthetic · Since 2020</span>
+    Cueku Store
   </div>
-  <div style="display:flex; gap:0.6rem;">
-    <button id="adminBtn" class="btn btn-outline" onclick="toggleAdmin()">❥ Admin</button>
-    <button id="logoutBtn" class="btn btn-outline hidden" onclick="logout()">⊹ Tutup</button>
-    <a href="https://wa.me/62895419050123" target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Chat</a>
-  </div>
+
+  <nav>
+    <a href="#products">Products</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#footer">Contact</a>
+  </nav>
+
 </header>
 
-<main class="container">
-  <div class="product-grid" id="productGrid"></div>
+<section class="hero">
 
-  <div id="adminPanel" class="admin-section">
-    <h2 id="formTitle">୨୧ Tambah Produk</h2>
-    <input type="hidden" id="editingId" value="">
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-      <div><label style="font-weight:700;color:#b35d7a;">Nama</label><input type="text" id="pName" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
-      <div><label style="font-weight:700;color:#b35d7a;">Harga</label><input type="number" id="pPrice" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;" min="1"></div>
-    </div>
-    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Deskripsi</label><textarea id="pDesc" rows="2" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></textarea></div>
-    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">Upload Gambar Produk</label><input type="file" id="imageFile" accept="image/*" hidden>
-      <button class="btn btn-outline" onclick="document.getElementById('imageFile').click()">📁 Pilih</button>
-      <img id="imgPreview" style="width:70px;height:70px;border-radius:1rem;display:none;margin-top:0.5rem;object-fit:cover;" alt="">
-    </div>
-    <div style="margin-bottom:1rem;"><label style="font-weight:700;color:#b35d7a;">URL Gambar</label><input type="text" id="pImageUrl" style="width:100%;padding:0.8rem;border:1px solid #e6c4d0;border-radius:1.5rem;"></div>
-    <div style="display:flex; gap:0.8rem;">
-      <button class="btn btn-primary" id="saveProductBtn" onclick="saveOrUpdateProduct()">꒰ Simpan ꒱</button>
-      <button class="btn btn-outline hidden" id="cancelEditBtn" onclick="cancelEdit()">Batal</button>
-    </div>
+  <img
+    src="images/banner.jpg"
+    alt="Banner"
+    class="hero-banner"
+  >
 
-    <div style="margin-top:2rem; background:#fff5f8; border-radius:1.5rem; padding:1.2rem;">
-      <h3 style="color:#b35d7a;">💾 Simpan Permanen</h3>
-      <p style="font-size:0.8rem; margin-bottom:0.8rem;">Setelah selesai mengatur produk, klik tombol di bawah untuk menyimpan data ke dalam file HTML. Kemudian upload ulang file ini ke GitHub Pages agar customer melihat perubahan.</p>
-      <button class="btn btn-primary" onclick="exportToHTML()">📤 Simpan & Update File</button>
-    </div>
+  <div class="hero-content">
 
-    <div style="margin-top:2rem;"><h4 style="color:#b35d7a;">Produk Tersimpan</h4><div id="adminProductList" style="display:flex;flex-wrap:wrap;gap:0.6rem;"></div></div>
+    <h1>Cueku Store</h1>
+
+    <p>
+      Trusted Digital Marketplace Since 2020
+    </p>
+
+    <a
+      href="https://wa.me/62895419050123"
+      target="_blank"
+      class="hero-button"
+    >
+      Order via WhatsApp
+    </a>
+
   </div>
-</main>
 
-<footer>⊹ 2020 Cueku Store · Coquette Dreams ⊹</footer>
+</section>
 
-<script>
-  (function() {
-    const STORAGE_KEY = 'cueku_final_embedded';
-    const ADMIN_PASS = 'cueku2020';
-    const WA_NUMBER = '62895419050123';
-    let products = [], isAdmin = false, editingId = null, selectedImageData = null;
+<section class="search-wrapper">
 
-    // Coquette symbols
-    const symbolContainer = document.getElementById('coquetteContainer');
-    const symbols = ['❥','‧₊˚','⊹₊','꒰','꒱','✧','୨୧','˖⁺','⁕','𓇢','𓆸','⊹','❀','‧','₊','˚₊','꒷','꒦','༘','✿'];
-    for (let i = 0; i < 30; i++) {
-      const el = document.createElement('div'); el.className='coquette-symbol';
-      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
-      el.style.left = Math.random()*100+'%'; el.style.top = Math.random()*100+'%';
-      el.style.animationDuration = 12+Math.random()*10+'s';
-      el.style.fontSize = (1.2+Math.random()*2.2)+'rem';
-      symbolContainer.appendChild(el);
-    }
+<input
+type="text"
+id="searchInput"
+placeholder="Cari produk favoritmu..."
+>
 
-    const EMPTY_IMG = 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'200\'%3E%3Crect width=\'400\' height=\'200\' fill=\'%23fff0f3\'/%3E%3C/svg%3E';
+</section>
 
-    function loadProducts() {
-      const s = localStorage.getItem(STORAGE_KEY);
-      if (s) { try { products = JSON.parse(s); } catch(e) { products = []; } }
-      else {
-        products = [
-          { id:Date.now()+1, name:'Tas Ransel Pink', price:45000, desc:'Imut & elegan.', image:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600' },
-          { id:Date.now()+2, name:'Sneakers Pastel', price:32000, desc:'Nyaman & lucu.', image:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' }
-        ];
-        saveProducts();
-      }
-    }
+<section class="category-wrapper">
 
-    function saveProducts() { localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); }
+<button class="category active" data-category="All">All</button>
 
-    function renderCatalog() {
-      const grid = document.getElementById('productGrid');
-      if (!grid) return;
-      if (!products.length) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#b3929c;">˖⁺ Belum ada produk ⊹</div>';
-        return;
-      }
-      let h = '';
-      products.forEach(p => {
-        const price = new Intl.NumberFormat('id-ID').format(p.price);
-        h += `<div class="card">
-          <img src="${p.image}" class="card-img" onclick="openLightbox('${p.image.replace(/'/g,"\\'")}')" onerror="this.onerror=null;this.src='${EMPTY_IMG}';">
-          <div class="card-body"><h3>${p.name}</h3><p style="color:#7a5b6b;font-size:0.9rem;">${p.desc||'Lucu.'}</p><div class="price">Rp${price}</div>
-          <a href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hai Cueku Store, aku mau '+p.name+' (Rp'+price+') dong!')}" target="_blank" class="order-btn"><i class="fab fa-whatsapp"></i> Order</a></div></div>`;
-      });
-      grid.innerHTML = h;
-    }
+<button class="category" data-category="Streaming">Streaming</button>
 
-    function renderAdminList() {
-      const list = document.getElementById('adminProductList');
-      if (!list) return;
-      if (!products.length) { list.innerHTML = '<p style="color:#b3929c;">Belum ada.</p>'; return; }
-      let chips = '';
-      products.forEach(p => {
-        chips += `<div style="background:#fff5f8;border-radius:2rem;padding:0.5rem 1.2rem;display:inline-flex;align-items:center;gap:0.6rem;margin:0.3rem;border:1px solid #f0d6e0;">
-          <img src="${p.image}" style="width:35px;height:35px;border-radius:1rem;object-fit:cover;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'35\' height=\'35\'%3E%3Crect width=\'35\' height=\'35\' fill=\'%23fff0f3\'/%3E%3C/svg%3E';">
-          <span><strong>${p.name}</strong> · Rp${new Intl.NumberFormat('id-ID').format(p.price)}</span>
-          <button onclick="editProduct(${p.id})" style="background:none;border:none;color:#6c5ce7;cursor:pointer;"><i class="fas fa-pencil-alt"></i></button>
-          <button onclick="deleteProduct(${p.id})" style="background:none;border:none;color:#ff4d6d;cursor:pointer;"><i class="fas fa-times-circle"></i></button>
-        </div>`;
-      });
-      list.innerHTML = chips;
-    }
+<button class="category" data-category="Music">Music</button>
 
-    window.deleteProduct = (id) => { products = products.filter(p=>p.id!==id); saveProducts(); renderCatalog(); renderAdminList(); };
-    window.editProduct = (id) => {
-      const p = products.find(p=>p.id===id); if(!p) return;
-      editingId=id; document.getElementById('editingId').value=id;
-      document.getElementById('formTitle').innerText='✧ Edit Produk';
-      document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price;
-      document.getElementById('pDesc').value=p.desc||'';
-      if(p.image.startsWith('http')) { document.getElementById('pImageUrl').value=p.image; document.getElementById('imgPreview').style.display='none'; selectedImageData=null; }
-      else { document.getElementById('pImageUrl').value=''; document.getElementById('imgPreview').src=p.image; document.getElementById('imgPreview').style.display='block'; selectedImageData=p.image; }
-      document.getElementById('saveProductBtn').innerText='Update';
-      document.getElementById('cancelEditBtn').classList.remove('hidden');
-    };
-    window.cancelEdit = () => {
-      editingId=null; document.getElementById('editingId').value='';
-      document.getElementById('formTitle').innerText='୨୧ Tambah Produk';
-      document.getElementById('pName').value=''; document.getElementById('pPrice').value='';
-      document.getElementById('pDesc').value=''; document.getElementById('imageFile').value='';
-      document.getElementById('pImageUrl').value=''; document.getElementById('imgPreview').style.display='none';
-      selectedImageData=null; document.getElementById('saveProductBtn').innerText='꒰ Simpan ꒱';
-      document.getElementById('cancelEditBtn').classList.add('hidden');
-    };
-    window.openLightbox = (src) => { document.getElementById('lightboxImg').src=src; document.getElementById('lightbox').style.display='flex'; };
-    window.closeLightbox = () => { document.getElementById('lightbox').style.display='none'; };
+<button class="category" data-category="AI">AI</button>
 
-    document.getElementById('imageFile').addEventListener('change', function(e) {
-      const file = e.target.files[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas'); let w=img.width, h=img.height; const maxW=800;
-          if(w>maxW) { h*=maxW/w; w=maxW; }
-          canvas.width=w; canvas.height=h; canvas.getContext('2d').drawImage(img,0,0,w,h);
-          selectedImageData = canvas.toDataURL('image/jpeg',0.7);
-          document.getElementById('imgPreview').src=selectedImageData; document.getElementById('imgPreview').style.display='block';
-        };
-        img.src=ev.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+<button class="category" data-category="Editing">Editing</button>
 
-    window.saveOrUpdateProduct = () => {
-      const name = document.getElementById('pName').value.trim();
-      const price = parseInt(document.getElementById('pPrice').value);
-      const desc = document.getElementById('pDesc').value.trim();
-      const url = document.getElementById('pImageUrl').value.trim();
-      if(!name||isNaN(price)||price<=0) { alert('Isi nama & harga valid!'); return; }
-      let image = null;
-      if(selectedImageData) image=selectedImageData;
-      else if(url) image=url;
-      else if(editingId) { const old=products.find(p=>p.id==editingId); if(old) image=old.image; else { alert('Butuh gambar!'); return; } }
-      else { alert('Upload atau isi URL!'); return; }
+<button class="category" data-category="Design">Design</button>
 
-      if(editingId) {
-        const idx = products.findIndex(p=>p.id==editingId);
-        if(idx!==-1) products[idx] = {...products[idx], name, price, desc, image};
-      } else {
-        products.push({ id:Date.now(), name, price, desc, image });
-      }
-      saveProducts();
-      cancelEdit();
-      renderCatalog();
-      renderAdminList();
-      alert('Produk disimpan. Jangan lupa klik "Simpan & Update File" untuk menyimpan permanen.');
-    };
+<button class="category" data-category="VPN">VPN</button>
 
-    // Ekspor data ke dalam file HTML yang bisa diupload ulang
-    window.exportToHTML = () => {
-      // Ambil seluruh HTML saat ini
-      const html = document.documentElement.outerHTML;
-      // Buat blob dan download
-      const blob = new Blob([html], {type:'text/html'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'index.html';
-      a.click();
-      alert('File index.html baru telah diunduh. Upload file ini ke GitHub Pages untuk memperbarui tampilan customer.');
-    };
+<button class="category" data-category="Tools">Tools</button>
 
-    window.toggleAdmin = () => {
-      if(isAdmin) document.getElementById('adminPanel').classList.toggle('active');
-      else { document.getElementById('loginOverlay').classList.remove('hidden'); document.getElementById('passInput').focus(); }
-    };
-    window.login = () => {
-      if(document.getElementById('passInput').value===ADMIN_PASS) {
-        isAdmin=true; document.getElementById('loginOverlay').classList.add('hidden');
-        document.getElementById('adminPanel').classList.add('active');
-        document.getElementById('adminBtn').classList.add('hidden');
-        document.getElementById('logoutBtn').classList.remove('hidden');
-        renderAdminList();
-      } else alert('Password salah!');
-    };
-    window.logout = () => {
-      isAdmin=false; document.getElementById('adminPanel').classList.remove('active');
-      document.getElementById('adminBtn').classList.remove('hidden');
-      document.getElementById('logoutBtn').classList.add('hidden');
-    };
+</section>
 
-    loadProducts();
-    renderCatalog();
-  })();
-</script>
+<section id="products">
+
+<div id="productGrid"></div>
+
+</section>
+
+<section id="gallery">
+
+<h2>Pricelist Gallery</h2>
+
+<div class="gallery-grid">
+
+<img src="images/catalog1.jpg">
+<img src="images/catalog2.jpg">
+<img src="images/catalog3.jpg">
+<img src="images/catalog4.jpg">
+
+</div>
+
+</section>
+
+<footer id="footer">
+
+<h3>Cueku Store</h3>
+
+<p>Trusted Digital Marketplace Since 2020</p>
+
+<div class="socials">
+
+<a href="#">Instagram</a>
+<a href="#">@cueku</a>
+
+</div>
+
+<p>
+© Since 2020 Cueku Store.
+</p>
+
+</footer>
+
+<button id="scrollTop">
+↑
+</button>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
